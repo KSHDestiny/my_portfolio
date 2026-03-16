@@ -1,126 +1,191 @@
 "use client"
 
-import type React from "react"
-
+import { memo, type MouseEvent } from "react"
+import Link from "next/link"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Calendar } from "lucide-react"
+import { Calendar, ExternalLink } from "lucide-react"
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion"
 import AnimateInView from "./animations/animate-in-view"
 
-export default function Projects() {
-  const projects = [
-    {
-      title: "HR AI Chatbot Agent",
-      period: "Mar 2025 - Present",
-      description:
-        "Developing an HR AI Agent Bot using NLP, LLM, LangChain, LangGraph, embedding, and vector store technologies (RAG) to handle HR-related queries. The bot retrieves real-time information, improving HR support efficiency and enhancing the user experience by automating routine tasks.",
-      tags: ["AI", "NLP", "LLM", "LangChain", "RAG"],
-    },
-    {
-      title: "Customer Management System (Internal)",
-      period: "Nov 2024 - Present",
-      description:
-        "Developing a Customer Management System focusing on features like SSO login, Xero invoice, customer management, software payment, payroll authorizer, Monday integration, and customer health score. Ensuring smooth integration and efficient management of customer data, payments, and workflows.",
-      tags: ["CMS", "SSO", "Integrations", "Payments"],
-    },
-    {
-      title: "Job Landing Platform",
-      period: "Jul 2024 - Present",
-      description:
-        "Developing a Job Landing Platform focusing on features like SSO login, email login, job apply, applications, and inbox for applicants. Ensuring a seamless and user-friendly experience for job seekers to easily apply for jobs and manage their applications.",
-      tags: ["Job Platform", "SSO", "User Experience"],
-    },
-    {
-      title: "Application Tracking System (ATS)",
-      period: "Jun 2024 - Present",
-      description:
-        "Developing an Application Tracking System focusing on optimizing recruitment. Building the backend to track applications, automate candidate sorting, and streamline communication (Screening, Qualified, Interview, Shortlist, Offer). The ATS integrates with HRMS, making it easier for businesses to manage candidates and make faster, data-driven hiring decisions.",
-      tags: ["ATS", "Recruitment", "Automation"],
-    },
-    {
-      title: "Job Content Management System (CMS)",
-      period: "Mar 2024 - Present",
-      description:
-        "Developing a Job Content Management System focusing on features like job listings collections, sections, pages, sorting/filtering jobs and integrating Google Indexing API. Ensuring all endpoints are optimized for querying under one second, providing a fast and efficient experience for applicants to browse and view job content.",
-      tags: ["CMS", "API Integration", "Performance"],
-    },
-    {
-      title: "Middleware Service",
-      period: "Jan 2024 - Present",
-      description:
-        "Developing Middleware Services focusing on integrating SMS OTP for Thailand and Vietnam, as well as Email OTP for secure user authentication. Building the backend to seamlessly incorporate these services, ensuring secure and localized authentication options for users across regions.",
-      tags: ["Middleware", "OTP", "Authentication"],
-    },
-    {
-      title: "History Logging Service",
-      period: "Dec 2023 - Present",
-      description:
-        "Developing the History Logging feature, tracking user actions and system events. Added the ability to download event logs in Excel format, allowing businesses to easily export and analyze historical data for auditing and compliance.",
-      tags: ["Logging", "Auditing", "Excel Export"],
-    },
-    {
-      title: "Better HR (HRMS)",
-      period: "Oct 2023 - Present",
-      description:
-        "Working on building and maintaining a Human Resource Management System (HRMS). Focusing on developing and maintaining key features like employee management, attendance tracking, leave management, excel export/import and HR settings. Helping ensure the system is fast, reliable, and tailored to meet the needs of businesses in six countries including Singapore, making HR processes more efficient and easier to manage.",
-      tags: ["HRMS", "HR Management", "Multi-country"],
-    },
-  ]
+type Project = {
+  title: string
+  period: string
+  description: string
+  tags: string[]
+  url?: string
+}
 
-  const ProjectCard = ({ project, index }: { project: (typeof projects)[0]; index: number }) => {
-    const mouseX = useMotionValue(0)
-    const mouseY = useMotionValue(0)
+const PRODUCTION_PROJECTS: Project[] = [
+  {
+    title: "Better HR (HRMS)",
+    period: "Oct 2023 - Present",
+    description:
+      "Built Duty Roster Analytics, Leave Breakdown, KPI Tracker, Recruitment Module, HR Settings, Indonesia Payroll, Excel/PDF tools, and push notifications. Optimized queries and caching to support 100K+ concurrent users across six countries.",
+    tags: ["HRMS", "Scalability", "Performance", "Multi-country"],
+  },
+  {
+    title: "History Logging Service",
+    period: "Dec 2023 - Present",
+    description:
+      "Implemented Excel export for compliance and auditing, and strengthened security by validating JWT tokens against requested domains in a multi-tenant environment.",
+    tags: ["Logging", "Auditing", "Security", "Multi-tenant"],
+  },
+  {
+    title: "Middleware Service",
+    period: "Jan 2024 - Present",
+    description:
+      "Integrated Thailand/Vietnam SMS OTP and Email OTP for secure authentication and payroll authorization, with reliable backend-to-backend transaction handling.",
+    tags: ["Middleware", "OTP", "Authentication", "Payroll"],
+  },
+  {
+    title: "Job Content Management System (CMS)",
+    period: "Mar 2024 - Present",
+    description:
+      "Developed complete CMS features: job listings, sections, pages, mixed AND/OR filters, sorting, Google Indexing API integration, and ad push notifications with optimized cached endpoints.",
+    tags: ["CMS", "Search", "Indexing", "Caching"],
+  },
+  {
+    title: "Application Tracking System (ATS)",
+    period: "Jun 2024 - Present",
+    description:
+      "Built application workflow automation from Screening to Offer, integrated ATS with HRMS, and implemented AI CV-PDF extraction to JSON in a single upload flow with atomic data consistency.",
+    tags: ["ATS", "Workflow Automation", "AI CV Parsing", "Integration"],
+  },
+  {
+    title: "Job Landing Platform",
+    period: "Jul 2024 - Present",
+    description:
+      "Developed applicant-facing platform with SSO/email login, job applications, and inbox with a seamless and fast experience.",
+    tags: ["Platform", "SSO", "Applications", "UX"],
+    url: "https://betterjobs.co",
+  },
+  {
+    title: "Customer Management System (Internal)",
+    period: "Nov 2024 - Present",
+    description:
+      "Developed multi-country customer management backend for Better HR with Xero, Monday, Google Indexing API, and Notion integrations; implemented domain-level client lifecycle controls.",
+    tags: ["CMS", "Integrations", "Xero", "Notion", "Multi-country"],
+  },
+  {
+    title: "HR AI Chatbot Agent (Experimental)",
+    period: "Mar 2025 - Present",
+    description:
+      "Researched and prototyped HR AI agent with NLP, LLM, LangChain, LangGraph, and RAG-based vector retrieval, including documented API workflows for integration.",
+    tags: ["AI", "NLP", "LLM", "LangChain", "RAG"],
+  },
+]
 
-    function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent<HTMLDivElement>) {
-      const { left, top } = currentTarget.getBoundingClientRect()
-      mouseX.set(clientX - left)
-      mouseY.set(clientY - top)
-    }
+const EXPERIMENTAL_PROJECTS: Project[] = [
+  {
+    title: "MVC Prototype using Pure PHP",
+    period: "Experimental",
+    description: "Demonstrated MVC architecture implementation from scratch using pure PHP and OOP patterns.",
+    tags: ["PHP", "OOP", "MVC"],
+    url: "https://github.com/KSHDestiny/PHP_OOP_Paradigm",
+  },
+  {
+    title: "Learning Review Blog (Statamic CMS)",
+    period: "Experimental",
+    description: "Personal learning blog built on Laravel-based CMS.",
+    tags: ["Laravel", "Statamic", "CMS"],
+    url: "https://main--buildyourlaravelskillsblog.netlify.app",
+  },
+  {
+    title: "NCC Project (JavaScript & jQuery)",
+    period: "Experimental",
+    description: "Coffee shop frontend simulation project built for coursework.",
+    tags: ["JavaScript", "jQuery", "Frontend"],
+    url: "https://kshdestiny.github.io/Bean-Boutique",
+  },
+  {
+    title: "Portfolio Website (React & TypeScript)",
+    period: "Experimental",
+    description: "Interactive personal portfolio website built with React and TypeScript.",
+    tags: ["React", "TypeScript", "Portfolio"],
+    url: "https://ksh-portfolio-nu.vercel.app",
+  },
+  {
+    title: "AI Chat-Bot with Custom Data (Python)",
+    period: "Experimental",
+    description: "LLM chatbot prototype that answers questions using user-provided datasets.",
+    tags: ["Python", "LLM", "RAG"],
+    url: "https://github.com/KSHDestiny/ai_chatbot_with_own_data",
+  },
+  {
+    title: "AI Chat-Bot with AWS S3 Storage (Python)",
+    period: "Experimental",
+    description: "Cloud-backed conversational agent using AWS storage integration.",
+    tags: ["Python", "AWS S3", "FastAPI", "AI"],
+    url: "https://github.com/KSHDestiny/aws_fastapi_chatagent",
+  },
+]
 
-    const maskImage = useMotionTemplate`radial-gradient(180px at ${mouseX}px ${mouseY}px, rgba(59, 130, 246, 0.15), transparent)`
-    const style = { maskImage, WebkitMaskImage: maskImage }
+const ProjectCard = memo(function ProjectCard({
+  project,
+  index,
+}: {
+  project: Project
+  index: number
+}) {
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
 
-    return (
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: index * 0.1 }}
-        whileHover={{ y: -5, transition: { duration: 0.2 } }}
-        onMouseMove={handleMouseMove}
-      >
-        <Card className="bg-background/60 backdrop-blur-sm border-primary/20 hover:border-primary/50 transition-all h-full relative overflow-hidden">
-          <motion.div
-            className="pointer-events-none absolute inset-0 z-10 bg-primary/5"
-            style={style}
-            transition={{ duration: 0.1 }}
-          />
-          <CardHeader className="pb-2">
-            <div className="flex items-center justify-between">
-              <CardTitle className="text-base md:text-lg">{project.title}</CardTitle>
-              <div className="flex items-center text-xs md:text-sm text-muted-foreground">
-                <Calendar className="h-4 w-4 mr-1" />
-                {project.period}
-              </div>
-            </div>
-            <div className="flex flex-wrap gap-2 mt-2">
-              {project.tags.map((tag, tagIndex) => (
-                <Badge key={tagIndex} variant="secondary" className="text-xs bg-primary/10 text-primary">
-                  {tag}
-                </Badge>
-              ))}
-            </div>
-          </CardHeader>
-          <CardContent>
-            <CardDescription className="text-xs md:text-sm text-muted-foreground">
-              {project.description}
-            </CardDescription>
-          </CardContent>
-        </Card>
-      </motion.div>
-    )
+  function handleMouseMove({ currentTarget, clientX, clientY }: MouseEvent<HTMLDivElement>) {
+    const { left, top } = currentTarget.getBoundingClientRect()
+    mouseX.set(clientX - left)
+    mouseY.set(clientY - top)
   }
 
+  const maskImage = useMotionTemplate`radial-gradient(180px at ${mouseX}px ${mouseY}px, rgba(59, 130, 246, 0.15), transparent)`
+  const style = { maskImage, WebkitMaskImage: maskImage }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: index * 0.08 }}
+      whileHover={{ y: -5, transition: { duration: 0.2 } }}
+      onMouseMove={handleMouseMove}
+    >
+      <Card className="bg-background/60 backdrop-blur-sm border-primary/20 hover:border-primary/50 transition-all h-full relative overflow-hidden">
+        <motion.div className="pointer-events-none absolute inset-0 z-10 bg-primary/5" style={style} transition={{ duration: 0.1 }} />
+        <CardHeader className="pb-2">
+          <div className="flex items-center justify-between gap-2">
+            <CardTitle className="text-base md:text-lg">{project.title}</CardTitle>
+            <div className="flex items-center text-xs md:text-sm text-muted-foreground shrink-0">
+              <Calendar className="h-4 w-4 mr-1" />
+              {project.period}
+            </div>
+          </div>
+          <div className="flex flex-wrap gap-2 mt-2">
+            {project.tags.map((tag, tagIndex) => (
+              <Badge key={tagIndex} variant="secondary" className="text-xs bg-primary/10 text-primary">
+                {tag}
+              </Badge>
+            ))}
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          <CardDescription className="text-xs md:text-sm text-muted-foreground">{project.description}</CardDescription>
+          {project.url && (
+            <Link
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
+            >
+              Open Project
+              <ExternalLink className="h-3 w-3" />
+            </Link>
+          )}
+        </CardContent>
+      </Card>
+    </motion.div>
+  )
+})
+
+export default function Projects() {
   return (
     <section id="projects" className="py-12 md:py-16 full-height">
       <div className="container mx-auto px-4">
@@ -128,9 +193,21 @@ export default function Projects() {
           <h2 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8 text-center">Projects</h2>
         </AnimateInView>
 
+        <AnimateInView delay={0.1}>
+          <h3 className="text-lg md:text-xl font-semibold mb-4">Production Projects</h3>
+        </AnimateInView>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-10">
+          {PRODUCTION_PROJECTS.map((project, index) => (
+            <ProjectCard key={project.title} project={project} index={index} />
+          ))}
+        </div>
+
+        <AnimateInView delay={0.2}>
+          <h3 className="text-lg md:text-xl font-semibold mb-4">Experimental Projects</h3>
+        </AnimateInView>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-          {projects.map((project, index) => (
-            <ProjectCard key={index} project={project} index={index} />
+          {EXPERIMENTAL_PROJECTS.map((project, index) => (
+            <ProjectCard key={project.title} project={project} index={index + PRODUCTION_PROJECTS.length} />
           ))}
         </div>
       </div>

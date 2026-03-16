@@ -21,24 +21,17 @@ export default function About() {
                 </h3>
                 <div className="space-y-4 text-muted-foreground">
                   <p className="text-sm md:text-base">
-                    Resourceful and analytical backend developer with a strong
-                    foundation in web technologies, network systems, and
-                    cybersecurity. Skilled in server-side logic, database
-                    management, problem-solving, and optimizing processes to
-                    deliver secure, high-performance solutions.
+                    Full-Stack Developer with strong experience in React.js,
+                    Laravel (PHP), Node.js, and scalable database design.
+                    Skilled in building secure RESTful APIs, high-performance
+                    backend systems, and interactive frontends.
                   </p>
                   <p className="text-sm md:text-base">
-                    Experienced in the software development lifecycle and
-                    collaborating in agile environments, ensuring error-free
-                    code while prioritizing user experience.
-                  </p>
-                  <p className="text-sm md:text-base">
-                    Passionate about continuous learning and leveraging emerging
-                    technologies to create scalable, maintainable solutions.
-                    Committed to enhancing software functionality and
-                    performance through innovative solutions, excelling in
-                    collaborative team environments and tackling complex
-                    challenges to drive business success.
+                    Hands-on experience with MySQL, MongoDB, Redis, Docker,
+                    AWS, and CI/CD workflows. Proven record of delivering
+                    production-grade features across HRMS, CMS, ATS, and
+                    AI-driven platforms used by 100K+ users across multiple
+                    countries.
                   </p>
                 </div>
               </CardContent>
@@ -92,6 +85,11 @@ export default function About() {
                   </div>
 
                   <div>
+                    <p className="text-sm text-muted-foreground">Gender</p>
+                    <p className="text-sm md:text-base">Male</p>
+                  </div>
+
+                  <div>
                     <p className="text-sm text-muted-foreground">LinkedIn</p>
                     <a
                       href="https://linkedin.com/in/kaungsathein"
@@ -100,6 +98,18 @@ export default function About() {
                       className="hover:underline text-sm md:text-base"
                     >
                       linkedin.com/in/kaungsathein
+                    </a>
+                  </div>
+
+                  <div>
+                    <p className="text-sm text-muted-foreground">Portfolio</p>
+                    <a
+                      href="https://ksh-portfolio-nu.vercel.app"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline text-sm md:text-base"
+                    >
+                      ksh-portfolio-nu.vercel.app
                     </a>
                   </div>
                 </div>

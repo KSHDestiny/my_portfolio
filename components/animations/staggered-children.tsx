@@ -3,7 +3,7 @@
 import React from "react"
 
 import { useRef, useEffect, useState, type ReactNode } from "react"
-import { motion, useAnimation, type Variant } from "framer-motion"
+import { motion, useAnimation, type Variant, type Variants } from "framer-motion"
 
 type StaggeredChildrenProps = {
   children: ReactNode
@@ -29,7 +29,7 @@ export default function StaggeredChildren({
   const ref = useRef<HTMLDivElement>(null)
   const [isInView, setIsInView] = useState(false)
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -40,19 +40,21 @@ export default function StaggeredChildren({
     },
   }
 
-  const itemVariants = variants || {
+  const itemVariants: Variants = variants || {
     hidden: { y: 20, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
       transition: {
         duration: 0.5,
-        ease: "easeOut",
+        ease: "easeOut" as const,
       },
     },
   }
 
   useEffect(() => {
+    if (isInView) return
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !isInView) {
@@ -78,9 +80,9 @@ export default function StaggeredChildren({
   }, [controls, isInView])
 
   // Clone children and wrap each in a motion.div
-  const animatedChildren = React.Children.map(children, (child) => {
+  const animatedChildren = React.Children.toArray(children).map((child, index) => {
     return (
-      <motion.div variants={itemVariants} className={childrenClassName}>
+      <motion.div key={index} variants={itemVariants} className={childrenClassName}>
         {child}
       </motion.div>
     )

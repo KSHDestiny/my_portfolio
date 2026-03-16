@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useMemo, useState } from "react"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { GraduationCap, Award, Calendar, Building, CheckCircle2, FileText, X } from "lucide-react"
@@ -8,21 +8,7 @@ import AnimateInView from "./animations/animate-in-view"
 import StaggeredChildren from "./animations/staggered-children"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
-import dynamic from "next/dynamic"
-
-// Dynamically import the PDF viewer components
-const PDFViewer = dynamic(() => import("./pdf-viewer"), {
-  ssr: false,
-  loading: () => (
-    <div className="flex justify-center items-center py-12">
-      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-    </div>
-  ),
-})
-
-const PDFViewerFallback = dynamic(() => import("./pdf-viewer-fallback"), {
-  ssr: false,
-})
+import PDFViewer from "./pdf-viewer"
 
 interface Certificate {
   id: string
@@ -38,163 +24,152 @@ interface Certificate {
 
 export default function Education() {
   const [selectedCertificate, setSelectedCertificate] = useState<Certificate | null>(null)
-  const [useFallbackViewer, setUseFallbackViewer] = useState(false)
 
-  // Check if we need to use the fallback viewer due to CORS issues
-  useEffect(() => {
-    const checkPDFWorker = async () => {
-      try {
-        // Try to fetch the local worker file
-        const response = await fetch("/pdf.worker.min.js", { method: "HEAD" })
-        setUseFallbackViewer(!response.ok)
-      } catch (error) {
-        console.error("Error checking PDF worker:", error)
-        setUseFallbackViewer(true)
-      }
-    }
+  const education = useMemo(
+    () => [
+      {
+        degree: "Bachelor of Engineering - BE, Electrical and Electronics Engineering",
+        institution: "West Yangon Technological University",
+        period: "Jan 2014 - Dec 2021",
+      },
+      {
+        degree: "Professional Executive Diploma in Network Technology and Cyber Security",
+        institution: "Lincoln University College & ETVA",
+        period: "Mar 2023 - Oct 2023",
+      },
+      {
+        degree: "Diploma, Computer Science",
+        institution: "NCC Education",
+        period: "Apr 2024 - Apr 2025",
+      },
+    ],
+    []
+  )
 
-    checkPDFWorker()
-  }, [])
-
-  const education = [
-    {
-      degree: "Bachelor of Engineering - BE, Electrical and Electronics Engineering",
-      institution: "West Yangon Technological University",
-      period: "Jan 2014 - Dec 2021",
-    },
-    {
-      degree: "Professional Executive Diploma in Network Technology and Cyber Security",
-      institution: "Lincoln University College & ETVA",
-      period: "Mar 2023 - Oct 2023",
-    },
-    {
-      degree: "Diploma, Computer Science",
-      institution: "NCC Education",
-      period: "Apr 2024 - Apr 2025",
-    },
-  ]
-
-  const certificates = [
-    {
-      id: "openai-api",
-      name: "OpenAI API for Python Developers",
-      issuer: "LinkedIn Learning",
-      date: "Jan 22, 2025",
-      skills: ["OpenAI API", "Python", "Generative AI"],
-      duration: "2 hours 18 minutes",
-      certificateId: "50e81083198c8ffd56872532339efddfcd0d34ceccf30e6b68793f67a3ba8ddb",
-      fileUrl: "/certificates/openai-api.pdf",
-    },
-    {
-      id: "sql-development",
-      name: "Explore a Career in SQL Development",
-      issuer: "LinkedIn Learning",
-      date: "Aug 11, 2024",
-      skills: ["Database Development", "SQL"],
-      duration: "14 hours 6 minutes",
-      certificateId: "e0e10a7533fd88fffabe439ce28183dc3df3eabbf30b57ce42d6ae3f9b82912e",
-      fileUrl: "/certificates/sql-development.pdf",
-    },
-    {
-      id: "programmer-foundations",
-      name: "Become a Programmer: Foundations",
-      issuer: "LinkedIn Learning",
-      date: "Jul 20, 2024",
-      skills: ["Programming", "Programming Concepts"],
-      duration: "24 hours 17 minutes",
-      certificateId: "f6873b43dedbb3f5fb71e7211a49193e403d5367fb62837cc68a7ae3b44d35b8",
-      fileUrl: "/certificates/programmer-foundations.pdf",
-    },
-    {
-      id: "docker-foundations",
-      name: "Docker Foundations Professional Certificate",
-      issuer: "LinkedIn Learning",
-      date: "May 01, 2024",
-      skills: ["Containerization", "Docker Products"],
-      duration: "3 hours 30 minutes",
-      certificateId: "0320858483ce5a53a70682c94c5deebb582052c3a2b0403216f468f53707aa9a",
-      fileUrl: "/certificates/docker-foundations.pdf",
-    },
-    {
-      id: "career-essentials",
-      name: "Career Essentials in Software Development by Microsoft and LinkedIn",
-      issuer: "LinkedIn Learning",
-      date: "May 04, 2024",
-      skills: ["Programming", "Software Development"],
-      duration: "6 hours 14 minutes",
-      certificateId: "46654751cdd156a8bb0e2d232409b34aab6398dd8ec17e9ba25716a530540ca5",
-      fileUrl: "/certificates/career-essentials.pdf",
-    },
-    {
-      id: "cloud-computing",
-      name: "Introduction to Cloud Computing",
-      issuer: "IBM (Coursera)",
-      date: "Apr 14, 2024",
-      skills: ["Cloud Computing", "IBM Cloud"],
-      certificateId: "NFWQS7CEDE3T",
-      fileUrl: "/certificates/cloud-computing.pdf",
-    },
-    {
-      id: "laravel-skills",
-      name: "Build Your Laravel Skills",
-      issuer: "LinkedIn Learning",
-      date: "Apr 2024",
-      skills: ["Laravel", "PHP"],
-      fileUrl: "/certificates/laravel-skills.pdf",
-    },
-    {
-      id: "google-it-support",
-      name: "Google IT Support",
-      issuer: "Google (Coursera)",
-      date: "Sep 2023",
-      skills: ["IT Support", "Troubleshooting"],
-      fileUrl: "/certificates/google-it-support.pdf",
-    },
-    {
-      id: "meta-frontend",
-      name: "Meta Front-End Developer",
-      issuer: "Meta (Coursera)",
-      date: "Sep 26, 2023",
-      skills: ["React", "JavaScript", "HTML/CSS"],
-      certificateId: "3ZQPJ7GHC74M",
-      courses: [
-        "Introduction to Front-End Development",
-        "Programming with JavaScript",
-        "Version Control",
-        "HTML and CSS in depth",
-        "React Basics",
-        "Advanced React",
-        "Principles of UX/UI Design",
-        "Front-End Developer Capstone",
-        "Coding Interview Preparation",
-      ],
-      fileUrl: "/certificates/meta-frontend.pdf",
-    },
-    {
-      id: "web-applications",
-      name: "Web Applications for Everybody Specialization",
-      issuer: "University of Michigan (Coursera)",
-      date: "Mar 11, 2023",
-      skills: ["PHP", "SQL", "JavaScript"],
-      certificateId: "68CDG4WP3YDZ",
-      courses: [
-        "Building Web Applications in PHP",
-        "Introduction to Structured Query Language (SQL)",
-        "Building Database Applications in PHP",
-        "JavaScript, jQuery, and JSON",
-      ],
-      fileUrl: "/certificates/web-applications.pdf",
-    },
-    {
-      id: "html-css-js",
-      name: "HTML, CSS, and Javascript for Web Developers",
-      issuer: "Johns Hopkins University (Coursera)",
-      date: "Mar 8, 2023",
-      skills: ["HTML", "CSS", "JavaScript"],
-      certificateId: "AHBRPF5K2RCA",
-      fileUrl: "/certificates/html-css-js.pdf",
-    },
-  ]
+  const certificates = useMemo(
+    () => [
+      {
+        id: "openai-api",
+        name: "OpenAI API for Python Developers",
+        issuer: "LinkedIn Learning",
+        date: "Jan 22, 2025",
+        skills: ["OpenAI API", "Python", "Generative AI"],
+        duration: "2 hours 18 minutes",
+        certificateId: "50e81083198c8ffd56872532339efddfcd0d34ceccf30e6b68793f67a3ba8ddb",
+        fileUrl: "/certificates/openai-api.pdf",
+      },
+      {
+        id: "sql-development",
+        name: "Explore a Career in SQL Development",
+        issuer: "LinkedIn Learning",
+        date: "Aug 11, 2024",
+        skills: ["Database Development", "SQL"],
+        duration: "14 hours 6 minutes",
+        certificateId: "e0e10a7533fd88fffabe439ce28183dc3df3eabbf30b57ce42d6ae3f9b82912e",
+        fileUrl: "/certificates/sql-development.pdf",
+      },
+      {
+        id: "programmer-foundations",
+        name: "Become a Programmer: Foundations",
+        issuer: "LinkedIn Learning",
+        date: "Jul 20, 2024",
+        skills: ["Programming", "Programming Concepts"],
+        duration: "24 hours 17 minutes",
+        certificateId: "f6873b43dedbb3f5fb71e7211a49193e403d5367fb62837cc68a7ae3b44d35b8",
+        fileUrl: "/certificates/programmer-foundations.pdf",
+      },
+      {
+        id: "docker-foundations",
+        name: "Docker Foundations Professional Certificate",
+        issuer: "LinkedIn Learning",
+        date: "May 01, 2024",
+        skills: ["Containerization", "Docker Products"],
+        duration: "3 hours 30 minutes",
+        certificateId: "0320858483ce5a53a70682c94c5deebb582052c3a2b0403216f468f53707aa9a",
+        fileUrl: "/certificates/docker-foundations.pdf",
+      },
+      {
+        id: "career-essentials",
+        name: "Career Essentials in Software Development by Microsoft and LinkedIn",
+        issuer: "LinkedIn Learning",
+        date: "May 04, 2024",
+        skills: ["Programming", "Software Development"],
+        duration: "6 hours 14 minutes",
+        certificateId: "46654751cdd156a8bb0e2d232409b34aab6398dd8ec17e9ba25716a530540ca5",
+        fileUrl: "/certificates/career-essentials.pdf",
+      },
+      {
+        id: "cloud-computing",
+        name: "Introduction to Cloud Computing",
+        issuer: "IBM (Coursera)",
+        date: "Apr 14, 2024",
+        skills: ["Cloud Computing", "IBM Cloud"],
+        certificateId: "NFWQS7CEDE3T",
+        fileUrl: "/certificates/cloud-computing.pdf",
+      },
+      {
+        id: "laravel-skills",
+        name: "Build Your Laravel Skills",
+        issuer: "LinkedIn Learning",
+        date: "Apr 2024",
+        skills: ["Laravel", "PHP"],
+        fileUrl: "/certificates/laravel-skills.pdf",
+      },
+      {
+        id: "google-it-support",
+        name: "Google IT Support",
+        issuer: "Google (Coursera)",
+        date: "Sep 2023",
+        skills: ["IT Support", "Troubleshooting"],
+        fileUrl: "/certificates/google-it-support.pdf",
+      },
+      {
+        id: "meta-frontend",
+        name: "Meta Front-End Developer",
+        issuer: "Meta (Coursera)",
+        date: "Jun 2023",
+        skills: ["React", "JavaScript", "HTML/CSS"],
+        certificateId: "3ZQPJ7GHC74M",
+        courses: [
+          "Introduction to Front-End Development",
+          "Programming with JavaScript",
+          "Version Control",
+          "HTML and CSS in depth",
+          "React Basics",
+          "Advanced React",
+          "Principles of UX/UI Design",
+          "Front-End Developer Capstone",
+          "Coding Interview Preparation",
+        ],
+        fileUrl: "/certificates/meta-frontend.pdf",
+      },
+      {
+        id: "web-applications",
+        name: "Web Applications for Everybody Specialization",
+        issuer: "University of Michigan (Coursera)",
+        date: "Mar 2023",
+        skills: ["PHP", "SQL", "JavaScript"],
+        certificateId: "68CDG4WP3YDZ",
+        courses: [
+          "Building Web Applications in PHP",
+          "Introduction to Structured Query Language (SQL)",
+          "Building Database Applications in PHP",
+          "JavaScript, jQuery, and JSON",
+        ],
+        fileUrl: "/certificates/web-applications.pdf",
+      },
+      {
+        id: "html-css-js",
+        name: "HTML, CSS, and Javascript for Web Developers",
+        issuer: "Johns Hopkins University (Coursera)",
+        date: "Mar 2023",
+        skills: ["HTML", "CSS", "JavaScript"],
+        certificateId: "AHBRPF5K2RCA",
+        fileUrl: "/certificates/html-css-js.pdf",
+      },
+    ],
+    []
+  )
 
   const handleOpenCertificate = (certificate: Certificate) => {
     setSelectedCertificate(certificate)
@@ -304,11 +279,7 @@ export default function Education() {
 
               {selectedCertificate.fileUrl && (
                 <div className="mb-6">
-                  {useFallbackViewer ? (
-                    <PDFViewerFallback pdfUrl={selectedCertificate.fileUrl} />
-                  ) : (
-                    <PDFViewer pdfUrl={selectedCertificate.fileUrl} />
-                  )}
+                  <PDFViewer pdfUrl={selectedCertificate.fileUrl} />
                 </div>
               )}
 

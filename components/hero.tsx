@@ -67,7 +67,7 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-xl md:text-2xl lg:text-3xl font-medium text-primary mb-6"
           >
-            Web Backend Developer
+            Full Stack / Backend Developer
           </motion.h2>
 
           <motion.div
@@ -77,7 +77,7 @@ export default function Hero() {
             className="max-w-2xl text-base md:text-lg text-muted-foreground mb-8"
           >
             <TypingEffect
-              text="Building robust, scalable backend solutions with expertise in JavaScript, PHP, Laravel, and database management."
+              text="Full-Stack Developer with strong experience in React.js, Laravel (PHP), Node.js, secure RESTful APIs, and scalable systems used by 100K+ users."
               speed={20}
               delay={800}
             />
@@ -142,7 +142,7 @@ export default function Hero() {
                 </Button>
               </motion.div>
             </Link>
-            <Link href="#" download>
+            <Link href="/Kaung-Sat-Hein-CV.pdf" target="_blank" rel="noopener noreferrer">
               <motion.div
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}

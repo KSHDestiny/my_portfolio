@@ -5,11 +5,10 @@ import {
   Database,
   Server,
   Shield,
-  Cpu,
   GitBranch,
   Box,
-  TestTube,
   Sparkles,
+  Workflow,
 } from "lucide-react";
 import StaggeredChildren from "./animations/staggered-children";
 import AnimateInView from "./animations/animate-in-view";
@@ -17,74 +16,69 @@ import SkillProgress from "./animations/skill-progress";
 
 export default function Skills() {
   const programmingSkills = [
-    { name: "JavaScript", level: 80 },
-    { name: "PHP", level: 90 },
-    { name: "Python", level: 80 },
-    { name: "Laravel", level: 100 },
+    { name: "PHP", level: 92 },
+    { name: "Laravel", level: 95 },
+    { name: "JavaScript / TypeScript", level: 88 },
+    { name: "Python (AI/NLP)", level: 78 },
   ];
 
   const databaseSkills = [
-    { name: "SQL", level: 90 },
-    { name: "NoSQL", level: 80 },
-    { name: "Database Design", level: 85 },
+    { name: "MySQL", level: 92 },
+    { name: "MongoDB", level: 86 },
+    { name: "Redis / Caching", level: 88 },
   ];
 
   const skillCategories = [
     {
-      title: "Programming Languages",
+      title: "Backend & Frameworks",
       icon: <Code className="h-5 w-5 text-primary" />,
-      skills: ["JavaScript", "Python", "PHP"],
+      skills: ["PHP", "Laravel", "Node.js", "Python (AI/NLP)"],
     },
     {
-      title: "Frameworks",
+      title: "Frontend & Frameworks",
       icon: <Server className="h-5 w-5 text-primary" />,
-      skills: ["Laravel"],
+      skills: ["JavaScript", "TypeScript", "React.js", "Responsive UI"],
     },
     {
       title: "Databases",
       icon: <Database className="h-5 w-5 text-primary" />,
-      skills: ["SQL", "NoSQL", "Database Management"],
+      skills: ["MySQL", "MongoDB", "Redis", "Query Optimization"],
     },
     {
-      title: "Security",
+      title: "API & Security",
       icon: <Shield className="h-5 w-5 text-primary" />,
-      skills: ["Cybersecurity", "Web Services API"],
+      skills: ["RESTful APIs", "GraphQL", "JWT Auth", "Secure API Design", "Token Validation"],
     },
     {
-      title: "Computer Science",
-      icon: <Cpu className="h-5 w-5 text-primary" />,
-      skills: [
-        "Algorithms",
-        "Data Structures",
-        "Object-Oriented Programming (OOP)",
-        "Design Patterns",
-      ],
-    },
-    {
-      title: "DevOps",
+      title: "DevOps & Tools",
       icon: <GitBranch className="h-5 w-5 text-primary" />,
-      skills: ["Version Control", "Containerization"],
-    },
-    {
-      title: "Testing",
-      icon: <TestTube className="h-5 w-5 text-primary" />,
-      skills: ["Software Testing"],
-    },
-    {
-      title: "AI",
-      icon: <Sparkles className="h-5 w-5 text-primary" />,
-      skills: ["Generative AI"],
+      skills: ["Docker", "Git", "CI/CD", "AWS S3", "AWS Lambda", "CloudWatch", "Nginx"],
     },
     {
       title: "Integrations",
       icon: <Box className="h-5 w-5 text-primary" />,
       skills: [
         "Payment Gateways (KBZPay, WavePay)",
-        "SSO Logins (Microsoft, Google, LinkedIn)",
-        "OTP Features (SMS, Email)",
+        "SSO (Microsoft, Google, LinkedIn)",
+        "OTP (Thailand SMS, Vietnam SMS, Email)",
         "WebSockets (Pusher, Socket.io)",
-        "Third-Party Services (Xero Invoice, Monday, Google Indexing API)",
+        "Xero, Monday, Notion, Google Indexing API",
       ],
+    },
+    {
+      title: "Workflow Engineering",
+      icon: <Workflow className="h-5 w-5 text-primary" />,
+      skills: [
+        "Queue Jobs & Task Scheduling",
+        "SQS + Lambda (Serverless)",
+        "Supervisor Background Queues",
+        "Atomic Backend-to-Backend Flows",
+      ],
+    },
+    {
+      title: "AI",
+      icon: <Sparkles className="h-5 w-5 text-primary" />,
+      skills: ["NLP", "LLM", "LangChain", "LangGraph", "RAG", "Vector Retrieval"],
     },
   ];
 

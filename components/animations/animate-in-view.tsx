@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useState, type ReactNode } from "react";
-import { motion, useAnimation, type Variant } from "framer-motion";
+import { motion, useAnimation, type Variant, type Variants } from "framer-motion";
 
 type AnimateInViewProps = {
   children: ReactNode;
@@ -31,7 +31,7 @@ export default function AnimateInView({
   const ref = useRef<HTMLDivElement>(null);
   const [isInView, setIsInView] = useState(false);
 
-  const defaultVariants = {
+  const defaultVariants: Variants = {
     hidden: {
       y: initialY,
       x: initialX,
@@ -44,7 +44,7 @@ export default function AnimateInView({
       transition: {
         duration,
         delay,
-        ease: "easeOut",
+        ease: "easeOut" as const,
       },
     },
   };

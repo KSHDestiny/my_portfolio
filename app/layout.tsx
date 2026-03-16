@@ -8,9 +8,9 @@ import Navbar from "@/components/navbar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Kaung Sat Hein | Web Backend Developer",
+  title: "Kaung Sat Hein | Full Stack / Backend Developer",
   description:
-    "Portfolio website of Kaung Sat Hein, a Web Backend Developer specializing in backend technologies and web services.",
+    "Portfolio website of Kaung Sat Hein, a Full Stack / Backend Developer with expertise in React.js, Laravel, Node.js, secure APIs, and scalable systems.",
   generator: "v0.dev",
 };
 

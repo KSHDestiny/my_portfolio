@@ -7,21 +7,21 @@ import AnimateInView from "./animations/animate-in-view"
 export default function Experience() {
   const experiences = [
     {
-      title: "Web Backend Developer",
+      title: "Web Backend Engineer",
       company: "Better Jobs Myanmar",
       location: "Phnom Penh, Cambodia",
-      period: "Dec 2024 - Present",
+      period: "Jun 2024 - Present",
       current: true,
     },
     {
-      title: "Web Backend Developer",
+      title: "Web Backend Engineer",
       company: "Better HR",
       location: "Yangon, Myanmar",
       period: "Feb 2024 - Present",
       current: true,
     },
     {
-      title: "Web Backend Developer Trainee",
+      title: "Web Backend Engineer (Trainee)",
       company: "Better HR",
       location: "Yangon, Myanmar",
       period: "Oct 2023 - Jan 2024",
