@@ -1,29 +1,32 @@
-"use client"
+"use client";
 
-import { useCallback, useState, useEffect } from "react"
-import Particles from "react-tsparticles"
-import { loadSlim } from "tsparticles-slim"
-import type { Container, Engine } from "tsparticles-engine"
-import { useTheme } from "next-themes"
+import { useCallback, useState, useEffect } from "react";
+import Particles from "react-tsparticles";
+import { loadSlim } from "tsparticles-slim";
+import type { Container, Engine } from "tsparticles-engine";
+import { useTheme } from "next-themes";
 
 export default function ParticlesBackground() {
-  const [mounted, setMounted] = useState(false)
-  const { resolvedTheme } = useTheme()
-  const isDark = resolvedTheme === "dark"
+  const [mounted, setMounted] = useState(false);
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
 
   useEffect(() => {
-    setMounted(true)
-  }, [])
+    setMounted(true);
+  }, []);
 
   const particlesInit = useCallback(async (engine: Engine) => {
-    await loadSlim(engine)
-  }, [])
+    await loadSlim(engine);
+  }, []);
 
-  const particlesLoaded = useCallback(async (container: Container | undefined) => {
-    await container
-  }, [])
+  const particlesLoaded = useCallback(
+    async (container: Container | undefined) => {
+      await container;
+    },
+    [],
+  );
 
-  if (!mounted) return null
+  if (!mounted) return null;
 
   return (
     <Particles
@@ -93,7 +96,7 @@ export default function ParticlesBackground() {
               mode: "grab",
             },
             onClick: {
-              enable: true,
+              enable: false,
               mode: "push",
             },
             resize: true,
@@ -113,5 +116,5 @@ export default function ParticlesBackground() {
         },
       }}
     />
-  )
+  );
 }

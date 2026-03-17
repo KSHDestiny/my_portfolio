@@ -42,7 +42,7 @@ export default function Hero() {
             ) : (
               // Try to load the actual profile image
               <Image
-                src="/images/profile.png"
+                src="/images/profile.jpeg"
                 alt="Kaung Sat Hein"
                 fill
                 className="object-cover"
@@ -142,7 +142,11 @@ export default function Hero() {
                 </Button>
               </motion.div>
             </Link>
-            <Link href="/Kaung-Sat-Hein-CV.pdf" target="_blank" rel="noopener noreferrer">
+            <Link
+              href="/Kaung-Sat-Hein-CV.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <motion.div
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}

@@ -24,6 +24,7 @@ export default function Navbar() {
   const navItems = [
     { name: "About", href: "#about" },
     { name: "Skills", href: "#skills" },
+    { name: "Knowledges", href: "#knowledges" },
     { name: "Experience", href: "#experience" },
     { name: "Projects", href: "#projects" },
     { name: "Education", href: "#education" },
