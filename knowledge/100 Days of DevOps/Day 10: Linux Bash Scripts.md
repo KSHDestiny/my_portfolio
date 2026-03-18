@@ -67,7 +67,7 @@ nano hello.sh
 or
 
 ```
-vi hello.sh
+nano hello.sh
 ```
 
 ---

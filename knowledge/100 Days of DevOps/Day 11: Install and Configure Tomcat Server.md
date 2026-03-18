@@ -77,7 +77,7 @@ cd /opt
 Download Tomcat:
 
 ```
-sudowget https://downloads.apache.org/tomcat/tomcat-9/v9.0.x/bin/apache-tomcat-9.0.x.tar.gz
+sudo wget https://downloads.apache.org/tomcat/tomcat-9/v9.0.x/bin/apache-tomcat-9.0.x.tar.gz
 ```
 
 ---

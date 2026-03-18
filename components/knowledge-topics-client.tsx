@@ -27,6 +27,7 @@ type KnowledgeDay = {
   title: string;
   note: string;
   content: string;
+  briefContent: string | null;
 };
 
 type KnowledgeTopic = {
@@ -624,6 +625,7 @@ export default function KnowledgeTopicsClient({
                     <BriefKnowledgeContent
                       note={selectedDay.dayItem.note}
                       content={selectedDay.dayItem.content}
+                      briefContent={selectedDay.dayItem.briefContent}
                     />
                   )}
                 </ScrollArea>
@@ -685,10 +687,20 @@ export default function KnowledgeTopicsClient({
 function BriefKnowledgeContent({
   note,
   content,
+  briefContent,
 }: {
   note: string;
   content: string;
+  briefContent: string | null;
 }) {
+  if (briefContent) {
+    return (
+      <div className="pr-1">
+        <MarkdownContent content={briefContent} />
+      </div>
+    );
+  }
+
   const brief = extractBriefKnowledge(content, note);
 
   return (

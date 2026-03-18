@@ -6,6 +6,7 @@ export type KnowledgeDay = {
   title: string
   note: string
   content: string
+  briefContent: string | null
 }
 
 export type KnowledgeTopic = {
@@ -16,6 +17,7 @@ export type KnowledgeTopic = {
 }
 
 const KNOWLEDGE_ROOT = path.join(process.cwd(), "knowledge")
+const KNOWLEDGE_BRIEF_ROOT = path.join(KNOWLEDGE_ROOT, "brief")
 const TOPIC_BRIEF_DESCRIPTIONS: Record<string, string> = {
   "100 Days of DevOps":
     "A practical day-by-day DevOps journey covering Linux administration, automation, networking, security, web stack setup, and production troubleshooting.",
@@ -64,7 +66,7 @@ export async function getKnowledgeTopics(): Promise<KnowledgeTopic[]> {
     return []
   }
 
-  const topicDirs = topicEntries.filter((entry) => entry.isDirectory())
+  const topicDirs = topicEntries.filter((entry) => entry.isDirectory() && entry.name !== "brief")
 
   const topics = await Promise.all(
     topicDirs.map(async (topicDir) => {
@@ -78,7 +80,9 @@ export async function getKnowledgeTopics(): Promise<KnowledgeTopic[]> {
       const days = await Promise.all(
         dayFiles.map(async (fileName) => {
           const filePath = path.join(topicPath, fileName)
+          const briefPath = path.join(KNOWLEDGE_BRIEF_ROOT, topicDir.name, fileName)
           const content = await fs.readFile(filePath, "utf8")
+          const briefContent = await fs.readFile(briefPath, "utf8").catch(() => null)
           const parsed = fileName.match(/^Day\s+(\d+)\s*:\s*(.+)\.md$/i)
 
           const dayNumber = parsed ? Number(parsed[1]) : Number.MAX_SAFE_INTEGER
@@ -87,8 +91,9 @@ export async function getKnowledgeTopics(): Promise<KnowledgeTopic[]> {
           return {
             day: dayNumber,
             title: dayTitle,
-            note: extractPreview(content),
+            note: extractPreview(briefContent ?? content),
             content: content.trim(),
+            briefContent: briefContent?.trim() ?? null,
           }
         })
       )
