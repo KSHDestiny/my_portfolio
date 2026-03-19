@@ -78,7 +78,7 @@
 - `03` **Full Stack Delivery:** Develop full-stack applications with React, Next.js, and TypeScript.
 - `04` **Product Execution:** Turn product ideas into production-ready features.
 
-**Experience:** Web Backend Engineer (Better HR) | Web Backend Engineer (Better Jobs Myanmar) | Former Web Backend Engineer Trainee (Better HR)
+**Experience:** Web Backend Engineer (Better HR) | Web Backend Engineer (Better Jobs) | Former Web Backend Engineer Trainee (Better HR)
 
 ## Featured Focus
 

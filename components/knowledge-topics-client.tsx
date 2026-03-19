@@ -1,7 +1,14 @@
 "use client";
 
 import { type ReactNode, useEffect, useMemo, useState } from "react";
-import { BookOpen, CalendarRange, ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  BookOpen,
+  CalendarRange,
+  ChevronLeft,
+  ChevronRight,
+  Orbit,
+  Sparkles,
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -548,8 +555,47 @@ export default function KnowledgeTopicsClient({
                     value={topic.title}
                     className="border-primary/20"
                   >
-                    <AccordionTrigger className="text-primary py-3.5">
-                      Read more
+                    <AccordionTrigger className="group rounded-2xl py-3.5 text-left text-primary transition-none hover:no-underline [&>svg]:hidden">
+                      <div className="relative w-full overflow-hidden rounded-2xl border border-primary/20 bg-gradient-to-r from-primary/12 via-primary/8 to-transparent px-4 py-4 shadow-[0_10px_30px_-18px_hsl(var(--primary))] transition-all duration-300 group-hover:border-primary/45 group-hover:shadow-[0_18px_40px_-18px_hsl(var(--primary))]">
+                        <div className="pointer-events-none absolute inset-y-0 left-[-20%] w-24 -skew-x-12 bg-white/10 opacity-0 blur-xl transition-all duration-500 group-hover:left-[85%] group-hover:opacity-100" />
+                        <div className="relative flex items-center gap-3">
+                          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-primary/20 bg-primary/14 text-primary transition-transform duration-300 group-hover:scale-105 group-hover:rotate-6">
+                            <Orbit className="h-5 w-5" />
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <p className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-primary/80">
+                              <Sparkles className="h-3.5 w-3.5" />
+                              Explore Further
+                            </p>
+                            <p className="mt-1 text-base font-semibold leading-6 text-foreground">
+                              Open the knowledge journey
+                            </p>
+                            <p className="mt-1 text-sm leading-6 text-muted-foreground">
+                              Tap into the daily notes, summaries, and deeper lessons for this topic.
+                            </p>
+                          </div>
+                          <div className="hidden shrink-0 md:block">
+                            <div className="flex min-w-[142px] items-center justify-center gap-2 rounded-full border border-primary/20 bg-background/80 px-4 py-2 text-sm font-medium text-foreground shadow-sm transition-all duration-300 group-hover:border-primary/45 group-data-[state=open]:border-primary/50 group-data-[state=open]:bg-primary/12 group-data-[state=open]:text-primary">
+                              <span className="group-data-[state=open]:hidden">
+                                Expand
+                              </span>
+                              <span className="hidden group-data-[state=open]:inline">
+                                Collapse
+                              </span>
+                              <ChevronRight className="h-4 w-4 transition-transform duration-300 group-data-[state=open]:rotate-90" />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="relative mt-4 flex items-center justify-between rounded-xl border border-primary/15 bg-background/55 px-3 py-2 text-xs uppercase tracking-[0.18em] text-muted-foreground md:hidden">
+                          <span className="group-data-[state=open]:hidden">
+                            Tap to expand
+                          </span>
+                          <span className="hidden group-data-[state=open]:inline">
+                            Tap to collapse
+                          </span>
+                          <ChevronRight className="h-4 w-4 text-primary transition-transform duration-300 group-data-[state=open]:rotate-90" />
+                        </div>
+                      </div>
                     </AccordionTrigger>
                     <AccordionContent>
                       <ScrollArea className="h-72 md:h-80 pr-1">

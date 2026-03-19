@@ -5,6 +5,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { GraduationCap, Award, Calendar, Building, CheckCircle2, FileText, X } from "lucide-react"
 import AnimateInView from "./animations/animate-in-view"
+import SectionHeading from "./section-heading"
 import StaggeredChildren from "./animations/staggered-children"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
@@ -183,7 +184,11 @@ export default function Education() {
     <section id="education" className="py-12 md:py-16 section-gradient full-height">
       <div className="container mx-auto px-4">
         <AnimateInView>
-          <h2 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8 text-center">Education & Certifications</h2>
+          <SectionHeading
+            eyebrow="Credentials"
+            title="Education & Certifications"
+            description="Formal study, professional certificates, and learning milestones that support my engineering foundation."
+          />
         </AnimateInView>
 
         <Tabs defaultValue="education" className="max-w-3xl mx-auto">

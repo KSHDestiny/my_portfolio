@@ -9,6 +9,7 @@ import { useMediaQuery } from "@/hooks/use-media-query"
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
+  const [activeSection, setActiveSection] = useState("about")
   const isDesktop = useMediaQuery("(min-width: 768px)")
 
   useEffect(() => {
@@ -24,12 +25,53 @@ export default function Navbar() {
   const navItems = [
     { name: "About", href: "#about" },
     { name: "Skills", href: "#skills" },
-    { name: "Knowledges", href: "#knowledges" },
-    { name: "Experience", href: "#experience" },
     { name: "Projects", href: "#projects" },
+    { name: "Experience", href: "#experience" },
+    { name: "Knowledges", href: "#knowledges" },
     { name: "Education", href: "#education" },
     { name: "Contact", href: "#contact" },
   ]
+
+  useEffect(() => {
+    const sectionIds = navItems.map((item) => item.href.slice(1))
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((section): section is HTMLElement => Boolean(section))
+
+    if (sections.length === 0) return
+
+    const updateActiveSection = () => {
+      const navbarOffset = 140
+      const activationY = window.scrollY + navbarOffset
+
+      let currentSection = sections[0].id
+
+      for (const section of sections) {
+        if (activationY >= section.offsetTop) {
+          currentSection = section.id
+        }
+      }
+
+      const nearPageBottom =
+        window.innerHeight + window.scrollY >= document.body.offsetHeight - 8
+
+      if (nearPageBottom) {
+        setActiveSection(sections[sections.length - 1].id)
+        return
+      }
+
+      setActiveSection(currentSection)
+    }
+
+    updateActiveSection()
+    window.addEventListener("scroll", updateActiveSection, { passive: true })
+    window.addEventListener("resize", updateActiveSection)
+
+    return () => {
+      window.removeEventListener("scroll", updateActiveSection)
+      window.removeEventListener("resize", updateActiveSection)
+    }
+  }, [])
 
   return (
     <nav className="fixed top-0 z-50 w-full bg-background/80 backdrop-blur-md border-b border-primary/10 shadow-sm">
@@ -44,7 +86,12 @@ export default function Navbar() {
             <Link
               key={item.name}
               href={item.href}
-              className="text-muted-foreground hover:text-primary transition-colors"
+              aria-current={activeSection === item.href.slice(1) ? "page" : undefined}
+              className={`rounded-full px-3 py-1.5 transition-colors ${
+                activeSection === item.href.slice(1)
+                  ? "bg-primary/12 text-primary"
+                  : "text-muted-foreground hover:text-primary"
+              }`}
             >
               {item.name}
             </Link>
@@ -69,7 +116,12 @@ export default function Navbar() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-muted-foreground hover:text-primary transition-colors py-2"
+                aria-current={activeSection === item.href.slice(1) ? "page" : undefined}
+                className={`rounded-xl px-3 py-2 transition-colors ${
+                  activeSection === item.href.slice(1)
+                    ? "bg-primary/12 text-primary"
+                    : "text-muted-foreground hover:text-primary"
+                }`}
                 onClick={() => setIsOpen(false)}
               >
                 {item.name}

@@ -167,22 +167,37 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.8 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={{ y: -2 }}
+            whileTap={{ scale: 0.98 }}
           >
             <Link href="#about">
-              <Button variant="default" className="group">
-                Learn More
-                <motion.div
-                  animate={{ y: [0, 5, 0] }}
-                  transition={{
-                    repeat: Number.POSITIVE_INFINITY,
-                    duration: 1.5,
-                    ease: "easeInOut",
-                  }}
-                >
-                  <ArrowDown className="ml-2 h-4 w-4" />
-                </motion.div>
+              <Button
+                variant="ghost"
+                className="group relative h-auto overflow-hidden rounded-full border border-primary/30 bg-background/40 px-5 py-3 text-left shadow-[0_14px_40px_-20px_hsl(var(--primary))] backdrop-blur-md hover:bg-background/55"
+              >
+                <span className="pointer-events-none absolute inset-y-0 left-[-22%] w-20 -skew-x-12 bg-white/15 opacity-0 blur-xl transition-all duration-500 group-hover:left-[88%] group-hover:opacity-100" />
+                <span className="relative flex items-center gap-4">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-full bg-primary text-white shadow-lg shadow-primary/25">
+                    <motion.span
+                      animate={{ y: [0, 3, 0] }}
+                      transition={{
+                        repeat: Number.POSITIVE_INFINITY,
+                        duration: 1.5,
+                        ease: "easeInOut",
+                      }}
+                    >
+                      <ArrowDown className="h-4 w-4" />
+                    </motion.span>
+                  </span>
+                  <span className="flex flex-col items-start">
+                    <span className="text-[11px] uppercase tracking-[0.24em] text-primary/80">
+                      Start Here
+                    </span>
+                    <span className="text-sm font-semibold text-foreground md:text-base">
+                      Discover more about me
+                    </span>
+                  </span>
+                </span>
               </Button>
             </Link>
           </motion.div>

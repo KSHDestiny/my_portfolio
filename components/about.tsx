@@ -1,15 +1,18 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, Mail, Phone } from "lucide-react";
 import AnimateInView from "./animations/animate-in-view";
+import SectionHeading from "./section-heading";
 
 export default function About() {
   return (
     <section id="about" className="py-12 md:py-16 section-gradient full-height">
       <div className="container mx-auto px-4">
         <AnimateInView>
-          <h2 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8 text-center">
-            About Me
-          </h2>
+          <SectionHeading
+            eyebrow="Introduction"
+            title="About Me"
+            description="A quick look at who I am, what I build, and the kind of product and challenge I enjoy most."
+          />
         </AnimateInView>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
@@ -27,8 +30,8 @@ export default function About() {
                     backend systems, and interactive frontends.
                   </p>
                   <p className="text-sm md:text-base">
-                    Hands-on experience with MySQL, MongoDB, Redis, Docker,
-                    AWS, and CI/CD workflows. Proven record of delivering
+                    Hands-on experience with MySQL, MongoDB, Redis, Docker, AWS,
+                    and CI/CD workflows. Proven record of delivering
                     production-grade features across HRMS, CMS, ATS, and
                     AI-driven platforms used by 100K+ users across multiple
                     countries.

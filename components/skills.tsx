@@ -16,6 +16,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 import AnimateInView from "./animations/animate-in-view";
 import SkillProgress from "./animations/skill-progress";
+import SectionHeading from "./section-heading";
 
 export default function Skills() {
   const expertiseSectionRef = useRef<HTMLDivElement>(null);
@@ -195,9 +196,11 @@ export default function Skills() {
     <section id="skills" className="py-12 md:py-16 full-height">
       <div className="container mx-auto px-4">
         <AnimateInView>
-          <h2 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8 text-center">
-            Skills & Expertise
-          </h2>
+          <SectionHeading
+            eyebrow="Capabilities"
+            title="Skills & Expertise"
+            description="Core tools, engineering strengths, and delivery areas I rely on to build products that are secure, scalable, and usable."
+          />
         </AnimateInView>
 
         <AnimateInView className="mb-8 md:mb-12" delay={0.2}>

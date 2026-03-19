@@ -10,6 +10,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Mail, Phone, MapPin, Send, CheckCircle, AlertCircle } from "lucide-react"
 import { motion } from "framer-motion"
 import AnimateInView from "./animations/animate-in-view"
+import SectionHeading from "./section-heading"
 import emailjs from "@emailjs/browser"
 
 // EmailJS configuration
@@ -82,7 +83,11 @@ export default function Contact() {
     <section id="contact" className="py-12 md:py-16 full-height">
       <div className="container mx-auto px-4">
         <AnimateInView>
-          <h2 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8 text-center">Get In Touch</h2>
+          <SectionHeading
+            eyebrow="Let&apos;s Connect"
+            title="Get In Touch"
+            description="If you want to collaborate, discuss an opportunity, or just say hello, this is the easiest place to reach me."
+          />
         </AnimateInView>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-4xl mx-auto">
