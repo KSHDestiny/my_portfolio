@@ -21,14 +21,20 @@ import SectionHeading from "./section-heading";
 export default function Skills() {
   const expertiseSectionRef = useRef<HTMLDivElement>(null);
   const expertiseViewportRef = useRef<HTMLDivElement>(null);
+  const expertiseTrackRef = useRef<HTMLDivElement>(null);
   const [expertiseViewportWidth, setExpertiseViewportWidth] = useState(0);
+  const [expertiseTravelDistance, setExpertiseTravelDistance] = useState(0);
 
   useEffect(() => {
-    const node = expertiseViewportRef.current;
-    if (!node) return;
+    const viewportNode = expertiseViewportRef.current;
+    const trackNode = expertiseTrackRef.current;
+    if (!viewportNode || !trackNode) return;
 
     const updateWidth = () => {
-      setExpertiseViewportWidth(node.clientWidth);
+      setExpertiseViewportWidth(viewportNode.clientWidth);
+      setExpertiseTravelDistance(
+        Math.max(0, trackNode.scrollWidth - viewportNode.clientWidth)
+      );
     };
 
     updateWidth();
@@ -37,7 +43,8 @@ export default function Skills() {
       updateWidth();
     });
 
-    observer.observe(node);
+    observer.observe(viewportNode);
+    observer.observe(trackNode);
     window.addEventListener("resize", updateWidth);
 
     return () => {
@@ -50,7 +57,11 @@ export default function Skills() {
     target: expertiseSectionRef,
     offset: ["start start", "end end"],
   });
-  const expertiseX = useTransform(scrollYProgress, [0, 1], ["0%", "-62%"]);
+  const expertiseX = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [0, -expertiseTravelDistance]
+  );
   const blueShapePath = useTransform(scrollYProgress, [0, 1], [0.08, 1]);
   const smoothBlueShapePath = useSpring(blueShapePath, {
     stiffness: 100,
@@ -246,10 +257,10 @@ export default function Skills() {
         </AnimateInView>
 
         <AnimateInView delay={0.4}>
-          <div ref={expertiseSectionRef} className="relative h-[260vh]">
+          <div ref={expertiseSectionRef} className="relative h-[220vh] md:h-[260vh]">
             <div
               ref={expertiseViewportRef}
-              className="sticky top-24 overflow-hidden rounded-3xl border border-primary/10 bg-gradient-to-br from-background via-background to-primary/5 px-4 py-6 md:px-6 md:py-8"
+              className="sticky top-16 overflow-hidden rounded-3xl border border-primary/10 bg-gradient-to-br from-background via-background to-primary/5 px-4 py-6 md:top-24 md:px-6 md:py-8"
             >
               <motion.div
                 className="pointer-events-none absolute left-0 top-0 z-20"
@@ -259,14 +270,14 @@ export default function Skills() {
                 <img
                   src="/blue_balloon.svg"
                   alt=""
-                  className="h-20 w-auto drop-shadow-[0_10px_24px_rgba(59,75,173,0.24)] md:h-24"
+                  className="h-16 w-auto opacity-80 drop-shadow-[0_8px_18px_rgba(59,75,173,0.2)] md:h-24 md:opacity-100 md:drop-shadow-[0_10px_24px_rgba(59,75,173,0.24)]"
                 />
               </motion.div>
 
               <motion.svg
                 viewBox="0 0 1610 648"
                 preserveAspectRatio="none"
-                className="pointer-events-none absolute inset-x-0 top-10 h-40 w-full md:top-14 md:h-56"
+                className="pointer-events-none absolute inset-x-0 top-8 h-28 w-full opacity-70 md:top-14 md:h-56 md:opacity-100"
                 aria-hidden="true"
               >
                 <motion.path
@@ -284,20 +295,22 @@ export default function Skills() {
               </motion.svg>
 
               <motion.div
+                ref={expertiseTrackRef}
                 style={{ x: expertiseX }}
-                className="relative z-10 mt-16 flex w-max gap-5 will-change-transform md:mt-24"
+                className="relative z-10 mt-6 flex w-max gap-4 will-change-transform md:mt-24 md:gap-5"
               >
-                {skillCategories.map((category, index) => (
+                <div className="w-1 shrink-0" aria-hidden="true" />
+                {skillCategories.map((category) => (
                   <Card
-                    key={index}
-                    className="group relative w-[82vw] max-w-[360px] min-h-[300px] overflow-hidden whitespace-normal rounded-2xl border-primary/15 bg-background/75 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/45 hover:shadow-xl hover:shadow-primary/10"
+                    key={category.id}
+                    className="group relative w-[88vw] max-w-[320px] min-h-[280px] overflow-hidden whitespace-normal rounded-2xl border-primary/15 bg-background/75 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/45 hover:shadow-xl hover:shadow-primary/10 md:w-[82vw] md:max-w-[360px] md:min-h-[300px]"
                   >
-                    <div className="pointer-events-none absolute right-4 top-3 text-5xl font-bold tracking-tight text-primary/10 transition-colors duration-300 group-hover:text-primary/15">
+                    <div className="pointer-events-none absolute right-4 top-3 text-4xl font-bold tracking-tight text-primary/10 transition-colors duration-300 group-hover:text-primary/15 md:text-5xl">
                       {category.id}
                     </div>
 
                     <CardHeader className="pb-3">
-                      <div className="mb-4 flex items-center gap-3 text-xs uppercase tracking-[0.32em] text-primary/70">
+                      <div className="mb-4 flex items-center gap-3 text-xs uppercase tracking-[0.28em] text-primary/70 md:tracking-[0.32em]">
                         <span>{category.id}</span>
                         <span className="h-px flex-1 bg-primary/20" />
                       </div>
@@ -305,15 +318,15 @@ export default function Skills() {
                         {category.icon}
                         {category.title}
                       </CardTitle>
-                      <p className="pr-12 text-sm leading-6 text-muted-foreground">
+                      <p className="pr-8 text-sm leading-6 text-muted-foreground md:pr-12">
                         {category.summary}
                       </p>
                     </CardHeader>
                     <CardContent className="pt-2">
                       <div className="flex flex-wrap gap-2">
-                        {category.skills.map((skill, skillIndex) => (
+                        {category.skills.map((skill) => (
                           <Badge
-                            key={skillIndex}
+                            key={skill}
                             variant="secondary"
                             className="rounded-full border border-primary/15 bg-primary/10 px-3 py-1 text-xs md:text-sm text-primary"
                           >
@@ -324,6 +337,7 @@ export default function Skills() {
                     </CardContent>
                   </Card>
                 ))}
+                <div className="w-[45vw] shrink-0 md:w-40" aria-hidden="true" />
               </motion.div>
             </div>
           </div>

@@ -13,9 +13,14 @@ export function useMediaQuery(query: string): boolean {
     const listener = () => setMatches(media.matches)
 
     listener()
-    media.addEventListener("change", listener)
+    if (typeof media.addEventListener === "function") {
+      media.addEventListener("change", listener)
+      return () => media.removeEventListener("change", listener)
+    }
 
-    return () => media.removeEventListener("change", listener)
+    // Fallback for older Safari/WebKit.
+    media.addListener(listener)
+    return () => media.removeListener(listener)
   }, [query])
 
   return matches

@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1680" height="1020" viewBox="0 0 1680 1020">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f8fbff"/>
+      <stop offset="100%" stop-color="#eef4ff"/>
+    </linearGradient>
+    <style>
+      .title { font: 700 34px 'Segoe UI', Arial, sans-serif; fill: #0f172a; }
+      .subtitle { font: 500 16px 'Segoe UI', Arial, sans-serif; fill: #334155; }
+      .step-title { font: 700 15px 'Segoe UI', Arial, sans-serif; fill: #0f172a; }
+      .step-sub { font: 500 12px 'Segoe UI', Arial, sans-serif; fill: #334155; }
+      .note-title { font: 700 15px 'Segoe UI', Arial, sans-serif; fill: #0f172a; }
+      .note-sub { font: 500 12px 'Segoe UI', Arial, sans-serif; fill: #334155; }
+      .edge { stroke: #2563eb; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+      .edge-yes { stroke: #16a34a; stroke-width: 2.5; fill: none; marker-end: url(#arrowYes); }
+      .edge-no { stroke: #dc2626; stroke-width: 2.5; fill: none; marker-end: url(#arrowNo); }
+      .label { font: 700 12px 'Segoe UI', Arial, sans-serif; }
+      .edge-ref { stroke: #64748b; stroke-width: 2; fill: none; stroke-dasharray: 6 5; marker-end: url(#arrowRef); }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="arrowYes" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#16a34a"/>
+    </marker>
+    <marker id="arrowNo" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="arrowRef" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#64748b"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1680" height="1020" fill="url(#bg)"/>
+
+  <text x="56" y="58" class="title">Expense Request Workflow</text>
+  <text x="56" y="86" class="subtitle">Sequential approver flow with immutable request-time snapshot and finance post-approval actions.</text>
+
+  <!-- Setting and policy preparation flow -->
+  <rect x="72" y="96" width="260" height="46" rx="10" fill="#f1f5f9" stroke="#94a3b8"/>
+  <text x="92" y="116" class="step-title">S1. Setting: Expense Category</text>
+  <text x="92" y="132" class="step-sub">Create / disable category (reference)</text>
+
+  <rect x="380" y="96" width="300" height="46" rx="10" fill="#f1f5f9" stroke="#94a3b8"/>
+  <text x="400" y="116" class="step-title">S2. Policy: Approver Chain</text>
+  <text x="400" y="132" class="step-sub">Configure up to 4-level approvers</text>
+
+  <path class="edge-ref" d="M332 118 L380 118"/>
+  <path class="edge-ref" d="M530 142 L530 170"/>
+  <text x="690" y="120" class="label" fill="#475569">Reference only</text>
+
+  <!-- Row 1: Submission and Snapshot -->
+  <rect x="72" y="170" width="250" height="95" rx="12" fill="#dbeafe" stroke="#60a5fa"/>
+  <text x="92" y="184" class="step-title">1. Submit Request</text>
+  <text x="92" y="206" class="step-sub">Dashboard (self/on-behalf)</text>
+  <text x="92" y="224" class="step-sub">or Mobile (self only)</text>
+
+  <rect x="380" y="170" width="300" height="95" rx="12" fill="#dbeafe" stroke="#60a5fa"/>
+  <text x="400" y="184" class="step-title">2. Snapshot Policy</text>
+  <text x="400" y="206" class="step-sub">Freeze approver chain on create</text>
+  <text x="400" y="224" class="step-sub">(loose coupling with future updates)</text>
+
+  <rect x="742" y="170" width="245" height="95" rx="12" fill="#dbeafe" stroke="#60a5fa"/>
+  <text x="762" y="184" class="step-title">3. Status: Pending</text>
+  <text x="762" y="206" class="step-sub">Wait for approver level 1</text>
+
+  <path class="edge" d="M322 218 L380 218"/>
+  <path class="edge" d="M680 218 L742 218"/>
+
+  <!-- Row 2: Approval sequence -->
+  <rect x="72" y="320" width="250" height="95" rx="12" fill="#ecfeff" stroke="#67e8f9"/>
+  <text x="92" y="354" class="step-title">4. Approver Level 1</text>
+  <text x="92" y="376" class="step-sub">Approve / Reject decision</text>
+
+  <rect x="380" y="320" width="250" height="95" rx="12" fill="#ecfeff" stroke="#67e8f9"/>
+  <text x="400" y="354" class="step-title">5. Approver Level 2</text>
+  <text x="400" y="376" class="step-sub">Triggered after level 1 approve</text>
+
+  <rect x="688" y="320" width="250" height="95" rx="12" fill="#ecfeff" stroke="#67e8f9"/>
+  <text x="708" y="354" class="step-title">6. Approver Level 3</text>
+  <text x="708" y="376" class="step-sub">Triggered if configured</text>
+
+  <rect x="996" y="320" width="250" height="95" rx="12" fill="#ecfeff" stroke="#67e8f9"/>
+  <text x="1016" y="354" class="step-title">7. Approver Level 4</text>
+  <text x="1016" y="376" class="step-sub">Triggered if configured</text>
+
+  <path class="edge" d="M322 368 L380 368"/>
+  <path class="edge" d="M630 368 L688 368"/>
+  <path class="edge" d="M938 368 L996 368"/>
+
+  <!-- Reject line to rejected state -->
+  <rect x="1310" y="320" width="250" height="95" rx="12" fill="#fee2e2" stroke="#fca5a5"/>
+  <text x="1330" y="354" class="step-title">Rejected</text>
+  <text x="1330" y="376" class="step-sub">Any approver can end flow</text>
+
+  <path class="edge-no" d="M322 398 C 500 470, 980 470, 1310 398"/>
+  <text x="404" y="430" class="label" fill="#dc2626"></text>
+
+  <path class="edge-no" d="M630 398 C 760 455, 1060 455, 1310 398"/>
+  <text x="706" y="430" class="label" fill="#dc2626"></text>
+
+  <path class="edge-no" d="M938 336 C 1038 280, 1180 280, 1310 336"/>
+  <text x="1010" y="300" class="label" fill="#dc2626"></text>
+
+  <path class="edge-no" d="M1246 336 C 1276 292, 1294 292, 1310 336"/>
+  <text x="1230" y="308" class="label" fill="#dc2626"></text>
+
+  <!-- Row 3: Approved to finance -->
+  <rect x="380" y="540" width="270" height="95" rx="12" fill="#dcfce7" stroke="#86efac"/>
+  <text x="400" y="574" class="step-title">8. Final Approved</text>
+  <text x="400" y="596" class="step-sub">All configured approvers approved</text>
+
+  <rect x="730" y="540" width="300" height="95" rx="12" fill="#fef3c7" stroke="#fcd34d"/>
+  <text x="750" y="574" class="step-title">9. Finance: Paid Out</text>
+  <text x="750" y="596" class="step-sub">Set paid out + upload proof</text>
+
+  <rect x="1110" y="540" width="300" height="95" rx="12" fill="#fef3c7" stroke="#fcd34d"/>
+  <text x="1130" y="574" class="step-title">10. Reclassification</text>
+  <text x="1130" y="596" class="step-sub">Set P&amp;L effective date</text>
+
+  <path class="edge-yes" d="M1246 368 C 1288 368, 1306 368, 1306 440 C 1306 518, 1240 588, 1030 588"/>
+  <path class="edge-yes" d="M650 588 L730 588"/>
+  <path class="edge-yes" d="M1030 588 L1110 588"/>
+
+  <!-- Rule notes -->
+  <rect x="72" y="730" width="1530" height="190" rx="12" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="96" y="766" class="note-title">Workflow Rules</text>
+  <text x="96" y="792" class="note-sub">• Sequential approval only: next approver is notified after prior approval (FCM + Expo).</text>
+  <text x="96" y="816" class="note-sub">• Policy updates do not affect existing requests: request-time snapshot keeps approver chain immutable.</text>
+  <text x="96" y="840" class="note-sub">• Withdraw is not allowed after submission.</text>
+  <text x="96" y="864" class="note-sub">• Setting/Policy act as reference/configuration; Expense runtime follows snapshot state.</text>
+  <text x="96" y="888" class="note-sub">• Files are stored in AWS S3; logs and operational traces are sent to CloudWatch.</text>
+</svg>

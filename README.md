@@ -100,6 +100,30 @@
 - LinkedIn: [linkedin.com/in/kaungsathein](https://www.linkedin.com/in/kaungsathein)
 - GitHub: [github.com/KSHDestiny](https://github.com/KSHDestiny)
 
+## Notion Integration
+
+The portfolio can now sync the Projects section from a Notion database on the server.
+
+Set these environment variables in `.env.local`:
+
+```bash
+NOTION_TOKEN=secret_xxx
+NOTION_PROJECTS_DATABASE_ID=your_database_id
+```
+
+Recommended Notion database properties:
+
+- `Name` as a title field
+- `Description` as rich text
+- `Period` as rich text or date
+- `Tags` as multi-select
+- `URL` as a URL field
+- `Category` as select with `production` or `experimental`
+- `Order` as number for sorting
+- `Visible` as checkbox to hide drafts
+
+If the Notion credentials are missing or the API request fails, the site falls back to the existing local project data automatically.
+
 <div align="center">
   <img src="https://capsule-render.vercel.app/api?type=waving&height=110&section=footer&color=0:22c55e,50:06b6d4,100:0ea5e9&animation=twinkling" width="100%"/>
 </div>
