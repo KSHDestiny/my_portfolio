@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="860" viewBox="0 0 1440 860">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f8fbff"/>
+      <stop offset="100%" stop-color="#eef7f3"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f8fbff"/>
+    </linearGradient>
+    <style>
+      .title { font: 700 34px 'Segoe UI', Arial, sans-serif; fill: #0f172a; }
+      .subtitle { font: 500 17px 'Segoe UI', Arial, sans-serif; fill: #334155; }
+      .section-title { font: 700 18px 'Segoe UI', Arial, sans-serif; fill: #0f172a; }
+      .actor { font: 700 18px 'Segoe UI', Arial, sans-serif; fill: #0f172a; }
+      .usecase { font: 700 20px 'Segoe UI', Arial, sans-serif; fill: #0f172a; }
+      .note-title { font: 700 15px 'Segoe UI', Arial, sans-serif; fill: #0f172a; }
+      .note { font: 500 14px 'Segoe UI', Arial, sans-serif; fill: #334155; }
+      .edge { stroke: #2563eb; stroke-width: 3; fill: none; }
+    </style>
+  </defs>
+
+  <rect width="1440" height="860" fill="url(#bg)"/>
+
+  <text x="56" y="58" class="title">ATS CV Upload Use Case</text>
+  <text x="56" y="90" class="subtitle">This diagram highlights the recruiter-facing actions in the feature, while the automated processing is described in the workflow and architecture diagrams.</text>
+
+  <rect x="310" y="150" width="910" height="500" rx="28" fill="url(#panel)" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="350" y="192" class="section-title">ATS Dashboard</text>
+
+  <rect x="78" y="350" width="140" height="130" rx="24" fill="#dbeafe" stroke="#60a5fa" stroke-width="2"/>
+  <text x="96" y="424" class="actor">Recruiter</text>
+
+  <ellipse cx="770" cy="305" rx="220" ry="82" fill="#eff6ff" stroke="#60a5fa" stroke-width="3"/>
+  <text x="676" y="313" class="usecase">Upload CV</text>
+
+  <ellipse cx="770" cy="500" rx="260" ry="82" fill="#eff6ff" stroke="#60a5fa" stroke-width="3"/>
+  <text x="618" y="508" class="usecase">Review Applicant Data</text>
+
+  <path class="edge" d="M218 405 C 360 405, 440 340, 552 315"/>
+  <path class="edge" d="M218 425 C 360 425, 440 470, 510 495"/>
+
+  <rect x="310" y="700" width="910" height="110" rx="18" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="345" y="738" class="note-title">Clarification</text>
+  <text x="345" y="768" class="note">The recruiter starts the process by uploading a CV and later reviews the applicant data prepared by the system.</text>
+  <text x="345" y="792" class="note">The internal steps such as storage, AI extraction, data creation, notifications, and success popup are documented in the workflow diagram.</text>
+</svg>

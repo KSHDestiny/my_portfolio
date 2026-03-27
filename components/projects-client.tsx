@@ -41,6 +41,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 function wrapIndex(index: number, length: number) {
   return (index + length) % length;
@@ -149,6 +155,10 @@ function getDefaultTag(project: Project) {
   return project.tags.find((tag) => Boolean(project.tagDetails?.[tag])) ?? null;
 }
 
+function shouldShowHighlightTooltip(highlight: string) {
+  return highlight.length > 70;
+}
+
 const ProjectSlide = memo(function ProjectSlide({
   project,
   offset,
@@ -171,7 +181,8 @@ const ProjectSlide = memo(function ProjectSlide({
   );
   const [previewAsset, setPreviewAsset] = useState<{
     title: string;
-    url: string;
+    url?: string;
+    message?: string;
   } | null>(null);
   const hasFeatureModules = Boolean(
     project.tagDetails && Object.keys(project.tagDetails).length > 0,
@@ -241,14 +252,15 @@ const ProjectSlide = memo(function ProjectSlide({
             >
               {project.title}
             </CardTitle>
-            {project.periodCtaUrl ? (
+            {project.periodCtaUrl || project.periodCtaMessage ? (
               <button
                 type="button"
                 onClick={(event) => {
                   event.stopPropagation();
                   setPreviewAsset({
                     title: `${project.title} UI Preview`,
-                    url: project.periodCtaUrl ?? "",
+                    url: project.periodCtaUrl,
+                    message: project.periodCtaMessage,
                   });
                 }}
                 className={`inline-flex shrink-0 items-center gap-1 text-xs font-medium md:text-sm ${
@@ -261,11 +273,23 @@ const ProjectSlide = memo(function ProjectSlide({
             ) : (
               <div
                 className={`flex shrink-0 items-center text-xs md:text-sm ${
-                  isActive ? "text-muted-foreground" : "text-muted-foreground/40"
+                  project.category === "key-feature"
+                    ? isActive
+                      ? "text-primary/80"
+                      : "text-primary/45"
+                    : isActive
+                      ? "text-muted-foreground"
+                      : "text-muted-foreground/40"
                 }`}
               >
-                <Calendar className="mr-1 h-4 w-4" />
-                {project.period}
+                {project.category === "key-feature" ? (
+                  <span>{project.period}</span>
+                ) : (
+                  <>
+                    <Calendar className="mr-1 h-4 w-4" />
+                    {project.period}
+                  </>
+                )}
               </div>
             )}
           </div>
@@ -327,17 +351,36 @@ const ProjectSlide = memo(function ProjectSlide({
                 {selectedTagDetail.summary}
               </CardDescription>
               {selectedTagDetail.highlights.length > 0 && (
-                <ul
-                  className={`space-y-1 text-xs ${
-                    isActive ? "text-foreground/85" : "text-foreground/40"
-                  }`}
-                >
-                  {selectedTagDetail.highlights.slice(0, 3).map((highlight) => (
-                    <li key={highlight} className="line-clamp-1">
-                      • {highlight}
-                    </li>
-                  ))}
-                </ul>
+                <TooltipProvider delayDuration={150}>
+                  <ul
+                    className={`space-y-1 text-xs ${
+                      isActive ? "text-foreground/85" : "text-foreground/40"
+                    }`}
+                  >
+                    {selectedTagDetail.highlights
+                      .slice(0, 3)
+                      .map((highlight) => (
+                        <li key={highlight}>
+                          {shouldShowHighlightTooltip(highlight) ? (
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <span className="block w-full overflow-hidden text-ellipsis whitespace-nowrap">
+                                  • {highlight}
+                                </span>
+                              </TooltipTrigger>
+                              <TooltipContent className="max-w-sm text-xs leading-5">
+                                {highlight}
+                              </TooltipContent>
+                            </Tooltip>
+                          ) : (
+                            <span className="block w-full overflow-hidden text-ellipsis whitespace-nowrap">
+                              • {highlight}
+                            </span>
+                          )}
+                        </li>
+                      ))}
+                  </ul>
+                </TooltipProvider>
               )}
               {selectedTagDetail.ctaLabel && selectedTagDetail.ctaUrl && (
                 <button
@@ -406,8 +449,8 @@ const ProjectSlide = memo(function ProjectSlide({
               {previewAsset?.title}
             </DialogTitle>
           </DialogHeader>
-          {previewAsset?.url &&
-            (previewAsset.url.toLowerCase().endsWith(".gif") ? (
+          {previewAsset?.url ? (
+            previewAsset.url.toLowerCase().endsWith(".gif") ? (
               <img
                 src={previewAsset.url}
                 alt={previewAsset.title}
@@ -419,7 +462,15 @@ const ProjectSlide = memo(function ProjectSlide({
                 title={previewAsset.title}
                 className="h-[62vh] w-full rounded-md border border-border/70 bg-background md:h-[68vh]"
               />
-            ))}
+            )
+          ) : (
+            <div className="flex h-[40vh] items-center justify-center rounded-md border border-border/70 bg-background/60 p-8 text-center md:h-[46vh]">
+              <p className="max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base">
+                {previewAsset?.message ??
+                  "A preview is not available in this portfolio build yet."}
+              </p>
+            </div>
+          )}
         </DialogContent>
       </Dialog>
     </motion.div>

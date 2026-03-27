@@ -118,7 +118,7 @@
   <text x="1130" y="574" class="step-title">10. Reclassification</text>
   <text x="1130" y="596" class="step-sub">Set P&amp;L effective date</text>
 
-  <path class="edge-yes" d="M1246 368 C 1288 368, 1306 368, 1306 440 C 1306 518, 1240 588, 1030 588"/>
+  <path class="edge-yes" d="M1121 415 C 1121 470, 930 540, 515 540"/>
   <path class="edge-yes" d="M650 588 L730 588"/>
   <path class="edge-yes" d="M1030 588 L1110 588"/>
 

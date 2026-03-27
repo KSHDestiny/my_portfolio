@@ -40,6 +40,7 @@ type KnowledgeDay = {
 type KnowledgeTopic = {
   title: string;
   totalDays: number | null;
+  completedDays: number;
   description: string;
   days: KnowledgeDay[];
 };
@@ -527,8 +528,8 @@ export default function KnowledgeTopicsClient({
                     className="bg-primary/10 text-primary"
                   >
                     {topic.totalDays
-                      ? `${topic.days.length}/${topic.totalDays} Days`
-                      : `${topic.days.length} Days`}
+                      ? `${topic.completedDays}/${topic.totalDays} Days`
+                      : `${topic.completedDays} Days`}
                   </Badge>
                 </div>
                 <p className="text-sm md:text-base text-muted-foreground leading-7">

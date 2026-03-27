@@ -12,15 +12,31 @@ export type KnowledgeDay = {
 export type KnowledgeTopic = {
   title: string
   totalDays: number | null
+  completedDays: number
   description: string
   days: KnowledgeDay[]
 }
 
 const KNOWLEDGE_ROOT = path.join(process.cwd(), "knowledge")
 const KNOWLEDGE_BRIEF_ROOT = path.join(KNOWLEDGE_ROOT, "brief")
+const KNOWLEDGE_TOPIC_ORDER: Record<string, number> = {
+  "Advanced Software Engineering": 1,
+  "100 Days of DevOps": 2,
+  "100 Days of AWS Cloud": 3,
+  "100 Days of Azure": 4,
+}
 const TOPIC_BRIEF_DESCRIPTIONS: Record<string, string> = {
   "100 Days of DevOps":
     "A practical day-by-day DevOps journey covering Linux administration, automation, networking, security, web stack setup, and production troubleshooting.",
+  "100 Days of Azure":
+    "A structured Azure learning track focused on cloud services, deployment workflows, identity, networking, storage, and real-world platform operations.",
+  "Advanced Software Engineering":
+    "Deeper study notes on software architecture, scalability, maintainable design, engineering tradeoffs, and production-ready development practices.",
+}
+
+const TOPIC_PROGRESS_MULTIPLIER: Record<string, number> = {
+  "100 Days of Azure": 2,
+  "100 Days of AWS Cloud": 2,
 }
 
 function parseTargetDays(topicName: string): number | null {
@@ -104,20 +120,33 @@ export async function getKnowledgeTopics(): Promise<KnowledgeTopic[]> {
       })
 
       const totalDays = parseTargetDays(topicDir.name)
+      const progressMultiplier = TOPIC_PROGRESS_MULTIPLIER[topicDir.name] ?? 1
+      const completedDays = days.length * progressMultiplier
       const fallbackDescription = totalDays
-        ? `${days.length} of ${totalDays} day notes are currently documented in this track.`
-        : `${days.length} day notes are currently documented in this track.`
+        ? `${completedDays} of ${totalDays} day notes are currently documented in this track.`
+        : `${completedDays} day notes are currently documented in this track.`
       const description = TOPIC_BRIEF_DESCRIPTIONS[topicDir.name] ?? fallbackDescription
 
       return {
         title: topicDir.name,
         totalDays,
+        completedDays,
         description,
         days,
       }
     })
   )
 
-  topics.sort((a, b) => a.title.localeCompare(b.title))
+  topics.sort((a, b) => {
+    const leftOrder = KNOWLEDGE_TOPIC_ORDER[a.title] ?? Number.MAX_SAFE_INTEGER
+    const rightOrder =
+      KNOWLEDGE_TOPIC_ORDER[b.title] ?? Number.MAX_SAFE_INTEGER
+
+    if (leftOrder !== rightOrder) {
+      return leftOrder - rightOrder
+    }
+
+    return a.title.localeCompare(b.title)
+  })
   return topics
 }

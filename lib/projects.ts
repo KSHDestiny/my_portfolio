@@ -14,6 +14,7 @@ export type Project = {
   tags: string[];
   tagDetails?: Record<string, ProjectTagDetail>;
   periodCtaUrl?: string;
+  periodCtaMessage?: string;
   url?: string;
   category?: "production" | "key-feature";
   order?: number;
@@ -76,6 +77,16 @@ type NotionPage = {
 
 type NotionQueryResponse = {
   results: NotionPage[];
+};
+
+const ALLOWED_KEY_FEATURE_TITLES = new Set([
+  "Expense Tracking System",
+  "ATS CV Upload & AI Profile Extraction",
+]);
+
+const KEY_FEATURE_ORDER: Record<string, number> = {
+  "ATS CV Upload & AI Profile Extraction": 1,
+  "Expense Tracking System": 2,
 };
 
 const NOTION_VERSION = "2022-06-28";
@@ -159,6 +170,85 @@ const LOCAL_PRODUCTION_PROJECTS: Project[] = [
 
 const LOCAL_KEY_FEATURES: Project[] = [
   {
+    title: "ATS CV Upload & AI Profile Extraction",
+    period: "View UI",
+    periodCtaMessage:
+      "UI preview is not included here, but the feature was designed and documented end-to-end across upload, extraction, profile creation, and ATS synchronization.",
+    description:
+      "Designed the end-to-end ATS CV upload flow covering file intake, AI extraction, profile creation, async notifications, and cross-platform synchronization between BetterHR, AI services, and Job Landing.",
+    tags: [
+      "Requirements",
+      "Architecture",
+      "Workflow",
+      "ERD",
+      "Implementation",
+      "Testing",
+    ],
+    tagDetails: {
+      Requirements: {
+        summary:
+          "Defined the applicant intake journey from CV upload to parsed profile presentation inside the ATS dashboard.",
+        highlights: [
+          "Upload CV and extract structured applicant data with AI",
+          "Populate profile cards with bio, education, experience, skills, languages, certificates, and social links",
+          "Notify HR stakeholders and invite new applicants into Job Landing when needed",
+        ],
+        ctaLabel: "Open Use Case Diagram",
+        ctaUrl: "/ats/ats-usecase.svg",
+      },
+      Architecture: {
+        summary:
+          "Outlined a business-friendly system flow where BetterHR handles the ATS experience, a queue runs the full background process.",
+        highlights: [
+          "File, queue, AI extraction, and applicant services are separated by clear runtime responsibilities",
+          "The platform stores the CV and starts the full background workflow through a queue",
+          "Notification, email, and push services keep recruiters and hiring teams informed",
+        ],
+        ctaLabel: "Open Architecture Diagram",
+        ctaUrl: "/ats/ats-architecture.svg",
+      },
+      Workflow: {
+        summary:
+          "Modeled an asynchronous upload-to-profile pipeline so recruiters do not wait on extraction before continuing ATS work.",
+        highlights: [
+          "Upload CV file and store it in S3-compatible storage",
+          "Run extraction asynchronously and publish completion via popup notification",
+          "Refresh ATS dashboard with parsed applicant data after profile build succeeds",
+        ],
+        ctaLabel: "Open Workflow Diagram",
+        ctaUrl: "/ats/ats-workflow.svg",
+      },
+      ERD: {
+        summary:
+          "Captured the core applicant profile domains created from a single CV source while keeping service ownership clear across systems.",
+        highlights: [
+          "Applicant basic information as root profile record",
+          "Education, work experience, skills, languages, certificates, and social links as structured child datasets",
+          "Unique email per job post prevents duplicate candidate records for the same opening",
+        ],
+      },
+      Implementation: {
+        summary:
+          "Planned the feature in delivery slices spanning storage upload, AI extraction, event-driven notifications, and downstream profile synchronization.",
+        highlights: [
+          "Storage upload plus AI project handoff",
+          "Async completion handling with Pusher and email services",
+          "Conditional invitation flow for first-time applicants on Job Landing",
+        ],
+      },
+      Testing: {
+        summary:
+          "Specified validation around atomic processing, async completion, and profile consistency across ATS and Job Landing.",
+        highlights: [
+          "Prevent duplicate applicants by enforcing unique email within the same job post",
+          "Verify success notifications only fire after extraction and profile creation complete",
+          "Ensure parsed CV fields map safely into recruiter-facing applicant cards",
+        ],
+      },
+    },
+    category: "key-feature",
+  },
+  {
     title: "Expense Tracking System",
     period: "View UI",
     periodCtaUrl: "/expense/expense.gif",
@@ -238,59 +328,6 @@ const LOCAL_KEY_FEATURES: Project[] = [
         ],
       },
     },
-    category: "key-feature",
-  },
-  {
-    title: "MVC Prototype using Pure PHP",
-    period: "Key Feature",
-    description:
-      "Demonstrated MVC architecture implementation from scratch using pure PHP and OOP patterns.",
-    tags: ["PHP", "OOP", "MVC"],
-    url: "https://github.com/KSHDestiny/PHP_OOP_Paradigm",
-    category: "key-feature",
-  },
-  {
-    title: "Learning Review Blog (Statamic CMS)",
-    period: "Key Feature",
-    description: "Personal learning blog built on Laravel-based CMS.",
-    tags: ["Laravel", "Statamic", "CMS"],
-    url: "https://main--buildyourlaravelskillsblog.netlify.app",
-    category: "key-feature",
-  },
-  {
-    title: "NCC Project (JavaScript & jQuery)",
-    period: "Key Feature",
-    description:
-      "Coffee shop frontend simulation project built for coursework.",
-    tags: ["JavaScript", "jQuery", "Frontend"],
-    url: "https://kshdestiny.github.io/Bean-Boutique",
-    category: "key-feature",
-  },
-  {
-    title: "Portfolio Website (React & TypeScript)",
-    period: "Key Feature",
-    description:
-      "Interactive personal portfolio website built with React and TypeScript.",
-    tags: ["React", "TypeScript", "Portfolio"],
-    url: "https://ksh-portfolio-nu.vercel.app",
-    category: "key-feature",
-  },
-  {
-    title: "AI Chat-Bot with Custom Data (Python)",
-    period: "Key Feature",
-    description:
-      "LLM chatbot prototype that answers questions using user-provided datasets.",
-    tags: ["Python", "LLM", "RAG"],
-    url: "https://github.com/KSHDestiny/ai_chatbot_with_own_data",
-    category: "key-feature",
-  },
-  {
-    title: "AI Chat-Bot with AWS S3 Storage (Python)",
-    period: "Key Feature",
-    description:
-      "Cloud-backed conversational agent using AWS storage integration.",
-    tags: ["Python", "AWS S3", "FastAPI", "AI"],
-    url: "https://github.com/KSHDestiny/aws_fastapi_chatagent",
     category: "key-feature",
   },
 ];
@@ -424,6 +461,27 @@ function sortProjects(projects: Project[]) {
   });
 }
 
+function isAllowedKeyFeature(project: Project) {
+  return (
+    project.category === "key-feature" &&
+    ALLOWED_KEY_FEATURE_TITLES.has(project.title)
+  );
+}
+
+function sortKeyFeatures(projects: Project[]) {
+  return [...projects].sort((left, right) => {
+    const leftOrder = KEY_FEATURE_ORDER[left.title] ?? Number.MAX_SAFE_INTEGER;
+    const rightOrder =
+      KEY_FEATURE_ORDER[right.title] ?? Number.MAX_SAFE_INTEGER;
+
+    if (leftOrder !== rightOrder) {
+      return leftOrder - rightOrder;
+    }
+
+    return sortProjects([left, right])[0] === left ? -1 : 1;
+  });
+}
+
 function getLocalProjects(): ProjectsPayload {
   return {
     productionProjects: LOCAL_PRODUCTION_PROJECTS,
@@ -479,9 +537,7 @@ export async function getProjects(): Promise<ProjectsPayload> {
       productionProjects: sortProjects(
         notionProjects.filter((project) => project.category !== "key-feature"),
       ),
-      keyFeatures: sortProjects(
-        notionProjects.filter((project) => project.category === "key-feature"),
-      ),
+      keyFeatures: sortKeyFeatures(notionProjects.filter(isAllowedKeyFeature)),
       source: "notion",
     };
   } catch (error) {

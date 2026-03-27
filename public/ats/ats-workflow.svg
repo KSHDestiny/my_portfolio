@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1680" height="1040" viewBox="0 0 1680 1040">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f8fbff"/>
+      <stop offset="100%" stop-color="#eef7f2"/>
+    </linearGradient>
+    <style>
+      .title { font: 700 34px 'Segoe UI', Arial, sans-serif; fill: #0f172a; }
+      .subtitle { font: 500 16px 'Segoe UI', Arial, sans-serif; fill: #334155; }
+      .step-title { font: 700 15px 'Segoe UI', Arial, sans-serif; fill: #0f172a; }
+      .step-sub { font: 500 12px 'Segoe UI', Arial, sans-serif; fill: #334155; }
+      .note-title { font: 700 15px 'Segoe UI', Arial, sans-serif; fill: #0f172a; }
+      .note-sub { font: 500 12px 'Segoe UI', Arial, sans-serif; fill: #334155; }
+      .edge { stroke: #2563eb; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+      .edge-yes { stroke: #16a34a; stroke-width: 2.5; fill: none; marker-end: url(#arrowYes); }
+      .edge-no { stroke: #dc2626; stroke-width: 2.5; fill: none; marker-end: url(#arrowNo); }
+      .edge-ref { stroke: #64748b; stroke-width: 2; fill: none; stroke-dasharray: 6 5; marker-end: url(#arrowRef); }
+      .label { font: 700 12px 'Segoe UI', Arial, sans-serif; }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="arrowYes" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#16a34a"/>
+    </marker>
+    <marker id="arrowNo" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="arrowRef" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#64748b"/>
+    </marker>
+  </defs>
+
+  <rect width="1680" height="1040" fill="url(#bg)"/>
+
+  <text x="56" y="58" class="title">ATS CV Upload Workflow</text>
+  <text x="56" y="86" class="subtitle">Asynchronous upload, extraction, profile build, and notification flow designed so recruiters do not wait on CV parsing.</text>
+
+  <rect x="72" y="130" width="250" height="100" rx="12" fill="#dbeafe" stroke="#60a5fa"/>
+  <text x="92" y="164" class="step-title">1. Upload CV</text>
+  <text x="92" y="186" class="step-sub">Recruiter selects PDF or supported file</text>
+
+  <rect x="392" y="130" width="300" height="100" rx="12" fill="#dbeafe" stroke="#60a5fa"/>
+  <text x="412" y="164" class="step-title">2. Save File and Create Job</text>
+  <text x="412" y="186" class="step-sub">Store CV, create extraction tracking record</text>
+
+  <rect x="762" y="130" width="280" height="100" rx="12" fill="#dbeafe" stroke="#60a5fa"/>
+  <text x="782" y="164" class="step-title">3. Return Immediate Response</text>
+  <text x="782" y="186" class="step-sub">ATS stays usable while parsing runs async</text>
+
+  <path class="edge" d="M322 180 L392 180"/>
+  <path class="edge" d="M692 180 L762 180"/>
+
+  <rect x="72" y="295" width="250" height="100" rx="12" fill="#ecfeff" stroke="#22d3ee"/>
+  <text x="92" y="329" class="step-title">4. Trigger AI Extraction</text>
+  <text x="92" y="351" class="step-sub">Send uploaded CV reference to AI project</text>
+
+  <rect x="392" y="295" width="300" height="100" rx="12" fill="#ecfeff" stroke="#22d3ee"/>
+  <text x="412" y="329" class="step-title">5. Parse CV Content</text>
+  <text x="412" y="351" class="step-sub">Extract structured applicant information</text>
+
+  <rect x="762" y="295" width="280" height="100" rx="12" fill="#ecfeff" stroke="#22d3ee"/>
+  <text x="782" y="329" class="step-title">6. Validate Parsed Payload</text>
+  <text x="782" y="351" class="step-sub">Normalize sections before profile build</text>
+
+  <rect x="1112" y="295" width="280" height="100" rx="12" fill="#ecfeff" stroke="#22d3ee"/>
+  <text x="1132" y="329" class="step-title">7. Build Applicant Card Data</text>
+  <text x="1132" y="351" class="step-sub">Map fields into ATS-facing profile sections</text>
+
+  <path class="edge" d="M322 345 L392 345"/>
+  <path class="edge" d="M692 345 L762 345"/>
+  <path class="edge" d="M1042 345 L1112 345"/>
+
+  <polygon points="862,445 982,525 862,605 742,525" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+  <text x="792" y="522" class="step-title">8. Applicant Exists</text>
+  <text x="818" y="542" class="step-sub">in Job Landing?</text>
+
+  <rect x="402" y="475" width="250" height="100" rx="12" fill="#dcfce7" stroke="#86efac"/>
+  <text x="422" y="509" class="step-title">9A. Link Existing Profile</text>
+  <text x="422" y="531" class="step-sub">Reuse applicant identity and sync ATS view</text>
+
+  <rect x="1072" y="475" width="260" height="100" rx="12" fill="#dcfce7" stroke="#86efac"/>
+  <text x="1092" y="509" class="step-title">9B. Create New Profile</text>
+  <text x="1092" y="531" class="step-sub">Create applicant in Job Landing atomically</text>
+
+  <rect x="1072" y="620" width="260" height="90" rx="12" fill="#fdf2f8" stroke="#f472b6"/>
+  <text x="1092" y="654" class="step-title">10. Send App Invitation</text>
+  <text x="1092" y="676" class="step-sub">Only for first-time applicants</text>
+
+  <rect x="392" y="790" width="300" height="90" rx="12" fill="#fef9c3" stroke="#facc15"/>
+  <text x="412" y="824" class="step-title">11. Publish Completion Events</text>
+  <text x="412" y="846" class="step-sub">Popup notification and recruiter refresh trigger</text>
+
+  <rect x="752" y="790" width="300" height="90" rx="12" fill="#fef9c3" stroke="#facc15"/>
+  <text x="782" y="824" class="step-title">12. Send Email Notifications</text>
+  <text x="782" y="846" class="step-sub">Hiring managers and HR admins informed</text>
+
+  <rect x="1160" y="790" width="220" height="90" rx="12" fill="#f0fdf4" stroke="#4ade80"/>
+  <text x="1180" y="824" class="step-title">13. ATS Card Ready</text>
+  <text x="1180" y="846" class="step-sub">Visible in dashboard</text>
+
+  <path class="edge" d="M1252 395 L862 445"/>
+  <path class="edge-yes" d="M742 525 L652 525"/>
+  <path class="edge-no" d="M982 525 L1072 525"/>
+  <text x="688" y="515" class="label" fill="#16a34a">Yes</text>
+  <text x="1018" y="515" class="label" fill="#dc2626">No</text>
+  <path class="edge-yes" d="M1202 575 L1202 620"/>
+  <path class="edge" d="M527 575 L527 790"/>
+  <path class="edge" d="M1202 710 C 1202 755, 760 755, 542 790"/>
+  <path class="edge" d="M692 835 L752 835"/>
+  <path class="edge" d="M1052 835 L1160 835"/>
+
+  <rect x="72" y="920" width="1530" height="82" rx="12" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="96" y="952" class="note-title">Workflow Rules</text>
+  <text x="96" y="976" class="note-sub">• Success events fire only after extraction, profile synchronization, and ATS card preparation are complete.</text>
+  <text x="96" y="996" class="note-sub">• Duplicate protection uses unique email per job post, so the same candidate cannot be added twice to one opening.</text>
+</svg>

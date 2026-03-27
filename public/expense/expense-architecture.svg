@@ -84,9 +84,10 @@
   <!-- Data boxes -->
   <rect x="1170" y="210" width="432" height="160" rx="12" fill="#ede9fe" stroke="#c4b5fd"/>
   <text x="1190" y="242" class="box-title">Relational Database</text>
-  <text x="1190" y="266" class="box-sub">expense_categories, policy_expenses, expenses</text>
-  <text x="1190" y="286" class="box-sub">expense_approvers (snapshot), expense_files</text>
-  <text x="1190" y="306" class="box-sub">Loose coupling: policy change does not mutate existing expenses</text>
+  <text x="1190" y="266" class="box-sub">expense_categories, policy_expenses, policy_expense_approvers</text>
+  <text x="1190" y="286" class="box-sub">expenses, expense_approvers (snapshot), expense_files</text>
+  <text x="1190" y="306" class="box-sub">files, employees</text>
+  <text x="1190" y="326" class="box-sub">Loose coupling: policy change does not mutate existing expenses</text>
 
   <rect x="1170" y="405" width="432" height="120" rx="12" fill="#ede9fe" stroke="#c4b5fd"/>
   <text x="1190" y="437" class="box-title">AWS S3 Storage</text>
