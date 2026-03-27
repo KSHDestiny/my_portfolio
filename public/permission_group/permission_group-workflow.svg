@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1680" height="1020" viewBox="0 0 1680 1020">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f8fbff"/>
+      <stop offset="100%" stop-color="#eef4ff"/>
+    </linearGradient>
+    <style>
+      .title { font: 700 34px 'Segoe UI', Arial, sans-serif; fill: #0f172a; }
+      .subtitle { font: 500 16px 'Segoe UI', Arial, sans-serif; fill: #334155; }
+      .step-title { font: 700 15px 'Segoe UI', Arial, sans-serif; fill: #0f172a; }
+      .step-sub { font: 500 12px 'Segoe UI', Arial, sans-serif; fill: #334155; }
+      .note-title { font: 700 15px 'Segoe UI', Arial, sans-serif; fill: #0f172a; }
+      .note-sub { font: 500 12px 'Segoe UI', Arial, sans-serif; fill: #334155; }
+      .edge { stroke: #2563eb; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <rect width="1680" height="1020" fill="url(#bg)"/>
+  <text x="56" y="58" class="title">Permission Group Workflow</text>
+  <text x="56" y="86" class="subtitle">Flow from permission setup into scope configuration, manager assignment, and effective visibility review.</text>
+
+  <rect x="72" y="170" width="240" height="95" rx="12" fill="#dbeafe" stroke="#60a5fa"/>
+  <text x="92" y="204" class="step-title">1. Create Permissions</text>
+  <text x="92" y="226" class="step-sub">Define access units used in scoped groups</text>
+
+  <rect x="370" y="170" width="270" height="95" rx="12" fill="#dbeafe" stroke="#60a5fa"/>
+  <text x="390" y="204" class="step-title">2. Create Permission Group</text>
+  <text x="390" y="226" class="step-sub">Prepare a reusable visibility-scope group</text>
+
+  <rect x="698" y="170" width="280" height="95" rx="12" fill="#dbeafe" stroke="#60a5fa"/>
+  <text x="718" y="204" class="step-title">3. Map Permissions</text>
+  <text x="718" y="226" class="step-sub">Bind permissions into the selected group</text>
+
+  <rect x="1036" y="170" width="300" height="95" rx="12" fill="#dbeafe" stroke="#60a5fa"/>
+  <text x="1056" y="204" class="step-title">4. Configure Scope</text>
+  <text x="1056" y="224" class="step-sub">Select departments, positions, locations,</text>
+  <text x="1056" y="244" class="step-sub">statuses, and employees</text>
+
+  <rect x="1396" y="170" width="210" height="95" rx="12" fill="#dbeafe" stroke="#60a5fa"/>
+  <text x="1416" y="204" class="step-title">5. Save Group</text>
+  <text x="1416" y="226" class="step-sub">Persist scope rules</text>
+
+  <path class="edge" d="M312 218 L370 218"/>
+  <path class="edge" d="M640 218 L698 218"/>
+  <path class="edge" d="M978 218 L1036 218"/>
+  <path class="edge" d="M1336 218 L1396 218"/>
+
+  <rect x="220" y="420" width="340" height="95" rx="12" fill="#ecfeff" stroke="#67e8f9"/>
+  <text x="240" y="454" class="step-title">6. Assign Group to Manager</text>
+  <text x="240" y="476" class="step-sub">Connect manager or admin to the configured scope</text>
+
+  <rect x="670" y="420" width="340" height="95" rx="12" fill="#ecfeff" stroke="#67e8f9"/>
+  <text x="690" y="454" class="step-title">7. Evaluate Effective Visibility</text>
+  <text x="690" y="474" class="step-sub">Match manager scope against employee reference data:</text>
+  <text x="690" y="494" class="step-sub">Basic Info, Attendance, Leave, Inbox, Payroll, Others</text>
+
+  <path class="edge" d="M1501 265 C 1501 330, 390 330, 390 420"/>
+  <path class="edge" d="M560 468 L670 468"/>
+
+  <rect x="72" y="780" width="1530" height="170" rx="12" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="96" y="816" class="note-title">Workflow Rules</text>
+  <text x="96" y="842" class="note-sub">• Permission groups define visibility scope before they are assigned to managers or admins.</text>
+  <text x="96" y="866" class="note-sub">• Department, position, location, and status act as scope filters that limit who can be seen or accessed.</text>
+  <text x="96" y="890" class="note-sub">• Effective access applies across Basic Info, Attendance, Leave, Inbox, Payroll, and other employee-related views.</text>
+</svg>

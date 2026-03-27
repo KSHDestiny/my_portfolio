@@ -6,6 +6,14 @@ This repository is a personal **portfolio website** built with Next.js, React, T
 
 The assistant must treat this as a **frontend portfolio project**, not a backend-integrated enterprise system.
 
+## Memory Usage
+
+- Read `MEMORY.md` first before scanning the whole project.
+- Use `MEMORY.md` as a fast recall file for project purpose, section structure, content sources, assets, and important cautions.
+- If the task is small or clearly covered by `MEMORY.md`, do not reread the full repo unnecessarily.
+- If the task touches an area not covered in `MEMORY.md`, then inspect only the relevant files.
+- When making meaningful project changes, update `MEMORY.md` if its summary becomes outdated.
+
 ## Core Rules
 
 - Focus on portfolio presentation, content, and UX.

@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1680" height="980" viewBox="0 0 1680 980">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f8fbff"/>
+      <stop offset="100%" stop-color="#eef4ff"/>
+    </linearGradient>
+    <style>
+      .title { font: 700 34px 'Segoe UI', Arial, sans-serif; fill: #0f172a; }
+      .subtitle { font: 500 16px 'Segoe UI', Arial, sans-serif; fill: #334155; }
+      .phase-title { font: 700 18px 'Segoe UI', Arial, sans-serif; fill: #0f172a; }
+      .item { font: 500 13px 'Segoe UI', Arial, sans-serif; fill: #334155; }
+      .edge { stroke: #2563eb; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+  <rect width="1680" height="980" fill="url(#bg)"/>
+  <text x="56" y="58" class="title">Permission Group Implementation Plan</text>
+  <text x="56" y="86" class="subtitle">Phased rollout from permission setup into scope rules, manager assignment, and effective visibility validation.</text>
+
+  <rect x="90" y="180" width="320" height="250" rx="14" fill="#ffffff" stroke="#93c5fd"/>
+  <text x="116" y="220" class="phase-title">Phase 1. Permission Setup</text>
+  <text x="116" y="258" class="item">• Permission schema and setup APIs</text>
+  <text x="116" y="288" class="item">• Permission list and detail screens</text>
+  <text x="116" y="318" class="item">• Base validation and admin actions</text>
+  <text x="116" y="348" class="item">• Reference data availability checks</text>
+
+  <rect x="450" y="180" width="320" height="250" rx="14" fill="#ffffff" stroke="#86efac"/>
+  <text x="476" y="220" class="phase-title">Phase 2. Scope Rules</text>
+  <text x="476" y="258" class="item">• Create permission groups</text>
+  <text x="476" y="288" class="item">• Map permissions into groups</text>
+  <text x="476" y="318" class="item">• Configure departments, positions, locations,</text>
+  <text x="476" y="338" class="item">  statuses, and employees</text>
+  <text x="476" y="368" class="item">• Prevent conflicting or duplicated scope rules</text>
+
+  <rect x="810" y="180" width="320" height="250" rx="14" fill="#ffffff" stroke="#fcd34d"/>
+  <text x="836" y="220" class="phase-title">Phase 3. Manager Assignment</text>
+  <text x="836" y="258" class="item">• Assign group to manager or admin</text>
+  <text x="836" y="288" class="item">• Resolve effective visibility by scope rules</text>
+  <text x="836" y="318" class="item">• Apply scope across Basic Info, Attendance,</text>
+  <text x="836" y="338" class="item">  Leave, Inbox, Payroll, and Others</text>
+  <text x="836" y="368" class="item">• Reviewer-facing access checks</text>
+
+  <rect x="1170" y="180" width="320" height="250" rx="14" fill="#ffffff" stroke="#c4b5fd"/>
+  <text x="1196" y="220" class="phase-title">Phase 4. Validation</text>
+  <text x="1196" y="258" class="item">• Permission regression checks</text>
+  <text x="1196" y="288" class="item">• Verify manager can only see scoped records</text>
+  <text x="1196" y="318" class="item">• Safe rollout and migration review</text>
+  <text x="1196" y="348" class="item">• Final release checklist</text>
+
+  <path class="edge" d="M410 305 L450 305"/>
+  <path class="edge" d="M770 305 L810 305"/>
+  <path class="edge" d="M1130 305 L1170 305"/>
+
+  <rect x="90" y="500" width="1400" height="160" rx="12" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="116" y="544" class="phase-title">Delivery Principle</text>
+  <text x="116" y="578" class="item">Define permissions and scope rules first so manager visibility stays predictable.</text>
+  <text x="116" y="608" class="item">Apply permission groups to managers only after departments, positions, locations,</text>
+  <text x="116" y="632" class="item">statuses, and employees are scoped correctly.</text>
+  <text x="116" y="656" class="item">Validate effective visibility before release so group updates do not widen access unexpectedly.</text>
+</svg>

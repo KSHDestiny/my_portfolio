@@ -1,82 +1,82 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import Link from "next/link"
-import { Menu, X } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { ThemeToggle } from "./theme-toggle"
-import { useMediaQuery } from "@/hooks/use-media-query"
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { Menu, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "./theme-toggle";
+import { useMediaQuery } from "@/hooks/use-media-query";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [activeSection, setActiveSection] = useState("about")
-  const isDesktop = useMediaQuery("(min-width: 768px)")
+  const [isOpen, setIsOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("about");
+  const isDesktop = useMediaQuery("(min-width: 768px)");
 
   useEffect(() => {
     if (isDesktop) {
-      setIsOpen(false)
+      setIsOpen(false);
     }
-  }, [isDesktop])
+  }, [isDesktop]);
 
   const toggleMenu = () => {
-    setIsOpen(!isOpen)
-  }
+    setIsOpen(!isOpen);
+  };
 
   const navItems = [
     { name: "About", href: "#about" },
     { name: "Skills", href: "#skills" },
     { name: "Projects", href: "#projects" },
     { name: "Experience", href: "#experience" },
-    { name: "Knowledges", href: "#knowledges" },
+    { name: "Knowledge", href: "#knowledge" },
     { name: "Education", href: "#education" },
     { name: "Contact", href: "#contact" },
-  ]
+  ];
 
   useEffect(() => {
-    const sectionIds = navItems.map((item) => item.href.slice(1))
+    const sectionIds = navItems.map((item) => item.href.slice(1));
     const sections = sectionIds
       .map((id) => document.getElementById(id))
-      .filter((section): section is HTMLElement => Boolean(section))
+      .filter((section): section is HTMLElement => Boolean(section));
 
-    if (sections.length === 0) return
+    if (sections.length === 0) return;
 
     const updateActiveSection = () => {
-      const navbarOffset = 140
-      const activationY = window.scrollY + navbarOffset
+      const navbarOffset = 140;
+      const activationY = window.scrollY + navbarOffset;
 
-      let currentSection = sections[0].id
+      let currentSection = sections[0].id;
 
       for (const section of sections) {
         if (activationY >= section.offsetTop) {
-          currentSection = section.id
+          currentSection = section.id;
         }
       }
 
       const nearPageBottom =
-        window.innerHeight + window.scrollY >= document.body.offsetHeight - 8
+        window.innerHeight + window.scrollY >= document.body.offsetHeight - 8;
 
       if (nearPageBottom) {
-        setActiveSection(sections[sections.length - 1].id)
-        return
+        setActiveSection(sections[sections.length - 1].id);
+        return;
       }
 
-      setActiveSection(currentSection)
-    }
+      setActiveSection(currentSection);
+    };
 
-    updateActiveSection()
-    window.addEventListener("scroll", updateActiveSection, { passive: true })
-    window.addEventListener("resize", updateActiveSection)
+    updateActiveSection();
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    window.addEventListener("resize", updateActiveSection);
 
     return () => {
-      window.removeEventListener("scroll", updateActiveSection)
-      window.removeEventListener("resize", updateActiveSection)
-    }
-  }, [])
+      window.removeEventListener("scroll", updateActiveSection);
+      window.removeEventListener("resize", updateActiveSection);
+    };
+  }, []);
 
   return (
     <nav className="fixed top-0 z-50 w-full bg-background/80 backdrop-blur-md border-b border-primary/10 shadow-sm">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-        <Link href="/" className="text-xl font-bold">
+        <Link href="#top" className="text-xl font-bold">
           Kaung Sat Hein
         </Link>
 
@@ -86,7 +86,9 @@ export default function Navbar() {
             <Link
               key={item.name}
               href={item.href}
-              aria-current={activeSection === item.href.slice(1) ? "page" : undefined}
+              aria-current={
+                activeSection === item.href.slice(1) ? "page" : undefined
+              }
               className={`rounded-full px-3 py-1.5 transition-colors ${
                 activeSection === item.href.slice(1)
                   ? "bg-primary/12 text-primary"
@@ -116,7 +118,9 @@ export default function Navbar() {
               <Link
                 key={item.name}
                 href={item.href}
-                aria-current={activeSection === item.href.slice(1) ? "page" : undefined}
+                aria-current={
+                  activeSection === item.href.slice(1) ? "page" : undefined
+                }
                 className={`rounded-xl px-3 py-2 transition-colors ${
                   activeSection === item.href.slice(1)
                     ? "bg-primary/12 text-primary"
@@ -131,5 +135,5 @@ export default function Navbar() {
         </div>
       )}
     </nav>
-  )
+  );
 }

@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1680" height="980" viewBox="0 0 1680 980">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f8fbff"/>
+      <stop offset="100%" stop-color="#eef4ff"/>
+    </linearGradient>
+    <style>
+      .title { font: 700 34px 'Segoe UI', Arial, sans-serif; fill: #0f172a; }
+      .subtitle { font: 500 16px 'Segoe UI', Arial, sans-serif; fill: #334155; }
+      .phase-title { font: 700 18px 'Segoe UI', Arial, sans-serif; fill: #0f172a; }
+      .item { font: 500 13px 'Segoe UI', Arial, sans-serif; fill: #334155; }
+      .edge { stroke: #2563eb; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+  <rect width="1680" height="980" fill="url(#bg)"/>
+  <text x="56" y="58" class="title">Expense Module Implementation Plan</text>
+  <text x="56" y="86" class="subtitle">Phased rollout from policy foundations into request flow, approvals, finance actions, and release hardening.</text>
+
+  <rect x="90" y="180" width="320" height="250" rx="14" fill="#ffffff" stroke="#93c5fd"/>
+  <text x="116" y="220" class="phase-title">Phase 1. Foundations</text>
+  <text x="116" y="258" class="item">• Expense category and policy setup APIs</text>
+  <text x="116" y="288" class="item">• Approver configuration and validation</text>
+  <text x="116" y="318" class="item">• Permission and status constants</text>
+  <text x="116" y="348" class="item">• Base dashboard screens</text>
+
+  <rect x="450" y="180" width="320" height="250" rx="14" fill="#ffffff" stroke="#86efac"/>
+  <text x="476" y="220" class="phase-title">Phase 2. Request Flow</text>
+  <text x="476" y="258" class="item">• Dashboard and mobile request creation</text>
+  <text x="476" y="288" class="item">• Request-time approver snapshot</text>
+  <text x="476" y="318" class="item">• Attachment and proof upload flow</text>
+  <text x="476" y="348" class="item">• Expense list and detail views</text>
+
+  <rect x="810" y="180" width="320" height="250" rx="14" fill="#ffffff" stroke="#fcd34d"/>
+  <text x="836" y="220" class="phase-title">Phase 3. Approval Flow</text>
+  <text x="836" y="258" class="item">• Sequential approver transitions</text>
+  <text x="836" y="288" class="item">• Inbox and notification hooks</text>
+  <text x="836" y="318" class="item">• Reject and status protection rules</text>
+  <text x="836" y="348" class="item">• Audit-friendly timeline handling</text>
+
+  <rect x="1170" y="180" width="320" height="250" rx="14" fill="#ffffff" stroke="#c4b5fd"/>
+  <text x="1196" y="220" class="phase-title">Phase 4. Finance and Release</text>
+  <text x="1196" y="258" class="item">• Paid-out and reclassification actions</text>
+  <text x="1196" y="288" class="item">• Proof-of-payment support</text>
+  <text x="1196" y="318" class="item">• Migration, rollout, and fallback checklist</text>
+  <text x="1196" y="348" class="item">• Final validation before release</text>
+
+  <path class="edge" d="M410 305 L450 305"/>
+  <path class="edge" d="M770 305 L810 305"/>
+  <path class="edge" d="M1130 305 L1170 305"/>
+
+  <rect x="90" y="500" width="1400" height="160" rx="12" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="116" y="544" class="phase-title">Delivery Principle</text>
+  <text x="116" y="578" class="item">Stabilize policy setup and request-time snapshots before implementing the approval runtime.</text>
+  <text x="116" y="608" class="item">Add finance-only actions after approval state transitions are reliable and permission-safe.</text>
+  <text x="116" y="638" class="item">Treat rollout readiness as part of implementation, not as a separate afterthought.</text>
+</svg>

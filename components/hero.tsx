@@ -1,7 +1,14 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ArrowDown, Github, Linkedin, Mail, FileText } from "lucide-react";
+import {
+  ArrowDown,
+  ArrowRight,
+  Download,
+  Github,
+  Linkedin,
+  Mail,
+} from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -24,7 +31,7 @@ export default function Hero() {
   return (
     <section className="relative py-16 md:py-24 lg:py-32 overflow-hidden full-height">
       <ParticlesBackground />
-      <div className="container mx-auto px-4">
+      <div className="relative z-10 container mx-auto px-4">
         <div className="flex flex-col items-center text-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
@@ -67,7 +74,7 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-xl md:text-2xl lg:text-3xl font-medium text-primary mb-6"
           >
-            Full Stack / Backend Developer
+            Backend-Focused Full-Stack Developer
           </motion.h2>
 
           <motion.div
@@ -77,7 +84,7 @@ export default function Hero() {
             className="max-w-2xl text-base md:text-lg text-muted-foreground mb-8"
           >
             <TypingEffect
-              text="Full-Stack Developer with strong experience in React.js, Laravel (PHP), Node.js, secure RESTful APIs, and scalable systems used by 100K+ users."
+              text="I build secure backend systems, scalable product features, and cross-platform integrations for HR, recruitment, and internal tools used by 100K+ users across 6 countries."
               speed={20}
               delay={800}
             />
@@ -87,6 +94,48 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.6 }}
+            className="mb-6 flex flex-wrap items-center justify-center gap-3"
+          >
+            <Button asChild className="rounded-full px-5">
+              <Link href="#projects">
+                View Projects
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
+            <Button asChild variant="outline" className="rounded-full px-5">
+              <Link
+                href="/Kaung-Sat-Hein-CV.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Download Resume
+                <Download className="h-4 w-4" />
+              </Link>
+            </Button>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.7 }}
+            className="mb-10 flex flex-wrap items-center justify-center gap-2"
+          >
+            {["100K+ users", "6 countries", "ATS + HRMS + AI workflows"].map(
+              (item) => (
+                <span
+                  key={item}
+                  className="rounded-full border border-primary/20 bg-background/45 px-3 py-1.5 text-xs font-medium text-foreground/85 backdrop-blur-sm md:text-sm"
+                >
+                  {item}
+                </span>
+              ),
+            )}
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.8 }}
             className="flex gap-4 mb-10"
           >
             <Link
@@ -156,7 +205,7 @@ export default function Hero() {
                   size="icon"
                   className="border-primary/30 bg-background/20 backdrop-blur-sm hover:bg-primary/20"
                 >
-                  <FileText className="h-5 w-5" />
+                  <Download className="h-5 w-5" />
                   <span className="sr-only">Resume</span>
                 </Button>
               </motion.div>
@@ -166,7 +215,7 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.8 }}
+            transition={{ duration: 0.5, delay: 1 }}
             whileHover={{ y: -2 }}
             whileTap={{ scale: 0.98 }}
           >

@@ -49,6 +49,47 @@ type KnowledgeTopicsClientProps = {
   knowledgeTopics: KnowledgeTopic[];
 };
 
+function isDayBasedTopic(topic: KnowledgeTopic | string) {
+  const title = typeof topic === "string" ? topic : topic.title;
+  return /(\d+)\s+Days/i.test(title);
+}
+
+function getTopicBadgeLabel(topic: KnowledgeTopic) {
+  if (isDayBasedTopic(topic)) {
+    return topic.totalDays
+      ? `${topic.completedDays}/${topic.totalDays} Days`
+      : `${topic.completedDays} Days`;
+  }
+
+  return `${topic.days.length} Topics`;
+}
+
+function getEntryLabel(topic: KnowledgeTopic | string, dayItem: KnowledgeDay) {
+  if (isDayBasedTopic(topic)) {
+    return Number.isFinite(dayItem.day)
+      ? `Day ${dayItem.day}: ${dayItem.title}`
+      : `Day: ${dayItem.title}`;
+  }
+
+  return dayItem.title;
+}
+
+function getAdjacentEntryLabel(
+  topic: KnowledgeTopic | string,
+  dayItem: KnowledgeDay | null,
+  fallback: string,
+) {
+  if (!dayItem) {
+    return fallback;
+  }
+
+  if (isDayBasedTopic(topic) && Number.isFinite(dayItem.day)) {
+    return `Day ${dayItem.day}`;
+  }
+
+  return fallback;
+}
+
 function renderInlineMarkdown(text: string, keyPrefix: string): ReactNode[] {
   const tokenRegex = /(`[^`]+`|\*\*[^*]+\*\*)/g;
   const nodes: ReactNode[] = [];
@@ -527,9 +568,7 @@ export default function KnowledgeTopicsClient({
                     variant="secondary"
                     className="bg-primary/10 text-primary"
                   >
-                    {topic.totalDays
-                      ? `${topic.completedDays}/${topic.totalDays} Days`
-                      : `${topic.completedDays} Days`}
+                    {getTopicBadgeLabel(topic)}
                   </Badge>
                 </div>
                 <p className="text-sm md:text-base text-muted-foreground leading-7">
@@ -572,7 +611,9 @@ export default function KnowledgeTopicsClient({
                               Open the knowledge journey
                             </p>
                             <p className="mt-1 text-sm leading-6 text-muted-foreground">
-                              Tap into the daily notes, summaries, and deeper lessons for this topic.
+                              {isDayBasedTopic(topic)
+                                ? "Tap into the daily notes, summaries, and deeper lessons for this topic."
+                                : "Tap into the topic notes, summaries, and deeper lessons for this topic."}
                             </p>
                           </div>
                           <div className="hidden shrink-0 md:block">
@@ -612,10 +653,7 @@ export default function KnowledgeTopicsClient({
                               >
                                 <p className="text-sm md:text-base font-medium flex items-center gap-2 leading-6">
                                   <CalendarRange className="h-4 w-4 text-primary" />
-                                  {Number.isFinite(dayItem.day)
-                                    ? `Day ${dayItem.day}:`
-                                    : "Day:"}{" "}
-                                  {dayItem.title}
+                                  {getEntryLabel(topic, dayItem)}
                                 </p>
                                 <p className="text-xs md:text-sm text-muted-foreground mt-2 leading-6">
                                   Note: {dayItem.note}
@@ -646,9 +684,9 @@ export default function KnowledgeTopicsClient({
         <DialogContent className="flex h-[85vh] w-[95vw] max-w-4xl flex-col gap-0 overflow-hidden p-0">
           <DialogHeader className="shrink-0 border-b border-primary/15 px-5 pt-5 pb-4 md:px-6 md:pt-6 md:pb-4">
             <DialogTitle>
-              {selectedDay && Number.isFinite(selectedDay.dayItem.day)
-                ? `Day ${selectedDay.dayItem.day}: ${selectedDay.dayItem.title}`
-                : selectedDay?.dayItem.title}
+              {selectedDay
+                ? getEntryLabel(selectedDay.topicTitle, selectedDay.dayItem)
+                : null}
             </DialogTitle>
             <DialogDescription className="pt-1">
               {selectedDay?.topicTitle}
@@ -702,11 +740,17 @@ export default function KnowledgeTopicsClient({
                   disabled={!selectedDay.previousDay}
                 >
                   <ChevronLeft className="h-4 w-4" />
-                  Previous Day
+                  {getAdjacentEntryLabel(
+                    selectedDay.topicTitle,
+                    selectedDay.previousDay,
+                    "Previous Topic",
+                  )}
                 </Button>
 
                 <p className="text-center text-xs md:text-sm text-muted-foreground">
-                  Move through days in {selectedDay.topicTitle}
+                  {isDayBasedTopic(selectedDay.topicTitle)
+                    ? `Move through days in ${selectedDay.topicTitle}`
+                    : `Move through topics in ${selectedDay.topicTitle}`}
                 </p>
 
                 <Button
@@ -719,7 +763,11 @@ export default function KnowledgeTopicsClient({
                   }
                   disabled={!selectedDay.nextDay}
                 >
-                  Next Day
+                  {getAdjacentEntryLabel(
+                    selectedDay.topicTitle,
+                    selectedDay.nextDay,
+                    "Next Topic",
+                  )}
                   <ChevronRight className="h-4 w-4" />
                 </Button>
               </div>

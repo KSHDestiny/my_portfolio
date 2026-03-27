@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1680" height="980" viewBox="0 0 1680 980">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f8fbff"/>
+      <stop offset="100%" stop-color="#eef4ff"/>
+    </linearGradient>
+    <style>
+      .title { font: 700 34px 'Segoe UI', Arial, sans-serif; fill: #0f172a; }
+      .subtitle { font: 500 16px 'Segoe UI', Arial, sans-serif; fill: #334155; }
+      .zone-title { font: 700 16px 'Segoe UI', Arial, sans-serif; fill: #0f172a; }
+      .actor-title { font: 700 18px 'Segoe UI', Arial, sans-serif; fill: #0f172a; }
+      .actor-sub { font: 500 12px 'Segoe UI', Arial, sans-serif; fill: #475569; }
+      .usecase { font: 700 15px 'Segoe UI', Arial, sans-serif; fill: #0f172a; }
+      .edge { stroke: #2563eb; stroke-width: 2.5; fill: none; }
+    </style>
+  </defs>
+
+  <rect width="1680" height="980" fill="url(#bg)"/>
+  <text x="56" y="58" class="title">Permission Group Use Case Diagram</text>
+  <text x="56" y="86" class="subtitle">Simple actor-to-feature view for configuring manager visibility scope through permission groups.</text>
+
+  <rect x="48" y="130" width="320" height="760" rx="16" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="72" y="164" class="zone-title">Actors</text>
+
+  <rect x="78" y="210" width="260" height="120" rx="14" fill="#e0ecff" stroke="#93c5fd"/>
+  <text x="106" y="252" class="actor-title">Admin</text>
+  <text x="106" y="278" class="actor-sub">Defines permissions, groups, and</text>
+  <text x="106" y="298" class="actor-sub">scope rules for managers/admins.</text>
+
+  <rect x="78" y="380" width="260" height="120" rx="14" fill="#dcfce7" stroke="#86efac"/>
+  <text x="106" y="422" class="actor-title">Manager</text>
+  <text x="106" y="448" class="actor-sub">Sees only the records that fall</text>
+  <text x="106" y="468" class="actor-sub">inside the configured scope.</text>
+
+  <rect x="430" y="130" width="860" height="760" rx="16" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="456" y="164" class="zone-title">Permission Group Module</text>
+
+  <rect x="650" y="210" width="420" height="84" rx="42" fill="#dbeafe" stroke="#60a5fa"/>
+  <text x="784" y="259" class="usecase">Manage Permissions</text>
+
+  <rect x="650" y="330" width="420" height="84" rx="42" fill="#dbeafe" stroke="#60a5fa"/>
+  <text x="773" y="379" class="usecase">Create Permission Groups</text>
+
+  <rect x="650" y="450" width="420" height="84" rx="42" fill="#dbeafe" stroke="#60a5fa"/>
+  <text x="716" y="499" class="usecase">Configure Scope Dimensions</text>
+
+  <rect x="650" y="570" width="420" height="84" rx="42" fill="#dbeafe" stroke="#60a5fa"/>
+  <text x="719" y="619" class="usecase">Apply Group to Manager</text>
+
+  <rect x="650" y="690" width="420" height="84" rx="42" fill="#dcfce7" stroke="#86efac"/>
+  <text x="744" y="739" class="usecase">Review Effective Visibility</text>
+
+  <path class="edge" d="M338 270 L650 252"/>
+  <path class="edge" d="M338 270 L650 372"/>
+  <path class="edge" d="M338 270 L650 492"/>
+  <path class="edge" d="M338 270 L650 612"/>
+
+  <path class="edge" d="M338 440 L650 732"/>
+</svg>

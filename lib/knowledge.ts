@@ -44,6 +44,10 @@ function parseTargetDays(topicName: string): number | null {
   return match ? Number(match[1]) : null
 }
 
+function isDayBasedTopic(topicName: string): boolean {
+  return parseTargetDays(topicName) !== null
+}
+
 function cleanMarkdownLine(line: string): string {
   return line
     .replace(/^#+\s*/, "")
@@ -124,7 +128,9 @@ export async function getKnowledgeTopics(): Promise<KnowledgeTopic[]> {
       const completedDays = days.length * progressMultiplier
       const fallbackDescription = totalDays
         ? `${completedDays} of ${totalDays} day notes are currently documented in this track.`
-        : `${completedDays} day notes are currently documented in this track.`
+        : isDayBasedTopic(topicDir.name)
+          ? `${completedDays} day notes are currently documented in this track.`
+          : `${completedDays} topic notes are currently documented in this track.`
       const description = TOPIC_BRIEF_DESCRIPTIONS[topicDir.name] ?? fallbackDescription
 
       return {

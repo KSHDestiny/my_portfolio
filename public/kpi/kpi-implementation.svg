@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1680" height="980" viewBox="0 0 1680 980">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f8fbff"/>
+      <stop offset="100%" stop-color="#eef4ff"/>
+    </linearGradient>
+    <style>
+      .title { font: 700 34px 'Segoe UI', Arial, sans-serif; fill: #0f172a; }
+      .subtitle { font: 500 16px 'Segoe UI', Arial, sans-serif; fill: #334155; }
+      .phase-title { font: 700 18px 'Segoe UI', Arial, sans-serif; fill: #0f172a; }
+      .item { font: 500 13px 'Segoe UI', Arial, sans-serif; fill: #334155; }
+      .edge { stroke: #2563eb; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+  <rect width="1680" height="980" fill="url(#bg)"/>
+  <text x="56" y="58" class="title">KPI Module Implementation Plan</text>
+  <text x="56" y="86" class="subtitle">Suggested delivery slices that move from foundation setup into runtime tracking and reporting.</text>
+
+  <rect x="90" y="180" width="320" height="250" rx="14" fill="#ffffff" stroke="#93c5fd"/>
+  <text x="116" y="220" class="phase-title">Phase 1. Foundation</text>
+  <text x="116" y="258" class="item">• KPI group schema and admin APIs</text>
+  <text x="116" y="288" class="item">• KPI definition forms and validation</text>
+  <text x="116" y="318" class="item">• Permission checks for setup actions</text>
+  <text x="116" y="348" class="item">• Base list and detail pages</text>
+
+  <rect x="450" y="180" width="320" height="250" rx="14" fill="#ffffff" stroke="#86efac"/>
+  <text x="476" y="220" class="phase-title">Phase 2. Assignment</text>
+  <text x="476" y="258" class="item">• User assignment flow</text>
+  <text x="476" y="288" class="item">• Target-setting rules and forms</text>
+  <text x="476" y="318" class="item">• Manager ownership mapping</text>
+  <text x="476" y="348" class="item">• Person-level status visibility</text>
+
+  <rect x="810" y="180" width="320" height="250" rx="14" fill="#ffffff" stroke="#fcd34d"/>
+  <text x="836" y="220" class="phase-title">Phase 3. Runtime Tracking</text>
+  <text x="836" y="258" class="item">• Progress and score updates</text>
+  <text x="836" y="288" class="item">• Review and follow-up flows</text>
+  <text x="836" y="318" class="item">• Mobile-facing KPI visibility</text>
+  <text x="836" y="348" class="item">• Review status handling</text>
+
+  <rect x="1170" y="180" width="320" height="250" rx="14" fill="#ffffff" stroke="#c4b5fd"/>
+  <text x="1196" y="220" class="phase-title">Phase 4. Reporting</text>
+  <text x="1196" y="258" class="item">• Export generation</text>
+  <text x="1196" y="288" class="item">• Reporting filters and summaries</text>
+  <text x="1196" y="318" class="item">• Export queue integration</text>
+  <text x="1196" y="348" class="item">• Release hardening and rollout checks</text>
+
+  <path class="edge" d="M410 305 L450 305"/>
+  <path class="edge" d="M770 305 L810 305"/>
+  <path class="edge" d="M1130 305 L1170 305"/>
+
+  <rect x="90" y="500" width="1400" height="160" rx="12" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="116" y="544" class="phase-title">Delivery Principle</text>
+  <text x="116" y="578" class="item">Build setup and assignment stability first.</text>
+  <text x="116" y="608" class="item">Layer runtime scoring and mobile visibility on top of a consistent KPI data model.</text>
+  <text x="116" y="638" class="item">Add export flows only after KPI data and permissions are stable.</text>
+</svg>

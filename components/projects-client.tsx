@@ -29,6 +29,7 @@ import {
   Hammer,
   Network,
   ShieldCheck,
+  X,
 } from "lucide-react";
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 import AnimateInView from "./animations/animate-in-view";
@@ -37,6 +38,7 @@ import { useMediaQuery } from "@/hooks/use-media-query";
 import type { Project, ProjectTagDetail, ProjectsSource } from "@/lib/projects";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogHeader,
   DialogTitle,
@@ -159,6 +161,10 @@ function shouldShowHighlightTooltip(highlight: string) {
   return highlight.length > 70;
 }
 
+function isImageAsset(url: string) {
+  return /\.(gif|png|jpe?g|webp|svg)$/i.test(url);
+}
+
 const ProjectSlide = memo(function ProjectSlide({
   project,
   offset,
@@ -243,7 +249,11 @@ const ProjectSlide = memo(function ProjectSlide({
         {!isActive && (
           <div className="pointer-events-none absolute inset-0 z-10 bg-background/55" />
         )}
-        <CardHeader className="relative z-20 pb-3">
+        <CardHeader
+          className={`relative z-20 pb-3 ${
+            isActive ? "" : "pointer-events-none"
+          }`}
+        >
           <div className="flex items-start justify-between gap-3">
             <CardTitle
               className={`text-base md:text-lg ${
@@ -324,7 +334,11 @@ const ProjectSlide = memo(function ProjectSlide({
             ))}
           </div>
         </CardHeader>
-        <CardContent className="relative z-20 flex min-h-0 flex-1 flex-col justify-between overflow-y-auto pr-1 md:overflow-visible md:pr-0">
+        <CardContent
+          className={`relative z-20 flex min-h-0 flex-1 flex-col justify-between overflow-y-auto pr-1 md:overflow-visible md:pr-0 ${
+            isActive ? "" : "pointer-events-none"
+          }`}
+        >
           {selectedTagDetail && selectedTag ? (
             <div
               className={`space-y-2 rounded-xl border p-3 ${
@@ -444,13 +458,17 @@ const ProjectSlide = memo(function ProjectSlide({
           className="w-[96vw] max-w-5xl p-4 sm:p-5"
           onClick={(event) => event.stopPropagation()}
         >
+          <DialogClose className="absolute right-4 top-4 rounded-full border border-border/70 bg-background/90 p-2 text-muted-foreground transition hover:text-foreground">
+            <X className="h-4 w-4" />
+            <span className="sr-only">Close preview</span>
+          </DialogClose>
           <DialogHeader>
             <DialogTitle className="text-base sm:text-lg">
               {previewAsset?.title}
             </DialogTitle>
           </DialogHeader>
           {previewAsset?.url ? (
-            previewAsset.url.toLowerCase().endsWith(".gif") ? (
+            isImageAsset(previewAsset.url) ? (
               <img
                 src={previewAsset.url}
                 alt={previewAsset.title}
@@ -633,8 +651,8 @@ export default function ProjectsClient({
         <AnimateInView>
           <SectionHeading
             eyebrow="Selected Work"
-            title="Projects & Key Features"
-            description="A mix of production systems and key features that show how I approach scale, product problems, and engineering detail."
+            title="Featured Work"
+            description="A selection of production systems, platform features, and architecture-driven work that reflects how I design, build, and scale backend-focused applications."
           />
           {source === "notion" && (
             <p className="mt-4 text-center text-xs font-medium uppercase tracking-[0.28em] text-primary/70">
@@ -649,7 +667,7 @@ export default function ProjectsClient({
           delay={0.1}
         />
         <ProjectCoverflowSection
-          title="Key Features"
+          title="Feature Highlights"
           projects={keyFeatures}
           delay={0.2}
         />

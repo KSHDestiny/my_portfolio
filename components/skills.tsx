@@ -93,6 +93,7 @@ export default function Skills() {
   const programmingSkills = [
     { name: "PHP", level: 92 },
     { name: "Laravel", level: 95 },
+    { name: "Node.js", level: 87 },
     { name: "React.js", level: 90 },
     { name: "JavaScript / TypeScript", level: 88 },
     { name: "Python (AI/NLP)", level: 78 },

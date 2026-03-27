@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1680" height="980" viewBox="0 0 1680 980">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f8fbff"/>
+      <stop offset="100%" stop-color="#eef4ff"/>
+    </linearGradient>
+    <style>
+      .title { font: 700 34px 'Segoe UI', Arial, sans-serif; fill: #0f172a; }
+      .subtitle { font: 500 16px 'Segoe UI', Arial, sans-serif; fill: #334155; }
+      .zone-title { font: 700 16px 'Segoe UI', Arial, sans-serif; fill: #0f172a; }
+      .actor-title { font: 700 18px 'Segoe UI', Arial, sans-serif; fill: #0f172a; }
+      .actor-sub { font: 500 12px 'Segoe UI', Arial, sans-serif; fill: #475569; }
+      .usecase { font: 700 15px 'Segoe UI', Arial, sans-serif; fill: #0f172a; }
+      .edge { stroke: #2563eb; stroke-width: 2.5; fill: none; }
+    </style>
+  </defs>
+
+  <rect width="1680" height="980" fill="url(#bg)"/>
+
+  <text x="56" y="58" class="title">KPI Module Use Case Diagram</text>
+  <text x="56" y="86" class="subtitle">Simple actor-to-feature view in the same clean presentation style as the portfolio’s other feature diagrams.</text>
+
+  <rect x="48" y="130" width="320" height="760" rx="16" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="72" y="164" class="zone-title">Actors</text>
+
+  <rect x="78" y="210" width="260" height="120" rx="14" fill="#e0ecff" stroke="#93c5fd"/>
+  <text x="106" y="252" class="actor-title">HR Admin</text>
+  <text x="106" y="278" class="actor-sub">Configures KPI groups, KPI items,</text>
+  <text x="106" y="298" class="actor-sub">assignments, and target setup.</text>
+
+  <rect x="78" y="380" width="260" height="120" rx="14" fill="#dcfce7" stroke="#86efac"/>
+  <text x="106" y="422" class="actor-title">Manager</text>
+  <text x="106" y="448" class="actor-sub">Reviews person-level KPI progress</text>
+  <text x="106" y="468" class="actor-sub">and follows up on results.</text>
+
+  <rect x="78" y="550" width="260" height="120" rx="14" fill="#ede9fe" stroke="#c4b5fd"/>
+  <text x="106" y="592" class="actor-title">Employee</text>
+  <text x="106" y="618" class="actor-sub">Views assigned KPI status from</text>
+  <text x="106" y="638" class="actor-sub">web or mobile experience.</text>
+
+  <rect x="430" y="130" width="860" height="760" rx="16" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="456" y="164" class="zone-title">KPI Module</text>
+
+  <rect x="650" y="210" width="420" height="84" rx="42" fill="#dbeafe" stroke="#60a5fa"/>
+  <text x="785" y="259" class="usecase">Manage KPI Groups</text>
+
+  <rect x="650" y="330" width="420" height="84" rx="42" fill="#dbeafe" stroke="#60a5fa"/>
+  <text x="798" y="379" class="usecase">Create KPI Items</text>
+
+  <rect x="650" y="450" width="420" height="84" rx="42" fill="#dbeafe" stroke="#60a5fa"/>
+  <text x="760" y="499" class="usecase">Assign KPIs and Targets</text>
+
+  <rect x="650" y="570" width="420" height="84" rx="42" fill="#dcfce7" stroke="#86efac"/>
+  <text x="778" y="619" class="usecase">Review KPI Progress</text>
+
+  <rect x="650" y="690" width="420" height="84" rx="42" fill="#ede9fe" stroke="#c4b5fd"/>
+  <text x="763" y="739" class="usecase">View Personal KPI Status</text>
+
+  <path class="edge" d="M338 270 L650 252"/>
+  <path class="edge" d="M338 270 L650 372"/>
+  <path class="edge" d="M338 270 L650 492"/>
+
+  <path class="edge" d="M338 440 L650 612"/>
+
+  <path class="edge" d="M338 610 L650 732"/>
+
+  <rect x="1350" y="130" width="282" height="760" rx="16" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="1376" y="164" class="zone-title">Feature Focus</text>
+  <rect x="1376" y="220" width="230" height="96" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="1398" y="254" class="actor-title">Setup</text>
+  <text x="1398" y="278" class="actor-sub">Groups, KPI items,</text>
+  <text x="1398" y="298" class="actor-sub">assignment, targets</text>
+
+  <rect x="1376" y="360" width="230" height="96" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="1398" y="394" class="actor-title">Review</text>
+  <text x="1398" y="418" class="actor-sub">Progress visibility and</text>
+  <text x="1398" y="438" class="actor-sub">manager follow-up</text>
+
+  <rect x="1376" y="500" width="230" height="96" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="1398" y="534" class="actor-title">Access</text>
+  <text x="1398" y="558" class="actor-sub">Personal KPI view across</text>
+  <text x="1398" y="578" class="actor-sub">web and mobile</text>
+</svg>

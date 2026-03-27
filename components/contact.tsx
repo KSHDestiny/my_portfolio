@@ -84,9 +84,9 @@ export default function Contact() {
       <div className="container mx-auto px-4">
         <AnimateInView>
           <SectionHeading
-            eyebrow="Let&apos;s Connect"
+            eyebrow="Let&apos;s Work Together"
             title="Get In Touch"
-            description="If you want to collaborate, discuss an opportunity, or just say hello, this is the easiest place to reach me."
+            description="I&apos;m open to backend and full-stack engineering opportunities, product-focused collaboration, and conversations about building reliable systems at scale."
           />
         </AnimateInView>
 
@@ -146,11 +146,11 @@ export default function Contact() {
           </div>
 
           <AnimateInView delay={0.5}>
-            <Card className="bg-background/60 backdrop-blur-sm border-primary/20">
-              <CardHeader className="px-4 py-4 md:p-6">
-                <CardTitle className="text-base md:text-lg">Send a Message</CardTitle>
+              <Card className="bg-background/60 backdrop-blur-sm border-primary/20">
+                <CardHeader className="px-4 py-4 md:p-6">
+                <CardTitle className="text-base md:text-lg">Start a Conversation</CardTitle>
                 <CardDescription className="text-xs md:text-sm">
-                  Fill out the form below and I'll get back to you as soon as possible.
+                  If you&apos;re hiring or want to discuss a project, this is the quickest way to reach me.
                 </CardDescription>
               </CardHeader>
               <CardContent className="px-4 pb-4 md:px-6 md:pb-6">

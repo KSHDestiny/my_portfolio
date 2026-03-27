@@ -80,13 +80,19 @@ type NotionQueryResponse = {
 };
 
 const ALLOWED_KEY_FEATURE_TITLES = new Set([
-  "Expense Tracking System",
   "ATS CV Upload & AI Profile Extraction",
+  "Expense Tracking System",
+  "KPI Module",
+  "Permission Group",
+  "Indonesia Payroll",
 ]);
 
 const KEY_FEATURE_ORDER: Record<string, number> = {
   "ATS CV Upload & AI Profile Extraction": 1,
   "Expense Tracking System": 2,
+  "KPI Module": 3,
+  "Permission Group": 4,
+  "Indonesia Payroll": 5,
 };
 
 const NOTION_VERSION = "2022-06-28";
@@ -170,6 +176,171 @@ const LOCAL_PRODUCTION_PROJECTS: Project[] = [
 
 const LOCAL_KEY_FEATURES: Project[] = [
   {
+    title: "KPI Module",
+    period: "View UI",
+    periodCtaUrl: "/kpi/kpi.gif",
+    description:
+      "Designed and delivered a complete KPI module covering KPI group management, KPI creation, target assignment, user-level performance tracking, export workflows, and mobile visibility for continuous performance management.",
+    tags: [
+      "Requirements",
+      "Architecture",
+      "Workflow",
+      "ERD",
+      "Implementation",
+      "Testing",
+    ],
+    tagDetails: {
+      Requirements: {
+        summary:
+          "Defined the KPI product scope around template setup, KPI definition, target assignment, score tracking, exports, and mobile visibility for employees and managers.",
+        highlights: [
+          "Create KPI groups and reusable KPI structures for different teams or roles",
+          "Assign KPI targets to individual users with clear ownership and status visibility",
+          "Support manager review, admin oversight, export workflows, and mobile access",
+        ],
+        ctaLabel: "Open Use Case Diagram",
+        ctaUrl: "/kpi/kpi-usecase.svg",
+      },
+      Architecture: {
+        summary:
+          "Structured the module so KPI configuration, user assignment, score tracking, and reporting could evolve independently while still supporting one coherent performance workflow.",
+        highlights: [
+          "Separate admin setup concerns from day-to-day employee KPI tracking",
+          "Keep KPI templates, user assignments, and reporting flows logically isolated",
+          "Support both web operations and mobile-facing KPI visibility from the same feature domain",
+        ],
+        ctaLabel: "Open Architecture Diagram",
+        ctaUrl: "/kpi/kpi-architecture.svg",
+      },
+      Workflow: {
+        summary:
+          "Mapped the KPI lifecycle from group creation through assignment, target definition, progress review, and reporting so each stage has a clear operational handoff.",
+        highlights: [
+          "Create KPI groups first, then define KPI items and scoring expectations",
+          "Assign KPIs to users and set measurable targets before tracking begins",
+          "Review progress by person and export results for broader reporting needs",
+        ],
+        ctaLabel: "Open Workflow Diagram",
+        ctaUrl: "/kpi/kpi-workflow.svg",
+      },
+      ERD: {
+        summary:
+          "Modeled the KPI domain around reusable group definitions, KPI records, user assignments, target values, and performance results without blending setup data into runtime tracking.",
+        highlights: [
+          "KPI groups act as reusable containers for related KPI definitions",
+          "User-level assignment records connect people, targets, and KPI ownership",
+          "Reporting depends on stable score and progress data captured per assignment",
+        ],
+        ctaLabel: "Open ERD Diagram",
+        ctaUrl: "/kpi/kpi-structure.svg",
+      },
+      Implementation: {
+        summary:
+          "Delivered the module in slices spanning admin setup, KPI creation, user assignment, person-based tracking, export support, and mobile-ready access.",
+        highlights: [
+          "Admin flows for KPI group and KPI item creation",
+          "Assignment and target-setting flows for user-specific performance management",
+          "Reporting and export capabilities layered on top of live KPI tracking",
+        ],
+        ctaLabel: "Open Implementation Diagram",
+        ctaUrl: "/kpi/kpi-implementation.svg",
+      },
+      Testing: {
+        summary:
+          "Covered the highest-risk scenarios around setup correctness, assignment accuracy, score visibility, export consistency, and cross-platform KPI access.",
+        highlights: [
+          "Verify KPI assignments and targets are mapped to the correct users",
+          "Ensure exports reflect the same KPI data shown in the application views",
+          "Check mobile and web experiences stay consistent for score visibility and progress tracking",
+        ],
+      },
+    },
+    category: "key-feature",
+  },
+  {
+    title: "Permission Group",
+    period: "View UI",
+    periodCtaMessage:
+      "UI preview is not included here, but the permission group module was designed around manager/admin visibility scope based on configured organizational dimensions.",
+    description:
+      "Designed a permission group module to control what a manager or admin can see and access based on configured permission groups, using department, position, location, and status scope as the visibility boundary.",
+    tags: [
+      "Requirements",
+      "Architecture",
+      "Workflow",
+      "ERD",
+      "Implementation",
+      "Testing",
+    ],
+    tagDetails: {
+      Requirements: {
+        summary:
+          "Defined the module around centralized permission setup and reusable group mapping so managers and admins only see records inside their configured organizational scope.",
+        highlights: [
+          "Manage permission definitions and map them into reusable groups",
+          "Restrict manager visibility by department, position, location, and status scope",
+          "Reduce one-off access maintenance by standardizing visibility rules through grouped structures",
+        ],
+        ctaLabel: "Open Use Case Diagram",
+        ctaUrl: "/permission_group/permission_group-usecase.svg",
+      },
+      Architecture: {
+        summary:
+          "Structured the feature so permission definitions, group mapping, and visibility evaluation stay separated while still supporting one coherent access-control flow.",
+        highlights: [
+          "Permission setup is isolated from runtime visibility evaluation",
+          "Reference tables support access filtering without becoming the permission source of truth",
+          "Group-based mapping makes visibility management easier to scale across managers and admins",
+        ],
+        ctaLabel: "Open Architecture Diagram",
+        ctaUrl: "/permission_group/permission_group-architecture.svg",
+      },
+      Workflow: {
+        summary:
+          "Mapped the flow from permission creation to group mapping and visibility evaluation so manager access can be managed consistently and updated safely.",
+        highlights: [
+          "Create or maintain permission definitions first",
+          "Map permissions into groups before applying them to managers or admins",
+          "Use reference dimensions to control who can be seen or accessed inside the system",
+        ],
+        ctaLabel: "Open Workflow Diagram",
+        ctaUrl: "/permission_group/permission_group-workflow.svg",
+      },
+      ERD: {
+        summary:
+          "Modeled the module around permissions and group mappings, supported by organizational reference tables such as departments, positions, locations, statuses, and employees that are evaluated for visibility scope.",
+        highlights: [
+          "Permissions are stored independently from scoped visibility evaluation",
+          "Group mapping acts as the bridge between permission definitions and access grouping",
+          "Employees and reference tables support targeted visibility filtering",
+        ],
+        ctaLabel: "Open ERD Diagram",
+        ctaUrl: "/permission_group/permission_group-structure.svg",
+      },
+      Implementation: {
+        summary:
+          "Planned the rollout in slices covering permission setup, group mapping, manager visibility evaluation, scoped filtering, and release hardening.",
+        highlights: [
+          "Admin flows for permission and group management",
+          "Visibility evaluation flows backed by reference data",
+          "Controlled rollout to protect existing manager access behavior while introducing grouped permissions",
+        ],
+        ctaLabel: "Open Implementation Diagram",
+        ctaUrl: "/permission_group/permission_group-implementation.svg",
+      },
+      Testing: {
+        summary:
+          "Focused testing on permission accuracy, group mapping correctness, visibility scope safety, and filtering consistency across reference dimensions.",
+        highlights: [
+          "Ensure managers only see records inside the departments or scopes configured in their permission group",
+          "Verify department, position, location, and status references do not grant unintended visibility",
+          "Check updates to permission groups propagate safely without widening manager access unexpectedly",
+        ],
+      },
+    },
+    category: "key-feature",
+  },
+  {
     title: "ATS CV Upload & AI Profile Extraction",
     period: "View UI",
     periodCtaMessage:
@@ -235,6 +406,8 @@ const LOCAL_KEY_FEATURES: Project[] = [
           "Async completion handling with Pusher and email services",
           "Conditional invitation flow for first-time applicants on Job Landing",
         ],
+        ctaLabel: "Open Implementation Diagram",
+        ctaUrl: "/ats/ats-implementation.svg",
       },
       Testing: {
         summary:
@@ -243,6 +416,58 @@ const LOCAL_KEY_FEATURES: Project[] = [
           "Prevent duplicate applicants by enforcing unique email within the same job post",
           "Verify success notifications only fire after extraction and profile creation complete",
           "Ensure parsed CV fields map safely into recruiter-facing applicant cards",
+        ],
+      },
+    },
+    category: "key-feature",
+  },
+  {
+    title: "Indonesia Payroll",
+    period: "View UI",
+    periodCtaUrl: "/indonesia/indonesia.gif",
+    description:
+      "Built Indonesia payroll around real tax and salary calculation logic: annualize taxable earnings, subtract PTKP-style personal and family relief plus allowed job and social-security deductions, apply progressive PPh 21 brackets, then offset prior withheld tax to produce the current payroll tax, net salary, and year-end reconciliation.",
+    tags: [
+      "Taxable Income",
+      "Relief & Deductions",
+      "Tax Brackets",
+      "Tax Reconciliation",
+    ],
+    tagDetails: {
+      "Taxable Income": {
+        summary:
+          "The payroll flow starts by projecting annual taxable earnings from salary components such as base pay, fixed allowances, and other recurring taxable income.",
+        highlights: [
+          "Combine taxable monthly salary elements into yearly gross income",
+          "Separate taxable earnings from non-taxable payroll items before calculation",
+          "Use annualized income as the basis for later PPh 21 computation",
+        ],
+      },
+      "Relief & Deductions": {
+        summary:
+          "After annual income is established, the calculation reduces it with PTKP-style personal relief and permitted deductions to reach net taxable income.",
+        highlights: [
+          "Apply personal or family non-taxable income relief based on employee status",
+          "Deduct job-expense allowance within its capped monthly and yearly limits",
+          "Subtract pension or old-age security contributions that are allowed in payroll tax treatment",
+        ],
+      },
+      "Tax Brackets": {
+        summary:
+          "Net taxable income is then processed through Indonesia's progressive PPh 21 brackets so each income layer is taxed at its own rate.",
+        highlights: [
+          "Lower income layer taxed at 5%, followed by higher progressive bands",
+          "Bracket-by-bracket calculation prevents the full income being taxed at one flat rate",
+          "The final yearly tax reflects the cumulative result of all applicable bands",
+        ],
+      },
+      "Tax Reconciliation": {
+        summary:
+          "The yearly tax result is reconciled against tax already withheld in prior payroll periods to determine the current deduction and keep payroll balanced.",
+        highlights: [
+          "Subtract previous months' paid income tax from the current annual liability",
+          "Calculate the remaining tax to withhold in the active payroll run",
+          "Produce clearer net salary, tax receipt, and year-end reconciliation values",
         ],
       },
     },
@@ -317,6 +542,8 @@ const LOCAL_KEY_FEATURES: Project[] = [
           "Feature-ready validation gates",
           "Safe rollout checklist and fallback",
         ],
+        ctaLabel: "Open Implementation Diagram",
+        ctaUrl: "/expense/expense-implementation.svg",
       },
       Testing: {
         summary:
@@ -485,7 +712,7 @@ function sortKeyFeatures(projects: Project[]) {
 function getLocalProjects(): ProjectsPayload {
   return {
     productionProjects: LOCAL_PRODUCTION_PROJECTS,
-    keyFeatures: LOCAL_KEY_FEATURES,
+    keyFeatures: sortKeyFeatures(LOCAL_KEY_FEATURES),
     source: "local",
   };
 }

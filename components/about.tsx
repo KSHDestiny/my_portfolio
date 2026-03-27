@@ -11,7 +11,7 @@ export default function About() {
           <SectionHeading
             eyebrow="Introduction"
             title="About Me"
-            description="A quick look at who I am, what I build, and the kind of product and challenge I enjoy most."
+            description="A quick introduction to how I work, what I build, and the kinds of engineering problems I enjoy solving."
           />
         </AnimateInView>
 
@@ -24,17 +24,18 @@ export default function About() {
                 </h3>
                 <div className="space-y-4 text-muted-foreground">
                   <p className="text-sm md:text-base">
-                    Full-Stack Developer with strong experience in React.js,
-                    Laravel (PHP), Node.js, and scalable database design.
-                    Skilled in building secure RESTful APIs, high-performance
-                    backend systems, and interactive frontends.
+                    I&apos;m a backend-focused full-stack developer with
+                    hands-on experience building product features, internal
+                    systems, and platform integrations that support real
+                    business operations at scale.
                   </p>
                   <p className="text-sm md:text-base">
-                    Hands-on experience with MySQL, MongoDB, Redis, Docker, AWS,
-                    and CI/CD workflows. Proven record of delivering
-                    production-grade features across HRMS, CMS, ATS, and
-                    AI-driven platforms used by 100K+ users across multiple
-                    countries.
+                    My work has included secure REST APIs, workflow automation,
+                    multi-tenant systems, database design, third-party
+                    integrations, and performance improvements across HR,
+                    recruitment, and business platforms. I&apos;m most comfortable
+                    where product logic, system reliability, and practical
+                    delivery all matter at once.
                   </p>
                 </div>
               </CardContent>
@@ -83,13 +84,10 @@ export default function About() {
                   </div>
 
                   <div className="pt-2">
-                    <p className="text-sm text-muted-foreground">Nationality</p>
-                    <p className="text-sm md:text-base">Myanmar</p>
-                  </div>
-
-                  <div>
-                    <p className="text-sm text-muted-foreground">Gender</p>
-                    <p className="text-sm md:text-base">Male</p>
+                    <p className="text-sm text-muted-foreground">Focus</p>
+                    <p className="text-sm md:text-base">
+                      Backend, integrations, and scalable systems
+                    </p>
                   </div>
 
                   <div>
