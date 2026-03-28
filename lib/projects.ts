@@ -1120,3 +1120,26 @@ export async function getProjects(): Promise<ProjectsPayload> {
     return getLocalProjects();
   }
 }
+
+export function slugifyProjectTitle(title: string) {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+export async function getAllProjects() {
+  const { productionProjects, keyFeatures, source } = await getProjects();
+
+  return {
+    productionProjects,
+    keyFeatures,
+    source,
+    allProjects: [...productionProjects, ...keyFeatures],
+  };
+}
+
+export async function getProjectBySlug(slug: string) {
+  const { allProjects } = await getAllProjects();
+  return allProjects.find((project) => slugifyProjectTitle(project.title) === slug);
+}

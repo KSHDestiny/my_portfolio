@@ -30,7 +30,7 @@ export default function Contact() {
         </AnimateInView>
 
         <AnimateInView delay={0.15}>
-          <div className="relative mx-auto mb-8 max-w-5xl overflow-hidden rounded-[2rem] border border-primary/20 bg-[linear-gradient(135deg,rgba(2,6,23,0.96),rgba(10,18,38,0.96)_45%,rgba(18,39,79,0.88))] p-6 shadow-[0_28px_90px_-60px_rgba(59,130,246,0.9)] md:p-8">
+          <div className="relative mx-auto mb-8 max-w-5xl overflow-hidden rounded-[2rem] border border-primary/20 bg-[linear-gradient(135deg,rgba(255,255,255,0.96),rgba(239,246,255,0.96)_45%,rgba(219,234,254,0.92))] p-6 shadow-[0_28px_90px_-60px_rgba(59,130,246,0.35)] dark:bg-[linear-gradient(135deg,rgba(2,6,23,0.96),rgba(10,18,38,0.96)_45%,rgba(18,39,79,0.88))] dark:shadow-[0_28px_90px_-60px_rgba(59,130,246,0.9)] md:p-8">
             <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(59,130,246,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.05)_1px,transparent_1px)] bg-[size:34px_34px] opacity-35" />
             <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.22),transparent_68%)]" />
             <div className="relative grid gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">

@@ -729,7 +729,7 @@ function ProjectCoverflowSection({
       </div>
 
       <div
-        className="relative overflow-hidden rounded-[2rem] border border-primary/15 bg-[linear-gradient(135deg,rgba(2,6,23,0.96),rgba(9,16,35,0.96)_45%,rgba(20,39,77,0.92))] px-4 py-8 shadow-[0_30px_90px_-60px_rgba(59,130,246,0.8)] md:px-8 md:py-10"
+        className="relative overflow-hidden rounded-[2rem] border border-primary/15 bg-[linear-gradient(135deg,rgba(255,255,255,0.96),rgba(239,246,255,0.96)_45%,rgba(219,234,254,0.92))] px-4 py-8 shadow-[0_30px_90px_-60px_rgba(59,130,246,0.28)] dark:bg-[linear-gradient(135deg,rgba(2,6,23,0.96),rgba(9,16,35,0.96)_45%,rgba(20,39,77,0.92))] dark:shadow-[0_30px_90px_-60px_rgba(59,130,246,0.8)] md:px-8 md:py-10"
         onWheel={handleWheel}
         style={{ overscrollBehaviorX: "contain" }}
       >

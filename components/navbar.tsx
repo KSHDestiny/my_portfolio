@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "./theme-toggle";
@@ -19,8 +20,9 @@ const NAV_ITEMS = [
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("about");
+  const [activeSection, setActiveSection] = useState("");
   const isDesktop = useMediaQuery("(min-width: 768px)");
+  const pathname = usePathname();
 
   useEffect(() => {
     if (isDesktop) {
@@ -33,16 +35,30 @@ export default function Navbar() {
   };
 
   useEffect(() => {
+    if (pathname !== "/") {
+      setActiveSection("");
+      return;
+    }
+
     const sectionIds = NAV_ITEMS.map((item) => item.href.slice(1));
     const sections = sectionIds
       .map((id) => document.getElementById(id))
       .filter((section): section is HTMLElement => Boolean(section));
 
-    if (sections.length === 0) return;
+    if (sections.length === 0) {
+      setActiveSection("");
+      return;
+    }
 
     const updateActiveSection = () => {
       const navbarOffset = 140;
       const activationY = window.scrollY + navbarOffset;
+      const firstSectionTop = sections[0].offsetTop;
+
+      if (activationY < firstSectionTop) {
+        setActiveSection("");
+        return;
+      }
 
       let currentSection = sections[0].id;
 
@@ -71,7 +87,7 @@ export default function Navbar() {
       window.removeEventListener("scroll", updateActiveSection);
       window.removeEventListener("resize", updateActiveSection);
     };
-  }, []);
+  }, [pathname]);
 
   return (
     <nav className="fixed top-0 z-50 w-full bg-background/80 backdrop-blur-md border-b border-primary/10 shadow-sm">
@@ -85,12 +101,14 @@ export default function Navbar() {
           {NAV_ITEMS.map((item) => (
             <Link
               key={item.name}
-              href={item.href}
+              href={pathname === "/" ? item.href : `/${item.href}`}
               aria-current={
-                activeSection === item.href.slice(1) ? "page" : undefined
+                pathname === "/" && activeSection === item.href.slice(1)
+                  ? "page"
+                  : undefined
               }
               className={`rounded-full px-3 py-1.5 transition-colors ${
-                activeSection === item.href.slice(1)
+                pathname === "/" && activeSection === item.href.slice(1)
                   ? "bg-primary/12 text-primary"
                   : "text-muted-foreground hover:text-primary"
               }`}
@@ -117,12 +135,14 @@ export default function Navbar() {
             {NAV_ITEMS.map((item) => (
               <Link
                 key={item.name}
-                href={item.href}
+                href={pathname === "/" ? item.href : `/${item.href}`}
                 aria-current={
-                  activeSection === item.href.slice(1) ? "page" : undefined
+                  pathname === "/" && activeSection === item.href.slice(1)
+                    ? "page"
+                    : undefined
                 }
                 className={`rounded-xl px-3 py-2 transition-colors ${
-                  activeSection === item.href.slice(1)
+                  pathname === "/" && activeSection === item.href.slice(1)
                     ? "bg-primary/12 text-primary"
                     : "text-muted-foreground hover:text-primary"
                 }`}
