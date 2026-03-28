@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
@@ -267,10 +268,13 @@ export default function Skills() {
                 style={{ x: smoothBalloonX, y: smoothBalloonY }}
                 aria-hidden="true"
               >
-                <img
+                <Image
                   src="/blue_balloon.svg"
                   alt=""
+                  width={96}
+                  height={96}
                   className="h-16 w-auto opacity-80 drop-shadow-[0_8px_18px_rgba(59,75,173,0.2)] md:h-24 md:opacity-100 md:drop-shadow-[0_10px_24px_rgba(59,75,173,0.24)]"
+                  unoptimized
                 />
               </motion.div>
 

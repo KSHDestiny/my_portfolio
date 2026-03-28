@@ -7,6 +7,16 @@ import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "./theme-toggle";
 import { useMediaQuery } from "@/hooks/use-media-query";
 
+const NAV_ITEMS = [
+  { name: "About", href: "#about" },
+  { name: "Skills", href: "#skills" },
+  { name: "Projects", href: "#projects" },
+  { name: "Experience", href: "#experience" },
+  { name: "Knowledge", href: "#knowledge" },
+  { name: "Education", href: "#education" },
+  { name: "Contact", href: "#contact" },
+] as const;
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("about");
@@ -22,18 +32,8 @@ export default function Navbar() {
     setIsOpen(!isOpen);
   };
 
-  const navItems = [
-    { name: "About", href: "#about" },
-    { name: "Skills", href: "#skills" },
-    { name: "Projects", href: "#projects" },
-    { name: "Experience", href: "#experience" },
-    { name: "Knowledge", href: "#knowledge" },
-    { name: "Education", href: "#education" },
-    { name: "Contact", href: "#contact" },
-  ];
-
   useEffect(() => {
-    const sectionIds = navItems.map((item) => item.href.slice(1));
+    const sectionIds = NAV_ITEMS.map((item) => item.href.slice(1));
     const sections = sectionIds
       .map((id) => document.getElementById(id))
       .filter((section): section is HTMLElement => Boolean(section));
@@ -82,7 +82,7 @@ export default function Navbar() {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-6">
-          {navItems.map((item) => (
+          {NAV_ITEMS.map((item) => (
             <Link
               key={item.name}
               href={item.href}
@@ -114,7 +114,7 @@ export default function Navbar() {
       {isOpen && (
         <div className="md:hidden absolute w-full bg-background/80 backdrop-blur-md border-b border-primary/10 z-40">
           <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
-            {navItems.map((item) => (
+            {NAV_ITEMS.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}

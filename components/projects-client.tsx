@@ -10,6 +10,7 @@ import {
   type WheelEvent,
 } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Card,
   CardContent,
@@ -516,11 +517,15 @@ const ProjectSlide = memo(function ProjectSlide({
           </DialogHeader>
           {previewAsset?.url ? (
             isImageAsset(previewAsset.url) ? (
-              <img
-                src={previewAsset.url}
-                alt={previewAsset.title}
-                className="h-[62vh] w-full rounded-md border border-border/70 bg-background object-contain md:h-[68vh]"
-              />
+              <div className="relative h-[62vh] w-full overflow-hidden rounded-md border border-border/70 bg-background md:h-[68vh]">
+                <Image
+                  src={previewAsset.url}
+                  alt={previewAsset.title}
+                  fill
+                  className="object-contain"
+                  unoptimized
+                />
+              </div>
             ) : (
               <iframe
                 src={previewAsset.url}
@@ -565,7 +570,6 @@ function ProjectCoverflowSection({
   const isMobile = useMediaQuery("(max-width: 767px)");
   const lastWheelAtRef = useRef(0);
   const wheelLockRef = useRef(false);
-  const activeProject = projects[activeIndex];
   const sectionCopy = PROJECT_SECTION_COPY[title];
   const engineeringProjectIndices = projects
     .map((project, index) => (hasEngineeringDepth(project) ? index : null))
@@ -872,11 +876,15 @@ function ProjectCoverflowSection({
           </DialogHeader>
           {previewAsset?.url ? (
             isImageAsset(previewAsset.url) ? (
-              <img
-                src={previewAsset.url}
-                alt={previewAsset.title}
-                className="h-[62vh] w-full rounded-md border border-border/70 bg-background object-contain md:h-[68vh]"
-              />
+              <div className="relative h-[62vh] w-full overflow-hidden rounded-md border border-border/70 bg-background md:h-[68vh]">
+                <Image
+                  src={previewAsset.url}
+                  alt={previewAsset.title}
+                  fill
+                  className="object-contain"
+                  unoptimized
+                />
+              </div>
             ) : (
               <iframe
                 src={previewAsset.url}
