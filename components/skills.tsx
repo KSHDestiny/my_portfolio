@@ -68,7 +68,6 @@ export default function Skills() {
     damping: 24,
     mass: 0.5,
   });
-  const blueShapeOpacity = useTransform(scrollYProgress, [0, 0.2, 1], [0.12, 0.3, 0.55]);
   const balloonX = useTransform(
     scrollYProgress,
     [0, 1],

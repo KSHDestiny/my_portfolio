@@ -162,7 +162,7 @@ export default function Contact() {
                     </div>
                     <h3 className="text-xl font-medium mb-2">Message Sent!</h3>
                     <p className="text-muted-foreground mb-6">
-                      Thank you for reaching out. I'll get back to you as soon as possible.
+                      Thank you for reaching out. I&apos;ll get back to you as soon as possible.
                     </p>
                     <Button variant="outline" onClick={() => setSubmitStatus("idle")}>
                       Send Another Message
