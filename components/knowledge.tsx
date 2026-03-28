@@ -1,7 +1,11 @@
+import dynamic from "next/dynamic";
 import AnimateInView from "./animations/animate-in-view";
-import KnowledgeTopicsClient from "./knowledge-topics-client";
 import { getKnowledgeTopics } from "@/lib/knowledge";
 import SectionHeading from "./section-heading";
+
+const KnowledgeTopicsClient = dynamic(
+  () => import("./knowledge-topics-client"),
+);
 
 export default async function Knowledge() {
   const knowledgeTopics = await getKnowledgeTopics();

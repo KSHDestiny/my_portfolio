@@ -8,7 +8,6 @@ export const metadata: Metadata = {
   title: "Kaung Sat Hein | Backend-Focused Full-Stack Developer",
   description:
     "Portfolio website of Kaung Sat Hein, a Backend-Focused Full-Stack Developer with expertise in React.js, Laravel, Node.js, secure APIs, and scalable systems.",
-  generator: "v0.dev",
 };
 
 export default function RootLayout({

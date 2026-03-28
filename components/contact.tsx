@@ -11,7 +11,6 @@ import { Mail, Phone, MapPin, Send, CheckCircle, AlertCircle } from "lucide-reac
 import { motion } from "framer-motion"
 import AnimateInView from "./animations/animate-in-view"
 import SectionHeading from "./section-heading"
-import emailjs from "@emailjs/browser"
 
 // EmailJS configuration
 const EMAILJS_CONFIG = {
@@ -48,6 +47,8 @@ export default function Contact() {
     setErrorMessage("")
 
     try {
+      const { default: emailjs } = await import("@emailjs/browser")
+
       // Prepare template parameters to ensure all variables are properly set
       const templateParams = {
         name: formData.name,

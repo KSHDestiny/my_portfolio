@@ -260,8 +260,7 @@ const LOCAL_KEY_FEATURES: Project[] = [
   {
     title: "Permission Group",
     period: "View UI",
-    periodCtaMessage:
-      "UI preview is not included here, but the permission group module was designed around manager/admin visibility scope based on configured organizational dimensions.",
+    periodCtaUrl: "/permission_group/permission_group.gif",
     description:
       "Designed a permission group module to control what a manager or admin can see and access based on configured permission groups, using department, position, location, and status scope as the visibility boundary.",
     tags: [
