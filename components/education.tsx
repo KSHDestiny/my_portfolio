@@ -29,7 +29,7 @@ export default function Education() {
   const education = useMemo(
     () => [
       {
-        degree: "Bachelor of Engineering - BE, Electrical and Electronics Engineering",
+        degree: "Bachelor of Engineering - BE",
         institution: "West Yangon Technological University",
         period: "Jan 2014 - Dec 2021",
       },

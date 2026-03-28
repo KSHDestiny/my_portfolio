@@ -19,7 +19,6 @@ import {
 } from "@/components/ui/card";
 import {
   ArrowUpRight,
-  Calendar,
   ChevronLeft,
   ChevronRight,
   Database,
@@ -27,6 +26,7 @@ import {
   FileText,
   GitBranch,
   Hammer,
+  Info,
   Network,
   ShieldCheck,
   X,
@@ -157,12 +157,63 @@ function getDefaultTag(project: Project) {
   return project.tags.find((tag) => Boolean(project.tagDetails?.[tag])) ?? null;
 }
 
-function shouldShowHighlightTooltip(highlight: string) {
-  return highlight.length > 70;
-}
-
 function isImageAsset(url: string) {
   return /\.(gif|png|jpe?g|webp|svg)$/i.test(url);
+}
+
+const ENGINEERING_TAGS = [
+  "Architecture",
+  "Workflow",
+  "ERD",
+  "Implementation",
+  "Testing",
+] as const;
+
+const PROJECT_SECTION_COPY: Record<
+  string,
+  {
+    eyebrow: string;
+    description: string;
+  }
+> = {
+  Projects: {
+    eyebrow: "Production Systems",
+    description:
+      "Backend-led product work shaped by business rules, integrations, scale, and production delivery.",
+  },
+  "Feature Highlights": {
+    eyebrow: "System Design Views",
+    description:
+      "Focused breakdowns that show architecture thinking, workflows, and data modeling behind key features.",
+  },
+};
+
+function getEngineeringArtifacts(project: Project) {
+  if (!project.tagDetails) return [];
+
+  return ENGINEERING_TAGS.map((tag) => {
+    const detail = normalizeTagDetail(project.tagDetails?.[tag]);
+
+    if (!detail) return null;
+
+    return {
+      tag,
+      detail,
+      Icon: getTagIcon(tag),
+    };
+  }).filter(
+    (
+      artifact,
+    ): artifact is {
+      tag: (typeof ENGINEERING_TAGS)[number];
+      detail: ReturnType<typeof normalizeTagDetail>;
+      Icon: ReturnType<typeof getTagIcon>;
+    } => Boolean(artifact),
+  );
+}
+
+function hasEngineeringDepth(project: Project) {
+  return getEngineeringArtifacts(project).length > 0;
 }
 
 const ProjectSlide = memo(function ProjectSlide({
@@ -218,7 +269,7 @@ const ProjectSlide = memo(function ProjectSlide({
 
   return (
     <motion.div
-      className="absolute left-[6%] top-0 w-[88%] max-w-[430px] cursor-pointer md:left-[37%] md:w-[84vw]"
+      className="absolute left-[6%] top-0 w-[88%] max-w-[430px] cursor-pointer md:left-[37%] md:w-[84vw] md:max-w-[520px]"
       animate={pose}
       initial={false}
       transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
@@ -233,7 +284,7 @@ const ProjectSlide = memo(function ProjectSlide({
     >
       <Card
         onMouseMove={handleMouseMove}
-        className={`relative flex h-[430px] flex-col overflow-hidden border-primary/20 backdrop-blur-xl transition-all md:h-[360px] ${
+        className={`relative flex h-[430px] flex-col overflow-hidden border-primary/20 backdrop-blur-xl transition-all md:h-[380px] ${
           isActive
             ? "bg-background/95 shadow-2xl shadow-primary/15 ring-1 ring-primary/20"
             : "bg-background/30 shadow-lg shadow-black/5"
@@ -254,9 +305,9 @@ const ProjectSlide = memo(function ProjectSlide({
             isActive ? "" : "pointer-events-none"
           }`}
         >
-          <div className="flex items-start justify-between gap-3">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
             <CardTitle
-              className={`text-base md:text-lg ${
+              className={`min-w-0 text-base leading-tight md:text-lg ${
                 isActive ? "text-foreground" : "text-foreground/45"
               }`}
             >
@@ -273,7 +324,7 @@ const ProjectSlide = memo(function ProjectSlide({
                     message: project.periodCtaMessage,
                   });
                 }}
-                className={`inline-flex shrink-0 items-center gap-1 text-xs font-medium md:text-sm ${
+                className={`inline-flex shrink-0 items-center gap-1 self-start text-xs font-medium md:text-sm ${
                   isActive ? "text-primary hover:underline" : "text-primary/50"
                 }`}
               >
@@ -281,26 +332,7 @@ const ProjectSlide = memo(function ProjectSlide({
                 <ExternalLink className="h-3.5 w-3.5" />
               </button>
             ) : (
-              <div
-                className={`flex shrink-0 items-center text-xs md:text-sm ${
-                  project.category === "key-feature"
-                    ? isActive
-                      ? "text-primary/80"
-                      : "text-primary/45"
-                    : isActive
-                      ? "text-muted-foreground"
-                      : "text-muted-foreground/40"
-                }`}
-              >
-                {project.category === "key-feature" ? (
-                  <span>{project.period}</span>
-                ) : (
-                  <>
-                    <Calendar className="mr-1 h-4 w-4" />
-                    {project.period}
-                  </>
-                )}
-              </div>
+              <div />
             )}
           </div>
           <div className="mt-3 flex flex-wrap gap-2">
@@ -317,7 +349,7 @@ const ProjectSlide = memo(function ProjectSlide({
                 }}
                 className={`rounded-full px-2.5 py-1 text-xs font-medium transition ${
                   project.tagDetails?.[tag] && isActive
-                    ? "cursor-pointer"
+                    ? "cursor-pointer hover:bg-primary/20 hover:text-primary"
                     : "cursor-default"
                 } ${
                   selectedTag === tag && project.tagDetails?.[tag]
@@ -335,13 +367,13 @@ const ProjectSlide = memo(function ProjectSlide({
           </div>
         </CardHeader>
         <CardContent
-          className={`relative z-20 flex min-h-0 flex-1 flex-col justify-between overflow-y-auto pr-1 md:overflow-visible md:pr-0 ${
+          className={`relative z-20 flex min-h-0 flex-1 flex-col justify-between overflow-y-auto pr-1 md:px-5 md:pb-5 md:overflow-visible md:pr-5 ${
             isActive ? "" : "pointer-events-none"
           }`}
         >
           {selectedTagDetail && selectedTag ? (
             <div
-              className={`space-y-2 rounded-xl border p-3 ${
+              className={`mx-auto w-full max-w-[26rem] space-y-2 rounded-xl border p-3 md:p-4 ${
                 isActive
                   ? "border-primary/35 bg-primary/5"
                   : "border-primary/15 bg-primary/5"
@@ -375,22 +407,16 @@ const ProjectSlide = memo(function ProjectSlide({
                       .slice(0, 3)
                       .map((highlight) => (
                         <li key={highlight}>
-                          {shouldShowHighlightTooltip(highlight) ? (
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <span className="block w-full overflow-hidden text-ellipsis whitespace-nowrap">
-                                  • {highlight}
-                                </span>
-                              </TooltipTrigger>
-                              <TooltipContent className="max-w-sm text-xs leading-5">
-                                {highlight}
-                              </TooltipContent>
-                            </Tooltip>
-                          ) : (
-                            <span className="block w-full overflow-hidden text-ellipsis whitespace-nowrap">
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <span className="block w-full cursor-help whitespace-normal leading-5 transition hover:text-foreground sm:overflow-hidden sm:text-ellipsis sm:whitespace-nowrap">
+                                • {highlight}
+                              </span>
+                            </TooltipTrigger>
+                            <TooltipContent className="max-w-sm text-xs leading-5">
                               • {highlight}
-                            </span>
-                          )}
+                            </TooltipContent>
+                          </Tooltip>
                         </li>
                       ))}
                   </ul>
@@ -431,17 +457,38 @@ const ProjectSlide = memo(function ProjectSlide({
             )
           )}
           {project.url && (
-            <Link
-              href={project.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`inline-flex items-center gap-1 text-sm ${
-                isActive ? "text-primary hover:underline" : "text-primary/45"
-              }`}
-            >
-              Open Project
-              <ExternalLink className="h-4 w-4" />
-            </Link>
+            <div className="flex items-center gap-2">
+              <Link
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`inline-flex items-center gap-1 text-sm ${
+                  isActive ? "text-primary hover:underline" : "text-primary/45"
+                }`}
+              >
+                Open Project
+                <ExternalLink className="h-4 w-4" />
+              </Link>
+              {project.infoMessage && isActive && (
+                <TooltipProvider delayDuration={120}>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <button
+                        type="button"
+                        onClick={(event) => event.stopPropagation()}
+                        className="ml-auto mr-1 inline-flex h-6 w-6 items-center justify-center rounded-full border border-primary/20 bg-background/70 text-primary transition hover:border-primary/45 hover:bg-primary/10"
+                        aria-label="Project context"
+                      >
+                        <Info className="h-3.5 w-3.5" />
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent className="max-w-xs text-xs leading-5">
+                      {project.infoMessage}
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              )}
+            </div>
           )}
         </CardContent>
       </Card>
@@ -499,32 +546,64 @@ function ProjectCoverflowSection({
   title,
   projects,
   delay,
+  showEngineeringToggle = false,
 }: {
   title: string;
   projects: Project[];
   delay: number;
+  showEngineeringToggle?: boolean;
 }) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [detailMode, setDetailMode] = useState<"overview" | "engineering">(
+    "overview",
+  );
+  const [previewAsset, setPreviewAsset] = useState<{
+    title: string;
+    url?: string;
+    message?: string;
+  } | null>(null);
   const isMobile = useMediaQuery("(max-width: 767px)");
   const lastWheelAtRef = useRef(0);
   const wheelLockRef = useRef(false);
+  const activeProject = projects[activeIndex];
+  const sectionCopy = PROJECT_SECTION_COPY[title];
+  const engineeringProjectIndices = projects
+    .map((project, index) => (hasEngineeringDepth(project) ? index : null))
+    .filter((index): index is number => index !== null);
+  const navigationIndices =
+    showEngineeringToggle && detailMode === "engineering"
+      ? engineeringProjectIndices
+      : projects.map((_, index) => index);
+  const activeNavigationPosition = Math.max(
+    0,
+    navigationIndices.indexOf(activeIndex),
+  );
+  const displayedProject =
+    projects[navigationIndices[activeNavigationPosition] ?? activeIndex];
+  const displayedEngineeringArtifacts = displayedProject
+    ? getEngineeringArtifacts(displayedProject)
+    : [];
 
-  function goTo(index: number) {
+  function goTo(position: number) {
+    const nextIndex = navigationIndices[wrapIndex(position, navigationIndices.length)];
+
+    if (nextIndex === undefined) return;
+
     startTransition(() => {
-      setActiveIndex(wrapIndex(index, projects.length));
+      setActiveIndex(nextIndex);
     });
   }
 
   function goNext() {
-    goTo(activeIndex + 1);
+    goTo(activeNavigationPosition + 1);
   }
 
   function goPrev() {
-    goTo(activeIndex - 1);
+    goTo(activeNavigationPosition - 1);
   }
 
   function goToDelta(direction: 1 | -1) {
-    goTo(activeIndex + direction);
+    goTo(activeNavigationPosition + direction);
   }
 
   function handleWheel(event: WheelEvent<HTMLDivElement>) {
@@ -561,77 +640,259 @@ function ProjectCoverflowSection({
     return null;
   }
 
+  if (navigationIndices.length === 0) {
+    return null;
+  }
+
   return (
-    <AnimateInView delay={delay} className="mb-14">
-      <div className="mb-5 flex items-end justify-between gap-4">
-        <div>
-          <h3 className="text-lg font-semibold md:text-xl">{title}</h3>
+    <AnimateInView delay={delay} className="mb-16">
+      <div className="mb-6 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+        <div className="relative overflow-hidden rounded-[1.75rem] border border-primary/15 bg-gradient-to-br from-background/95 via-background/90 to-primary/10 px-5 py-5 shadow-[0_18px_60px_-40px_rgba(59,130,246,0.6)] md:max-w-3xl md:px-6">
+          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(120deg,rgba(59,130,246,0.08),transparent_32%,transparent_68%,rgba(59,130,246,0.06))]" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-[radial-gradient(circle_at_top_right,rgba(59,130,246,0.18),transparent_70%)]" />
+          <div className="relative space-y-3">
+            {sectionCopy?.eyebrow && (
+              <div className="flex items-center gap-3">
+                <span className="h-px w-10 bg-primary/35" />
+                <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-primary/75">
+                  {sectionCopy.eyebrow}
+                </div>
+              </div>
+            )}
+            <div className="flex flex-wrap items-center gap-3">
+              <h3 className="text-2xl font-semibold tracking-[-0.04em] text-foreground md:text-3xl">
+                {title}
+              </h3>
+              <div className="rounded-full border border-primary/20 bg-background/75 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-primary/80 backdrop-blur-sm">
+                {navigationIndices.length} items
+              </div>
+            </div>
+            {sectionCopy?.description && (
+              <p className="max-w-2xl text-sm leading-6 text-muted-foreground">
+                {sectionCopy.description}
+              </p>
+            )}
+          </div>
         </div>
-        <div className="hidden gap-2 md:flex">
-          <button
-            type="button"
-            onClick={goPrev}
-            className="rounded-full border border-primary/20 bg-background/70 p-3 text-primary transition hover:border-primary/50"
-            aria-label={`Previous ${title}`}
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </button>
-          <button
-            type="button"
-            onClick={goNext}
-            className="rounded-full border border-primary/20 bg-background/70 p-3 text-primary transition hover:border-primary/50"
-            aria-label={`Next ${title}`}
-          >
-            <ChevronRight className="h-4 w-4" />
-          </button>
+
+        <div className="flex flex-col items-start gap-3 md:items-end">
+          {showEngineeringToggle && (
+            <div className="inline-flex rounded-[1rem] border border-primary/20 bg-background/70 p-1.5 shadow-[0_14px_40px_-30px_rgba(59,130,246,0.9)] backdrop-blur-sm">
+              <button
+                type="button"
+                onClick={() => setDetailMode("overview")}
+                className={`rounded-xl px-3 py-2 text-xs font-medium transition md:px-4 ${
+                  detailMode === "overview"
+                    ? "bg-primary text-primary-foreground shadow-[0_10px_24px_-18px_rgba(59,130,246,0.95)]"
+                    : "text-muted-foreground hover:bg-primary/8 hover:text-foreground"
+                }`}
+              >
+                Overview
+              </button>
+              <button
+                type="button"
+                onClick={() => setDetailMode("engineering")}
+                className={`rounded-xl px-3 py-2 text-xs font-medium transition md:px-4 ${
+                  detailMode === "engineering"
+                    ? "bg-primary text-primary-foreground shadow-[0_10px_24px_-18px_rgba(59,130,246,0.95)]"
+                    : "text-muted-foreground hover:bg-primary/8 hover:text-foreground"
+                }`}
+              >
+                Engineering Depth
+              </button>
+            </div>
+          )}
+
+          <div className="hidden gap-2 md:flex">
+            <button
+              type="button"
+              onClick={goPrev}
+              className="rounded-2xl border border-primary/20 bg-background/70 p-3 text-primary transition hover:border-primary/50 hover:bg-primary/10"
+              aria-label={`Previous ${title}`}
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </button>
+            <button
+              type="button"
+              onClick={goNext}
+              className="rounded-2xl border border-primary/20 bg-background/70 p-3 text-primary transition hover:border-primary/50 hover:bg-primary/10"
+              aria-label={`Next ${title}`}
+            >
+              <ChevronRight className="h-4 w-4" />
+            </button>
+          </div>
         </div>
       </div>
 
       <div
-        className="relative overflow-hidden rounded-[2rem] border border-primary/15 bg-gradient-to-br from-background via-background to-primary/5 px-4 py-8 md:px-8 md:py-10"
+        className="relative overflow-hidden rounded-[2rem] border border-primary/15 bg-[linear-gradient(135deg,rgba(2,6,23,0.96),rgba(9,16,35,0.96)_45%,rgba(20,39,77,0.92))] px-4 py-8 shadow-[0_30px_90px_-60px_rgba(59,130,246,0.8)] md:px-8 md:py-10"
         onWheel={handleWheel}
         style={{ overscrollBehaviorX: "contain" }}
       >
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(59,130,246,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.05)_1px,transparent_1px)] bg-[size:36px_36px] opacity-40" />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.14),transparent_55%)]" />
-        <div
-          className="relative h-[480px] md:h-[410px]"
-          style={{ perspective: 2200 }}
-        >
-          {projects.map((project, index) => {
-            const offset = index - activeIndex;
-            return (
-              <ProjectSlide
-                key={project.title}
-                project={project}
-                offset={offset}
-                isMobile={isMobile}
-                isActive={index === activeIndex}
-                onStep={goToDelta}
-                onSelect={() => {
-                  if (index === activeIndex) return;
-                  goTo(index);
-                }}
-              />
-            );
-          })}
-        </div>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-[radial-gradient(circle_at_bottom,rgba(59,130,246,0.12),transparent_70%)]" />
+        {detailMode === "overview" ? (
+          <div
+            className="relative h-[480px] md:h-[410px]"
+            style={{ perspective: 2200 }}
+          >
+            {projects.map((project, index) => {
+              const offset = index - activeIndex;
+              return (
+                <ProjectSlide
+                  key={project.title}
+                  project={project}
+                  offset={offset}
+                  isMobile={isMobile}
+                  isActive={index === activeIndex}
+                  onStep={goToDelta}
+                  onSelect={() => {
+                    if (index === activeIndex) return;
+                    goTo(index);
+                  }}
+                />
+              );
+            })}
+          </div>
+        ) : (
+          <div className="relative">
+            <Card className="border-primary/20 bg-background/60 shadow-[0_24px_60px_-45px_rgba(59,130,246,0.95)] backdrop-blur-sm">
+              <CardHeader className="space-y-3 pb-4">
+                <div className="flex flex-wrap items-start justify-between gap-3">
+                  <div className="space-y-1">
+                    <CardTitle className="text-lg md:text-xl">
+                      {displayedProject.title}
+                    </CardTitle>
+                    <CardDescription className="max-w-2xl text-sm leading-6">
+                      {displayedProject.description}
+                    </CardDescription>
+                  </div>
+                  <div className="rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-primary/80">
+                    {displayedEngineeringArtifacts.length} views
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="grid gap-3 md:grid-cols-2">
+                {displayedEngineeringArtifacts.map(({ tag, detail, Icon }) => (
+                  <div
+                    key={`${displayedProject.title}-${tag}`}
+                    className="rounded-2xl border border-primary/15 bg-background/45 p-4"
+                  >
+                    <div className="flex flex-wrap items-start justify-between gap-3">
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-primary/85">
+                          <Icon className="h-4 w-4" />
+                          {tag}
+                        </div>
+                        <p className="text-sm leading-6 text-muted-foreground">
+                          {detail?.summary}
+                        </p>
+                      </div>
+
+                      {detail?.ctaUrl ? (
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setPreviewAsset({
+                              title: `${displayedProject.title} · ${tag}`,
+                              url: detail.ctaUrl,
+                            })
+                          }
+                          className="inline-flex shrink-0 items-center gap-1 rounded-full border border-primary/25 bg-primary/10 px-3 py-1.5 text-xs font-medium text-primary transition hover:border-primary/45 hover:bg-primary/15"
+                        >
+                          Open Diagram
+                          <ArrowUpRight className="h-3.5 w-3.5" />
+                        </button>
+                      ) : (
+                        <div className="rounded-full border border-dashed border-primary/20 px-3 py-1.5 text-xs text-muted-foreground">
+                          Narrative view
+                        </div>
+                      )}
+                    </div>
+
+                    {detail?.highlights && detail.highlights.length > 0 && (
+                      <ul className="mt-3 space-y-2 text-sm text-foreground/85">
+                        {detail.highlights.slice(0, 3).map((highlight) => (
+                          <li
+                            key={highlight}
+                            className="flex items-start gap-2 leading-6"
+                          >
+                            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary/80" />
+                            <span>{highlight}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          </div>
+        )}
 
         <div className="mt-6 flex items-center justify-center gap-2">
-          {projects.map((project, index) => (
+          {navigationIndices.map((projectIndex, index) => {
+            const project = projects[projectIndex];
+
+            return (
             <button
               key={project.title}
               type="button"
               onClick={() => goTo(index)}
               className={`h-2.5 rounded-full transition-all ${
-                index === activeIndex
+                index === activeNavigationPosition
                   ? "w-10 bg-primary"
                   : "w-2.5 bg-primary/25"
               }`}
               aria-label={`Show ${project.title}`}
             />
-          ))}
+            );
+          })}
         </div>
       </div>
+
+      <Dialog
+        open={Boolean(previewAsset)}
+        onOpenChange={(open) => {
+          if (!open) {
+            setPreviewAsset(null);
+          }
+        }}
+      >
+        <DialogContent className="w-[96vw] max-w-5xl p-4 sm:p-5">
+          <DialogClose className="absolute right-4 top-4 rounded-full border border-border/70 bg-background/90 p-2 text-muted-foreground transition hover:text-foreground">
+            <X className="h-4 w-4" />
+            <span className="sr-only">Close preview</span>
+          </DialogClose>
+          <DialogHeader>
+            <DialogTitle className="text-base sm:text-lg">
+              {previewAsset?.title}
+            </DialogTitle>
+          </DialogHeader>
+          {previewAsset?.url ? (
+            isImageAsset(previewAsset.url) ? (
+              <img
+                src={previewAsset.url}
+                alt={previewAsset.title}
+                className="h-[62vh] w-full rounded-md border border-border/70 bg-background object-contain md:h-[68vh]"
+              />
+            ) : (
+              <iframe
+                src={previewAsset.url}
+                title={previewAsset.title}
+                className="h-[62vh] w-full rounded-md border border-border/70 bg-background md:h-[68vh]"
+              />
+            )
+          ) : (
+            <div className="flex h-[40vh] items-center justify-center rounded-md border border-border/70 bg-background/60 p-8 text-center md:h-[46vh]">
+              <p className="max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base">
+                A preview is not available for this artifact yet.
+              </p>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </AnimateInView>
   );
 }
@@ -670,6 +931,7 @@ export default function ProjectsClient({
           title="Feature Highlights"
           projects={keyFeatures}
           delay={0.2}
+          showEngineeringToggle
         />
       </div>
     </section>

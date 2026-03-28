@@ -9,7 +9,7 @@ export default function Experience() {
   const experiences = [
     {
       step: 1,
-      title: "Web Backend Engineer (Trainee)",
+      title: "Web Backend Developer (Trainee)",
       company: "Better HR",
       location: "Yangon, Myanmar",
       period: "Oct 2023 - Jan 2024",
@@ -21,34 +21,34 @@ export default function Experience() {
     },
     {
       step: 2,
-      title: "Web Backend Engineer",
-      company: "Better HR / Better Jobs",
+      title: "Web Backend Developer",
+      company: "Better HR",
       location: "Yangon, Myanmar / Phnom Penh, Cambodia",
-      period: "Feb 2024 - Mar 2026",
+      period: "Feb 2024 - Present",
       status: "Growth",
-      current: false,
+      current: true,
       highlight:
         "Expanded into larger product ownership across Better HR and Better Jobs, covering integrations, scalable backend work, and recruitment-facing platform systems.",
       desktopOffset: "md:ml-20",
     },
     {
       step: 3,
-      title: "Senior Web Backend Engineer",
-      company: "Better HR",
+      title: "Senior Full-Stack Developer",
+      company: "",
       location: "Yangon, Myanmar",
-      period: "Apr 2026 - Present",
-      status: "Leadership",
-      current: true,
+      period: "Next Goal",
+      status: "Goal",
+      current: false,
       highlight:
-        "Leading backend delivery at Better HR with broader ownership across architecture, scalability, and cross-team execution.",
+        "A future milestone focused on growing into stronger technical leadership, broader product ownership, and end-to-end full-stack delivery across frontend and backend systems.",
       desktopOffset: "md:ml-40",
     },
   ];
 
   const ladderSteps = [
-    { label: "Web Backend Engineer (Trainee)", tone: "completed" },
-    { label: "Web Backend Engineer", tone: "completed" },
-    { label: "Senior Web Backend Engineer", tone: "active" },
+    { label: "Web Backend Developer (Trainee)", tone: "completed" },
+    { label: "Web Backend Developer", tone: "active" },
+    { label: "Senior Full-Stack Developer", tone: "pending" },
   ] as const;
 
   return (
@@ -146,9 +146,11 @@ export default function Experience() {
                         <Briefcase className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
                         <span>{exp.title}</span>
                       </CardTitle>
-                      <p className="text-sm text-muted-foreground">
-                        {exp.company}
-                      </p>
+                      {exp.company ? (
+                        <p className="text-sm text-muted-foreground">
+                          {exp.company}
+                        </p>
+                      ) : null}
                     </div>
 
                     <div className="flex flex-col items-start gap-2 md:items-end">

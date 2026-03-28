@@ -16,6 +16,7 @@ export type Project = {
   periodCtaUrl?: string;
   periodCtaMessage?: string;
   url?: string;
+  infoMessage?: string;
   category?: "production" | "key-feature";
   order?: number;
 };
@@ -109,67 +110,412 @@ const VISIBILITY_ALIASES = ["Visible", "Published", "Show"];
 const LOCAL_PRODUCTION_PROJECTS: Project[] = [
   {
     title: "Better HR (HRMS)",
-    period: "Oct 2023 - Present",
+    period: "View UI",
+    periodCtaUrl: "/projects/bhr.gif",
     description:
-      "Built Duty Roster Analytics, Leave Breakdown, KPI Tracker, Recruitment Module, HR Settings, Indonesia Payroll, Excel/PDF tools, and push notifications. Optimized queries and caching to support 100K+ concurrent users across six countries.",
-    tags: ["HRMS", "Scalability", "Performance", "Multi-country"],
+      "Designed and delivered backend features across Better HR including Expense, KPI, Permission Group, and Indonesia Payroll, while optimizing high-traffic endpoints for 100K+ concurrent users across eight countries.",
+    tags: [
+      "Problem",
+      "Solution",
+      "Decisions",
+      "Trade-offs",
+      "Impact",
+      "Additional Contributions",
+    ],
+    tagDetails: {
+      Problem: {
+        summary:
+          "Better HR needed to support multiple operational domains inside one HRMS platform without letting country-specific rules, permissions, and reporting workflows become fragmented.",
+        highlights: [
+          "Core HR operations needed to scale across eight countries on one shared platform",
+          "Features such as Expense, KPI, Permission Group, and Indonesia Payroll introduced very different business rules and access patterns",
+          "Performance and data consistency mattered because these modules were used in daily business operations at large scale",
+        ],
+      },
+      Solution: {
+        summary:
+          "Built and extended backend capabilities across the HRMS so finance, performance management, permissions, and payroll workflows could operate inside one production-ready system.",
+        highlights: [
+          "Delivered Expense, KPI, Permission Group, and Indonesia Payroll backend flows inside the broader HRMS platform",
+          "Improved leave approval behavior, leave setting rules, duty roster analytics, and performance dynamic rating workflows",
+          "Expanded ATS candidate database support and strengthened Excel export/import capabilities for business operations",
+        ],
+      },
+      Decisions: {
+        summary:
+          "Made implementation decisions that favored modular backend behavior, stronger access control boundaries, and performance-aware data access for high-traffic operations.",
+        highlights: [
+          "Applied query optimization and caching to reduce response-time pressure on dashboards and other high-traffic endpoints",
+          "Kept permission-sensitive behavior explicit so operational access could stay safer across admin and employee workflows",
+          "Implemented business-rule-heavy logic carefully so approval, rating, and payroll-related behavior stayed predictable in production",
+        ],
+      },
+      "Trade-offs": {
+        summary:
+          "Accepted higher backend complexity in exchange for better maintainability, country-specific flexibility, and production reliability.",
+        highlights: [
+          "Multi-country payroll and policy logic increased implementation complexity but kept regional behavior closer to real business needs",
+          "More explicit permission handling added development overhead but reduced operational risk",
+          "Performance tuning required extra effort in query and cache design, but it helped the system stay responsive at scale",
+        ],
+      },
+      Impact: {
+        summary:
+          "The HRMS became stronger as a shared business platform, supporting multiple high-value workflows while remaining performant for large-scale usage.",
+        highlights: [
+          "Supported 100K+ concurrent users across eight countries with query and caching improvements",
+          "Improved business coverage across Expense, KPI, Permission Group, and Indonesia Payroll",
+          "Strengthened the platform's ability to handle both shared HR logic and country-specific operational requirements",
+        ],
+      },
+      "Additional Contributions": {
+        summary:
+          "Contributed additional backend work across operational workflows, analytics, performance logic, and data-heavy business tooling within Better HR.",
+        highlights: [
+          "Leave second approval flow and leave setting rules improvements",
+          "Duty roster analytics and dashboard endpoint optimization",
+          "Performance dynamic rating system, ATS candidate database, and Excel export/import improvements",
+        ],
+      },
+    },
     category: "production",
   },
   {
-    title: "History Logging Service",
-    period: "Dec 2023 - Present",
+    title: "Application Tracking System (ATS)",
+    period: "View UI",
+    periodCtaMessage:
+      "UI preview is not included here, but the feature was designed and documented end-to-end across upload, extraction, profile creation, and ATS synchronization.",
     description:
-      "Implemented Excel export for compliance and auditing, and strengthened security by validating JWT tokens against requested domains in a multi-tenant environment.",
-    tags: ["Logging", "Auditing", "Security", "Multi-tenant"],
+      "Designed and built ATS workflow automation from Screening to Offer, integrated ATS with HRMS, and implemented AI CV-to-JSON extraction in a single upload flow with atomic data consistency.",
+    tags: ["Problem", "Solution", "Decisions", "Trade-offs", "Impact"],
+    tagDetails: {
+      Problem: {
+        summary:
+          "Recruitment operations needed one reliable system to move candidates from screening to offer while avoiding duplicate data entry between ATS and HRMS.",
+        highlights: [
+          "Manual CV handling slowed down recruiter workflows and created inconsistent candidate records",
+          "Recruitment stages needed clearer backend state transitions from Screening to Offer",
+          "Candidate data had to stay aligned between ATS workflows and downstream HRMS records",
+        ],
+      },
+      Solution: {
+        summary:
+          "Built an ATS flow that combined workflow automation, HRMS integration, and AI CV-PDF extraction so recruiters could upload once and continue the hiring process from structured candidate data.",
+        highlights: [
+          "Implemented end-to-end recruitment stages with explicit progression through the hiring lifecycle",
+          "Converted uploaded CV PDFs into structured JSON for candidate creation and downstream processing",
+          "Integrated ATS records with HRMS so hiring data could move into broader people operations",
+        ],
+      },
+      Decisions: {
+        summary:
+          "Made backend decisions that favored consistency, controlled workflow states, and integration safety over a looser but riskier pipeline.",
+        highlights: [
+          "Kept the upload-to-candidate creation flow atomic to avoid partial records across parsing and persistence",
+          "Used structured JSON extraction instead of free-form AI output to make downstream mapping predictable",
+          "Modeled workflow transitions explicitly so recruitment stages stayed auditable and easier to maintain",
+        ],
+      },
+      "Trade-offs": {
+        summary:
+          "Accepted some implementation complexity in exchange for stronger data integrity and operational reliability.",
+        highlights: [
+          "Atomic orchestration added backend complexity but reduced inconsistent candidate states",
+          "Schema-driven extraction required tighter validation but made recruiter-facing data safer to review",
+          "Opinionated stage transitions reduced flexibility but kept workflow rules clearer for the product",
+        ],
+      },
+      Impact: {
+        summary:
+          "The result was a more production-ready hiring flow that reduced repetitive recruiter work and connected ATS operations more cleanly with the rest of the HR platform.",
+        highlights: [
+          "Reduced duplicate manual entry by turning CV uploads into structured candidate data",
+          "Improved operational consistency between recruitment workflows and HRMS integration points",
+          "Strengthened reliability for a high-value business process that spans automation, AI parsing, and platform integration",
+        ],
+      },
+    },
+    category: "production",
+  },
+  {
+    title: "Job Content Management System (CMS)",
+    period: "View UI",
+    periodCtaUrl: "/projects/job_cms.gif",
+    description:
+      "Built the content management system behind Job Landing, covering country-based pages, modular sections, job and company collections, search-term collections, push notifications, and complex filter logic with optimized endpoints.",
+    tags: ["Problem", "Solution", "Decisions", "Trade-offs", "Impact"],
+    tagDetails: {
+      Problem: {
+        summary:
+          "Job Landing needed a flexible backend CMS so business teams could manage country-based landing pages, curated collections, and discovery flows without hardcoding page content into the frontend.",
+        highlights: [
+          "Each country homepage needed its own page structure and multiple configurable sections",
+          "Content blocks had to support jobs, companies, and quick-search terms from different data sources",
+          "Filtering and curation logic needed to handle complex unlimited AND/OR conditions for collections",
+        ],
+      },
+      Solution: {
+        summary:
+          "Built a CMS that let internal teams compose country pages from modular sections, connect each section to different collection types, and manage push-notification content from one backend workflow.",
+        highlights: [
+          "Created page and section management for country-based homepages",
+          "Implemented job collection, company collection, and search term collection support",
+          "Added push-notification tooling, Google Indexing API integration, and 4-hourly cron updates so section data could refresh when newly added jobs matched saved filter conditions",
+        ],
+      },
+      Decisions: {
+        summary:
+          "Made backend decisions that prioritized flexibility for content teams while keeping query behavior predictable enough for production traffic.",
+        highlights: [
+          "Modeled sections as reusable content containers so one page could mix multiple collection-driven blocks",
+          "Supported nested AND/OR-style filter logic to avoid rebuilding new endpoints for each curation need",
+          "Used caching and endpoint optimization to keep CMS-driven pages responsive while querying and presenting around 1,000 jobs",
+          "Used a 4-hourly cron to refresh section results so newly added jobs could appear when they matched existing collection filters",
+        ],
+      },
+      "Trade-offs": {
+        summary:
+          "Accepted more backend complexity in exchange for a CMS that could support richer business-controlled landing experiences without frequent code changes.",
+        highlights: [
+          "Unlimited filter combinations increased implementation complexity but gave the content team much more control",
+          "Country-based page composition required more backend structure but reduced hardcoded frontend content maintenance",
+          "Scheduled refresh logic added backend work, but it removed the need to manually rebuild section data whenever new matching jobs were added",
+        ],
+      },
+      Impact: {
+        summary:
+          "The CMS turned Job Landing into a more configurable product surface where content, discovery, and engagement workflows could be managed operationally instead of manually coded each time.",
+        highlights: [
+          "Enabled country-specific homepage management from the backend",
+          "Improved content curation through modular sections and flexible collection filtering",
+          "Extended CMS operations into discoverability workflows through Google Indexing API integration while keeping filter-based sections up to date as new matching jobs were added",
+        ],
+      },
+    },
+    category: "production",
+  },
+  {
+    title: "Job Landing Platform",
+    period: "View UI",
+    periodCtaUrl: "/projects/landing.gif",
+    description:
+      "Built the applicant-facing Job Landing platform covering SSO/email login, job applications, and inbox flows with a seamless and fast experience.",
+    tags: ["Problem", "Solution", "Decisions", "Trade-offs", "Impact"],
+    tagDetails: {
+      Problem: {
+        summary:
+          "Applicants needed a reliable frontend platform where they could discover jobs, authenticate easily, apply quickly, and track communication in one place.",
+        highlights: [
+          "Job discovery and application flows needed to feel smooth for end users, not just operationally correct",
+          "Authentication had to support both SSO and email login for different applicant preferences",
+          "Applicants needed a single place to manage applications and inbox communication after applying",
+        ],
+      },
+      Solution: {
+        summary:
+          "Built the applicant-facing layer for Job Landing with login, application, and inbox flows connected to the underlying recruitment platform.",
+        highlights: [
+          "Implemented SSO and email-based login flows for applicant access",
+          "Built job application journeys that connected applicants directly into the hiring pipeline",
+          "Added inbox capabilities so applicants could manage communication from the same platform",
+        ],
+      },
+      Decisions: {
+        summary:
+          "Focused implementation decisions on reducing friction for applicants while keeping the platform aligned with backend recruitment workflows.",
+        highlights: [
+          "Supported multiple authentication methods so access would not depend on a single login path",
+          "Kept the application journey streamlined so users could move from job discovery to submission with less friction",
+          "Aligned inbox and application flows with the broader ATS ecosystem so user actions stayed consistent across platforms",
+        ],
+      },
+      "Trade-offs": {
+        summary:
+          "Accepted additional integration and UX coordination work in exchange for a more cohesive applicant experience.",
+        highlights: [
+          "Multiple login options increased implementation scope but improved accessibility for different applicants",
+          "A smoother applicant journey required tighter coordination with backend systems and recruitment workflows",
+          "Inbox-style communication added product depth but also expanded state-management and integration responsibilities",
+        ],
+      },
+      Impact: {
+        summary:
+          "The result was a more complete applicant platform where discovery, application, and communication could happen in one connected experience.",
+        highlights: [
+          "Improved the applicant experience with integrated login, application, and inbox flows",
+          "Made the job platform feel faster and more seamless from an end-user perspective",
+          "Strengthened the connection between public job interactions and the underlying recruitment system",
+        ],
+      },
+    },
+    url: "https://betterjobs.co",
+    infoMessage:
+      "Took over this platform from a previous developer and continued improving the applicant-facing experience on top of the existing system.",
     category: "production",
   },
   {
     title: "Middleware Service",
     period: "Jan 2024 - Present",
     description:
-      "Integrated Thailand/Vietnam SMS OTP and Email OTP for secure authentication and payroll authorization, with reliable backend-to-backend transaction handling.",
-    tags: ["Middleware", "OTP", "Authentication", "Payroll"],
-    category: "production",
-  },
-  {
-    title: "Job Content Management System (CMS)",
-    period: "Mar 2024 - Present",
-    description:
-      "Developed complete CMS features: job listings, sections, pages, mixed AND/OR filters, sorting, Google Indexing API integration, and ad push notifications with optimized cached endpoints.",
-    tags: ["CMS", "Search", "Indexing", "Caching"],
-    category: "production",
-  },
-  {
-    title: "Application Tracking System (ATS)",
-    period: "Jun 2024 - Present",
-    description:
-      "Built application workflow automation from Screening to Offer, integrated ATS with HRMS, and implemented AI CV-PDF extraction to JSON in a single upload flow with atomic data consistency.",
-    tags: ["ATS", "Workflow Automation", "AI CV Parsing", "Integration"],
-    category: "production",
-  },
-  {
-    title: "Job Landing Platform",
-    period: "Jul 2024 - Present",
-    description:
-      "Developed applicant-facing platform with SSO/email login, job applications, and inbox with a seamless and fast experience.",
-    tags: ["Platform", "SSO", "Applications", "UX"],
-    url: "https://betterjobs.co",
+      "Built middleware flows for Thailand/Vietnam SMS OTP and Email OTP, supporting secure authentication and payroll authorization through reliable backend-to-backend transactions.",
+    tags: ["Problem", "Solution", "Decisions", "Trade-offs", "Impact"],
+    tagDetails: {
+      Problem: {
+        summary:
+          "Authentication and payroll authorization flows needed a reliable middleware layer to coordinate external OTP providers and backend-to-backend verification across different country channels.",
+        highlights: [
+          "OTP delivery had to work across Thailand SMS, Vietnam SMS, and email-based verification paths",
+          "Authentication and payroll authorization could not depend on fragile one-off integrations",
+          "Middleware had to handle external service communication without breaking core business flows",
+        ],
+      },
+      Solution: {
+        summary:
+          "Built middleware integrations that handled OTP delivery and verification for multiple channels while supporting secure backend-to-backend transaction flows.",
+        highlights: [
+          "Integrated Thailand and Vietnam SMS OTP providers",
+          "Added Email OTP support for secure verification scenarios",
+          "Implemented transaction handling between internal services and external providers for authentication and payroll-related approvals",
+        ],
+      },
+      Decisions: {
+        summary:
+          "Made backend decisions that favored reliability, provider separation, and safer transaction handling across verification flows.",
+        highlights: [
+          "Kept provider-specific integration behavior isolated instead of mixing all OTP paths into one fragile flow",
+          "Structured backend-to-backend communication so verification outcomes could be handled more predictably",
+          "Focused the middleware layer on secure orchestration rather than pushing external-provider complexity into product modules",
+        ],
+      },
+      "Trade-offs": {
+        summary:
+          "Accepted integration complexity in exchange for broader channel support and stronger operational reliability.",
+        highlights: [
+          "Multiple OTP channels increased maintenance scope but improved real-world coverage",
+          "Middleware orchestration added an extra backend layer but reduced duplication across consuming services",
+          "External provider handling required more defensive backend logic to account for variable delivery behavior",
+        ],
+      },
+      Impact: {
+        summary:
+          "The middleware layer improved verification reliability for security-sensitive flows and made OTP-based business operations easier to support across multiple channels.",
+        highlights: [
+          "Expanded OTP support across SMS and email verification paths",
+          "Improved the reliability of authentication and payroll authorization workflows",
+          "Reduced the need for product modules to manage provider-specific verification behavior directly",
+        ],
+      },
+    },
     category: "production",
   },
   {
     title: "Customer Management System (Internal)",
     period: "Nov 2024 - Present",
     description:
-      "Developed multi-country customer management backend for Better HR with Xero, Monday, Google Indexing API, and Notion integrations; implemented domain-level client lifecycle controls.",
-    tags: ["CMS", "Integrations", "Xero", "Notion", "Multi-country"],
+      "Built the internal customer management backend for Better HR, covering multi-country client operations, domain-level lifecycle controls, and integrations with Xero, Monday, and Notion.",
+    tags: ["Problem", "Solution", "Decisions", "Trade-offs", "Impact"],
+    tagDetails: {
+      Problem: {
+        summary:
+          "Better HR needed an internal system to manage customer lifecycle operations across multiple countries while coordinating data and actions with several external business tools.",
+        highlights: [
+          "Customer operations required domain-level control instead of loose manual handling",
+          "Different lifecycle steps had to stay aligned with tools such as Xero, Monday, and Notion",
+          "The backend had to support internal business operations across multiple countries in one system",
+        ],
+      },
+      Solution: {
+        summary:
+          "Built an internal customer management backend that centralized lifecycle controls and connected Better HR operations with the external platforms used by business teams.",
+        highlights: [
+          "Implemented customer-management flows for internal multi-country operations",
+          "Added domain-level lifecycle controls for managing client states and actions",
+          "Integrated Xero, Monday, and Notion into the backend workflow",
+        ],
+      },
+      Decisions: {
+        summary:
+          "Made implementation decisions that favored operational control, integration clarity, and a backend model that could support internal process ownership.",
+        highlights: [
+          "Kept client lifecycle behavior explicit at the domain level so internal actions were easier to control and reason about",
+          "Used backend integrations to reduce fragmented business handling across external tools",
+          "Designed the system around internal operational workflows rather than exposing raw third-party logic directly to users",
+        ],
+      },
+      "Trade-offs": {
+        summary:
+          "Accepted broader integration scope and internal-process complexity in exchange for a more manageable operational system.",
+        highlights: [
+          "Multiple external integrations increased maintenance work but created a more connected operational backend",
+          "Domain-level lifecycle control required more backend modeling but improved internal governance",
+          "Supporting multi-country operations added complexity but made the platform more useful to the business",
+        ],
+      },
+      Impact: {
+        summary:
+          "The system gave internal teams a more controlled and connected way to manage customer operations across business tools and regional workflows.",
+        highlights: [
+          "Improved internal handling of multi-country customer operations",
+          "Reduced fragmentation by connecting core lifecycle actions with external platforms",
+          "Strengthened operational visibility and control at the backend level",
+        ],
+      },
+    },
     category: "production",
   },
   {
-    title: "HR AI Chatbot Agent (Experimental)",
+    title: "HR AI Chatbot Agent",
     period: "Mar 2025 - Present",
     description:
-      "Researched and prototyped HR AI agent with NLP, LLM, LangChain, LangGraph, and RAG-based vector retrieval, including documented API workflows for integration.",
-    tags: ["AI", "NLP", "LLM", "LangChain", "RAG"],
+      "Built released backend query and mutation endpoints for an HR AI chatbot agent, supporting business operations such as KPI data access, performance appraisal creation and approval flow, expense data, ATS candidate records, and other HR workflows.",
+    tags: ["Problem", "Solution", "Decisions", "Trade-offs", "Impact"],
+    tagDetails: {
+      Problem: {
+        summary:
+          "HR workflows needed an agent-ready backend layer so AI-driven operations could safely interact with product functionality instead of relying on manual operations in the Better HR Dashboard.",
+        highlights: [
+          "The agent needed backend operations it could call reliably for real HR-related actions",
+          "Queries and mutations had to map cleanly into HR workflows instead of relying on loosely structured responses",
+          "Released product behavior required stronger backend support than a prototype-style assistant",
+        ],
+      },
+      Solution: {
+        summary:
+          "Built backend queries and mutations for the HR AI agent so it could support operational HR workflows through structured agent actions.",
+        highlights: [
+          "Implemented agent-facing queries for KPI data, expense data, ATS candidate records, and other HR-related operational information",
+          "Implemented mutations for business workflows such as performance appraisal creation and approval actions",
+          "Structured backend operations so the released HR agent could interact with product workflows more safely and predictably",
+        ],
+      },
+      Decisions: {
+        summary:
+          "Approached the work as production-facing backend integration, prioritizing structured operations and controllable agent behavior over a purely conversational implementation.",
+        highlights: [
+          "Exposed capabilities through explicit queries and mutations instead of opaque free-form backend behavior",
+          "Kept the agent aligned with operational workflows by giving it structured access patterns into the system",
+          "Wrote user-friendly, business-oriented descriptions for queries and mutations so the AI could perform better with real product operations",
+        ],
+      },
+      "Trade-offs": {
+        summary:
+          "Accepted added backend complexity in exchange for making the agent more usable and safer in a real product environment.",
+        highlights: [
+          "Agent-ready operations required more structured backend design than a simple chat interface",
+          "Queries and mutations needed clear boundaries so AI-driven actions would stay predictable",
+          "Business-friendly endpoint descriptions required extra care, but they improved how well the AI understood and used operational capabilities",
+        ],
+      },
+      Impact: {
+        summary:
+          "The released HR AI agent gained a more production-ready backend foundation through structured operation endpoints for real workflow support.",
+        highlights: [
+          "Enabled the HR AI agent to work with KPI data, expense data, ATS candidate records, and appraisal workflows through structured operations",
+          "Improved AI performance by pairing backend endpoints with clearer business-oriented query and mutation descriptions",
+          "Strengthened backend control over how AI-driven interactions connect with real HR operations",
+        ],
+      },
+    },
     category: "production",
   },
 ];

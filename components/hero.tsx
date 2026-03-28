@@ -12,7 +12,6 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import TypingEffect from "./animations/typing-effect";
 import { useState } from "react";
 import ParticlesBackground from "./particles-background";
 
@@ -27,6 +26,20 @@ export default function Hero() {
     .join("")
     .substring(0, 2)
     .toUpperCase();
+  const proofPoints = [
+    {
+      label: "Scale",
+      value: "100K+ concurrent users",
+    },
+    {
+      label: "Reach",
+      value: "Systems used across 8 countries",
+    },
+    {
+      label: "Built Across",
+      value: "ATS, Expense, KPI, CMS, RBAC, and workflow automation",
+    },
+  ];
 
   return (
     <section className="relative py-16 md:py-24 lg:py-32 overflow-hidden full-height">
@@ -72,7 +85,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-xl md:text-2xl lg:text-3xl font-medium text-primary mb-6"
+            className="mb-4 text-xl font-medium text-primary md:text-2xl lg:text-3xl"
           >
             Backend-Focused Full-Stack Developer
           </motion.h2>
@@ -80,14 +93,18 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.4 }}
-            className="max-w-2xl text-base md:text-lg text-muted-foreground mb-8"
+            transition={{ duration: 0.8, delay: 0.35 }}
+            className="mb-8 max-w-3xl space-y-4"
           >
-            <TypingEffect
-              text="I build secure backend systems, scalable product features, and cross-platform integrations for HR, recruitment, and internal tools used by 100K+ users across 6 countries."
-              speed={20}
-              delay={800}
-            />
+            <p className="text-lg font-semibold leading-relaxed text-foreground md:text-2xl">
+              I build scalable backend systems and production-ready APIs for
+              real business workflows.
+            </p>
+            <p className="text-sm leading-7 text-muted-foreground md:text-lg">
+              Focused on business logic, performance, reliability, and
+              integrations across HR, recruitment, payroll, permissions, and
+              internal platforms.
+            </p>
           </motion.div>
 
           <motion.div
@@ -118,18 +135,21 @@ export default function Hero() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.7 }}
-            className="mb-10 flex flex-wrap items-center justify-center gap-2"
+            className="mb-8 grid w-full max-w-5xl gap-3 md:grid-cols-3"
           >
-            {["100K+ users", "6 countries", "ATS + HRMS + AI workflows"].map(
-              (item) => (
-                <span
-                  key={item}
-                  className="rounded-full border border-primary/20 bg-background/45 px-3 py-1.5 text-xs font-medium text-foreground/85 backdrop-blur-sm md:text-sm"
-                >
-                  {item}
-                </span>
-              ),
-            )}
+            {proofPoints.map((item) => (
+              <div
+                key={item.label}
+                className="rounded-2xl border border-primary/20 bg-background/45 px-4 py-4 text-left backdrop-blur-sm"
+              >
+                <p className="mb-1 text-[11px] uppercase tracking-[0.24em] text-primary/80">
+                  {item.label}
+                </p>
+                <p className="text-sm font-semibold leading-6 text-foreground/90 md:text-base">
+                  {item.value}
+                </p>
+              </div>
+            ))}
           </motion.div>
 
           <motion.div
