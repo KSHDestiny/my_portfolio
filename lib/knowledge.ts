@@ -156,3 +156,35 @@ export async function getKnowledgeTopics(): Promise<KnowledgeTopic[]> {
   })
   return topics
 }
+
+export function slugifyKnowledgeTitle(title: string) {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+}
+
+export async function getKnowledgeEntryByTopicAndSlug(
+  topicTitle: string,
+  slug: string,
+) {
+  const topics = await getKnowledgeTopics()
+  const topic = topics.find((entry) => entry.title === topicTitle)
+
+  if (!topic) {
+    return null
+  }
+
+  const dayItem = topic.days.find(
+    (entry) => slugifyKnowledgeTitle(entry.title) === slug,
+  )
+
+  if (!dayItem) {
+    return null
+  }
+
+  return {
+    topic,
+    dayItem,
+  }
+}

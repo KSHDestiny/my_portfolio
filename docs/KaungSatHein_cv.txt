@@ -1,0 +1,162 @@
+KAUNG SAT HEIN
+Backend-Focused Full-Stack Developer
+
+Email: kaungsathein.5899@gmail.com
+Phone: +959788907030
+Location: Yangon, Myanmar
+LinkedIn: https://linkedin.com/in/kaungsathein
+GitHub: https://github.com/KSHDestiny
+Portfolio: https://ksh-portfolio-nu.vercel.app
+Projects: https://ksh-portfolio-nu.vercel.app/#projects
+Engineering Notes: https://ksh-portfolio-nu.vercel.app/#knowledge
+
+SUMMARY
+Backend-focused full-stack developer with hands-on experience building scalable
+business systems, internal platforms, and workflow-heavy product features.
+Strongest in Laravel/PHP, API design, database modeling, integrations, caching,
+and business-rule-heavy backend logic.
+
+Delivered production features across HRMS, ATS, CMS, payroll, permissions,
+expense, and AI-assisted operations. Contributed to systems supporting 100K+
+concurrent users across 8 countries.
+
+CORE SKILLS
+- Backend: PHP, Laravel, REST APIs, GraphQL, JWT auth, queue-based workflows
+- Databases: MySQL, MongoDB, Redis, relational modeling, query optimization
+- DevOps / Infra: Docker, Git, CI/CD, Nginx, AWS S3, Lambda, CloudWatch
+- Frontend: JavaScript, TypeScript, React.js, Tailwind CSS
+- Integrations: OTP providers, Xero, Monday, Notion, Google Indexing API
+- Engineering Focus: caching, idempotency, workflow design, RBAC, auditability,
+  transactional consistency, secure backend-to-backend communication
+
+EMPLOYMENT
+Better HR, Yangon, Myanmar
+Web Backend Engineer (Trainee) | Oct 2023 - Jan 2024
+Web Backend Engineer | Feb 2024 - Present
+
+Better Jobs Myanmar, Phnom Penh, Cambodia
+Web Backend Engineer | Jun 2024 - Present
+
+SELECTED PRODUCTION WORK
+Better HR (HRMS)
+Project page: https://ksh-portfolio-nu.vercel.app/projects/better-hr-hrms
+- Designed and delivered backend features across Better HR including Expense,
+  KPI, Permission Group, and Indonesia Payroll inside one shared HRMS.
+- Improved leave approval behavior, leave setting rules, duty roster analytics,
+  dynamic performance rating flows, ATS candidate database support, and Excel
+  export/import capabilities.
+- Applied query optimization and caching to support 100K+ concurrent users
+  across 8 countries while keeping high-traffic workflows responsive.
+
+Application Tracking System (ATS)
+Project page: https://ksh-portfolio-nu.vercel.app/projects/application-tracking-system-ats
+- Built ATS workflow automation from Screening to Offer with explicit backend
+  state transitions and HRMS integration.
+- Implemented AI CV-to-JSON extraction so recruiters can upload once and
+  continue hiring from structured candidate data.
+- Kept upload-to-candidate creation flow atomic to reduce partial records and
+  inconsistent downstream states.
+
+Job Content Management System (CMS)
+Project page: https://ksh-portfolio-nu.vercel.app/projects/job-content-management-system-cms
+- Built the CMS behind Job Landing for country-based pages, modular sections,
+  jobs, companies, search-term collections, and push notifications.
+- Implemented complex AND/OR filter logic, Google Indexing API integration,
+  and scheduled refresh flows for collection-driven content.
+- Optimized CMS endpoints so content-driven job pages remained responsive under
+  production usage.
+
+Job Landing Platform
+Project page: https://ksh-portfolio-nu.vercel.app/projects/job-landing-platform
+Live product: https://betterjobs.co
+- Delivered applicant-facing login, job application, and inbox flows with SSO
+  and email authentication.
+- Continued improving a live platform inherited from a previous developer while
+  keeping it aligned with ATS workflows and recruiter operations.
+
+Middleware Service
+Project page: https://ksh-portfolio-nu.vercel.app/projects/middleware-service
+- Built middleware flows for Thailand/Vietnam SMS OTP and Email OTP to support
+  secure authentication and payroll authorization.
+- Isolated provider-specific behavior and improved reliability of backend-to-
+  backend verification and transaction handling.
+
+
+Customer Management System (Internal)
+Project page: https://ksh-portfolio-nu.vercel.app/projects/customer-management-system-internal
+- Built internal multi-country customer lifecycle operations with domain-level
+  controls and integrations with Xero, Monday, and Notion.
+- Reduced fragmented operational handling by centralizing customer management
+  flows in one backend system.
+
+HR AI Chatbot Agent
+Project page: https://ksh-portfolio-nu.vercel.app/projects/hr-ai-chatbot-agent
+- Built released backend query and mutation endpoints for an HR AI agent across
+  KPI data access, performance appraisal workflows, expense data, and ATS
+  candidate records.
+- Structured agent-facing operations so AI-driven actions stay controllable and
+  aligned with real HR product workflows.
+
+FEATURE HIGHLIGHTS
+KPI Module
+Project page: https://ksh-portfolio-nu.vercel.app/projects/kpi-module
+- Designed a full KPI module covering KPI group management, target assignment,
+  user-level tracking, exports, and mobile visibility.
+- Structured setup, assignment, runtime tracking, and reporting so the module
+  could evolve cleanly.
+
+Permission Group
+Project page: https://ksh-portfolio-nu.vercel.app/projects/permission-group
+- Designed group-based access control using department, position, location, and
+  status scope as visibility boundaries.
+- Separated permission definition, group mapping, and runtime visibility
+  evaluation for safer access management.
+
+ATS CV Upload & AI Profile Extraction
+Project page: https://ksh-portfolio-nu.vercel.app/projects/ats-cv-upload-ai-profile-extraction
+- Designed the async CV upload pipeline covering file intake, AI extraction,
+  profile creation, notifications, and ATS synchronization.
+- Modeled structured applicant datasets including education, experience,
+  skills, languages, certificates, and social links.
+
+Indonesia Payroll
+Project page: https://ksh-portfolio-nu.vercel.app/projects/indonesia-payroll
+- Built payroll logic around annualized taxable income, personal and family
+  relief, allowed deductions, progressive PPh 21 tax brackets, and prior-tax
+  reconciliation.
+
+Expense Tracking System
+Project page: https://ksh-portfolio-nu.vercel.app/projects/expense-tracking-system
+- Designed complete module scope including use cases, architecture, workflow,
+  ERD, implementation plan, and high-risk testing coverage.
+- Modeled sequential multi-level approval, paid-out handling, and final
+  reclassification with policy-change safety rules.
+
+ENGINEERING NOTES
+Overview: https://ksh-portfolio-nu.vercel.app/#knowledge
+- System Design Tradeoffs:
+  https://ksh-portfolio-nu.vercel.app/engineering-notes/system-design-tradeoffs
+- Idempotency in Distributed Systems:
+  https://ksh-portfolio-nu.vercel.app/engineering-notes/idempotency-in-distributed-systems
+- Authorization Boundaries and RBAC Design:
+  https://ksh-portfolio-nu.vercel.app/engineering-notes/authorization-boundaries-and-rbac-design
+- Workflow State Machines and Approval Systems:
+  https://ksh-portfolio-nu.vercel.app/engineering-notes/workflow-state-machines-and-approval-systems
+- Transactional Consistency in Multi-Step Operations:
+  https://ksh-portfolio-nu.vercel.app/engineering-notes/transactional-consistency-in-multi-step-operations
+
+EDUCATION
+Diploma, Computer Science | NCC Education | Apr 2024 - Apr 2025
+Professional Executive Diploma in Network Technology and Cyber Security
+Lincoln University College & ETVA | Mar 2023 - Oct 2023
+Bachelor of Engineering, Electrical and Electronics Engineering
+West Yangon Technological University | Jan 2014 - Dec 2021
+
+SELECTED CERTIFICATES
+- OpenAI API for Python Developers | Jan 2025
+- Explore a Career in SQL Development | Aug 2024
+- Docker Foundations Professional Certificate | May 2024
+- Build Your Laravel Skills | Apr 2024
+- Introduction to Cloud Computing | Apr 2024
+- Google IT Support | Sep 2023
+- Meta Front-End Developer | Jun 2023
