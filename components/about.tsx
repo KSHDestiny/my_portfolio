@@ -24,18 +24,29 @@ export default function About() {
                 </h3>
                 <div className="space-y-4 text-muted-foreground">
                   <p className="text-sm md:text-base">
-                    I&apos;m a backend-focused full-stack developer with
-                    hands-on experience building product features, internal
-                    systems, and platform integrations that support real
-                    business operations at scale.
+                    Backend-focused full stack developer specializing in
+                    designing scalable, workflow-intensive business systems and
+                    high-performance backend architectures.
                   </p>
                   <p className="text-sm md:text-base">
-                    My work has included secure REST APIs, workflow automation,
-                    multi-tenant systems, database design, third-party
-                    integrations, and performance improvements across HR,
-                    recruitment, and business platforms. I&apos;m most comfortable
-                    where product logic, system reliability, and practical
-                    delivery all matter at once.
+                    Proven experience building and maintaining HRMS, ATS,
+                    payroll, and internal platforms supporting 100K+ users
+                    across multi-country environments, with a strong focus on
+                    data consistency, system reliability, and operational
+                    scalability.
+                  </p>
+                  <p className="text-sm md:text-base">
+                    Skilled in domain-driven design, RBAC systems, multi-level
+                    approval workflows, and complex business logic modeling,
+                    enabling robust enterprise-grade applications. Strong
+                    background in performance optimization through query design,
+                    indexing, caching, distributed system patterns, and API
+                    architecture.
+                  </p>
+                  <p className="text-sm md:text-base">
+                    Experienced in integrating AI-powered features, third-party
+                    services, and event-driven workflows, delivering efficient,
+                    maintainable, and production-ready systems.
                   </p>
                 </div>
               </CardContent>

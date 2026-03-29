@@ -167,7 +167,7 @@ export default function Contact() {
                     </Button>
                     <Button asChild variant="outline" className="w-full">
                       <a
-                        href="/Kaung-Sat-Hein-CV.pdf"
+                        href="/KaungSatHein_cv.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
                       >

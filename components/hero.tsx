@@ -121,7 +121,7 @@ export default function Hero() {
             </Button>
             <Button asChild variant="outline" className="rounded-full px-5">
               <Link
-                href="/Kaung-Sat-Hein-CV.pdf"
+                href="/KaungSatHein_cv.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -212,7 +212,7 @@ export default function Hero() {
               </motion.div>
             </Link>
             <Link
-              href="/Kaung-Sat-Hein-CV.pdf"
+              href="/KaungSatHein_cv.pdf"
               target="_blank"
               rel="noopener noreferrer"
             >
