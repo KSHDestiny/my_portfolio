@@ -116,12 +116,12 @@ export default function About() {
                   <div>
                     <p className="text-sm text-muted-foreground">Portfolio</p>
                     <a
-                      href="https://ksh-portfolio-nu.vercel.app"
+                      href="https://kaungsathein.online"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="hover:underline text-sm md:text-base"
                     >
-                      ksh-portfolio-nu.vercel.app
+                      kaungsathein.online
                     </a>
                   </div>
                 </div>

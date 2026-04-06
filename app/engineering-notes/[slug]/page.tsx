@@ -7,6 +7,7 @@ import {
   getKnowledgeTopics,
   slugifyKnowledgeTitle,
 } from "@/lib/knowledge";
+import { absoluteUrl } from "@/lib/site";
 
 const ENGINEERING_TOPIC_TITLE = "Advanced Software Engineering";
 
@@ -36,12 +37,41 @@ export async function generateMetadata({
   if (!entry) {
     return {
       title: "Engineering Note Not Found",
+      robots: {
+        index: false,
+        follow: false,
+      },
     };
   }
+
+  const url = absoluteUrl(`/engineering-notes/${slug}`);
 
   return {
     title: `${entry.dayItem.title} | Engineering Notes`,
     description: entry.dayItem.note,
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      type: "article",
+      url,
+      title: `${entry.dayItem.title} | Engineering Notes`,
+      description: entry.dayItem.note,
+      images: [
+        {
+          url: absoluteUrl("/images/profile.jpeg"),
+          width: 1200,
+          height: 1200,
+          alt: entry.dayItem.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${entry.dayItem.title} | Engineering Notes`,
+      description: entry.dayItem.note,
+      images: [absoluteUrl("/images/profile.jpeg")],
+    },
   };
 }
 

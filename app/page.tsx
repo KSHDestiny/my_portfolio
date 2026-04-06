@@ -6,14 +6,63 @@ import Experience from "@/components/experience";
 import Projects from "@/components/projects";
 import Footer from "@/components/footer";
 import ScrollProgress from "@/components/scroll-progress";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL, absoluteUrl } from "@/lib/site";
 
 const Skills = dynamic(() => import("@/components/skills"));
 const Education = dynamic(() => import("@/components/education"));
 const Contact = dynamic(() => import("@/components/contact"));
 
 export default function Home() {
+  const personJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: SITE_NAME,
+    url: SITE_URL,
+    image: absoluteUrl("/images/profile.jpeg"),
+    jobTitle: "Backend-Focused Full-Stack Developer",
+    description: SITE_DESCRIPTION,
+    email: "mailto:kaungsathein.5899@gmail.com",
+    telephone: "+959788907030",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Yangon",
+      addressCountry: "MM",
+    },
+    sameAs: [
+      "https://linkedin.com/in/kaungsathein",
+      "https://github.com/KSHDestiny",
+    ],
+    knowsAbout: [
+      "Backend Development",
+      "Full-Stack Development",
+      "Node.js",
+      "Laravel",
+      "React",
+      "API Architecture",
+      "Workflow Automation",
+      "RBAC Systems",
+      "Scalable Systems",
+    ],
+  };
+
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: SITE_NAME,
+    url: SITE_URL,
+    description: SITE_DESCRIPTION,
+  };
+
   return (
     <main id="top" className="min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+      />
       <ScrollProgress />
       <Hero />
       <About />

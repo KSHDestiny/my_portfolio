@@ -7,6 +7,7 @@ import {
   getProjectBySlug,
   slugifyProjectTitle,
 } from "@/lib/projects";
+import { absoluteUrl } from "@/lib/site";
 import ProjectDetailClient from "./project-detail-client";
 
 type PageProps = {
@@ -30,12 +31,41 @@ export async function generateMetadata({
   if (!project) {
     return {
       title: "Project Not Found",
+      robots: {
+        index: false,
+        follow: false,
+      },
     };
   }
 
+  const url = absoluteUrl(`/projects/${slug}`);
+
   return {
-    title: `${project.title} | Kaung Sat Hein`,
+    title: project.title,
     description: project.description,
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      type: "article",
+      url,
+      title: `${project.title} | Kaung Sat Hein`,
+      description: project.description,
+      images: [
+        {
+          url: absoluteUrl("/images/profile.jpeg"),
+          width: 1200,
+          height: 1200,
+          alt: project.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.title} | Kaung Sat Hein`,
+      description: project.description,
+      images: [absoluteUrl("/images/profile.jpeg")],
+    },
   };
 }
 
