@@ -487,6 +487,7 @@ const ProjectSlide = memo(function ProjectSlide({
                   alt={previewAsset.title}
                   fill
                   className="object-contain"
+                  sizes="96vw"
                   unoptimized
                 />
               </div>
@@ -714,6 +715,7 @@ function ProjectCoverflowSection({
                   alt={previewAsset.title}
                   fill
                   className="object-contain"
+                  sizes="96vw"
                   unoptimized
                 />
               </div>

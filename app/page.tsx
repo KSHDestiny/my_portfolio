@@ -55,6 +55,9 @@ export default function Home() {
 
   return (
     <main id="top" className="min-h-screen">
+      <h1 className="sr-only">
+        Kaung Sat Hein Portfolio and Backend-Focused Full-Stack Developer
+      </h1>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}

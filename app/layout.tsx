@@ -28,6 +28,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  icons: {
+    icon: [
+      { url: "/icon.jpg", type: "image/jpeg" },
+      { url: "/apple-icon.jpg", rel: "apple-touch-icon", type: "image/jpeg" },
+    ],
+    apple: [{ url: "/apple-icon.jpg", type: "image/jpeg" }],
+  },
   formatDetection: {
     email: false,
     address: false,

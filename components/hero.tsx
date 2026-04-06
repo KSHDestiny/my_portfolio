@@ -66,6 +66,7 @@ export default function Hero() {
                 alt="Kaung Sat Hein"
                 fill
                 className="object-cover"
+                sizes="(min-width: 768px) 160px, 128px"
                 onError={() => setImageError(true)}
                 priority
               />

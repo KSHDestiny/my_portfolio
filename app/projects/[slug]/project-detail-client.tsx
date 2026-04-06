@@ -160,6 +160,7 @@ export default function ProjectDetailClient({
                   alt={previewAsset.title}
                   fill
                   className="object-contain"
+                  sizes="96vw"
                   unoptimized
                 />
               </div>

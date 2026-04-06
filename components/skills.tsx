@@ -270,7 +270,7 @@ export default function Skills() {
               >
                 <Image
                   src="/blue_balloon.svg"
-                  alt=""
+                  alt="Floating balloon illustration"
                   width={96}
                   height={96}
                   className="h-16 w-auto opacity-80 drop-shadow-[0_8px_18px_rgba(59,75,173,0.2)] md:h-24 md:opacity-100 md:drop-shadow-[0_10px_24px_rgba(59,75,173,0.24)]"
