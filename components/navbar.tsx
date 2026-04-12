@@ -107,10 +107,10 @@ export default function Navbar() {
                   ? "page"
                   : undefined
               }
-              className={`rounded-full px-3 py-1.5 transition-colors ${
+              className={`rounded-full px-3 py-1.5 transition-all duration-200 ${
                 pathname === "/" && activeSection === item.href.slice(1)
-                  ? "bg-primary/12 text-primary"
-                  : "text-muted-foreground hover:text-primary"
+                  ? "bg-primary/12 text-primary shadow-sm shadow-primary/10"
+                  : "text-muted-foreground hover:bg-primary/10 hover:text-primary"
               }`}
             >
               {item.name}
@@ -141,10 +141,10 @@ export default function Navbar() {
                     ? "page"
                     : undefined
                 }
-                className={`rounded-xl px-3 py-2 transition-colors ${
+                className={`rounded-xl px-3 py-2 transition-all duration-200 ${
                   pathname === "/" && activeSection === item.href.slice(1)
                     ? "bg-primary/12 text-primary"
-                    : "text-muted-foreground hover:text-primary"
+                    : "text-muted-foreground hover:bg-primary/10 hover:text-primary"
                 }`}
                 onClick={() => setIsOpen(false)}
               >

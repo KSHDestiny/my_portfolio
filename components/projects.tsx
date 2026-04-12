@@ -1,13 +1,11 @@
-import dynamic from "next/dynamic";
 import { getProjects } from "@/lib/projects";
-
-const ProjectsClient = dynamic(() => import("./projects-client"));
+import ProjectsShell from "./projects-shell";
 
 export default async function Projects() {
   const { productionProjects, keyFeatures, source } = await getProjects();
 
   return (
-    <ProjectsClient
+    <ProjectsShell
       productionProjects={productionProjects}
       keyFeatures={keyFeatures}
       source={source}

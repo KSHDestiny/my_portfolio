@@ -1,11 +1,7 @@
-import dynamic from "next/dynamic";
 import AnimateInView from "./animations/animate-in-view";
 import { getKnowledgeTopics } from "@/lib/knowledge";
 import SectionHeading from "./section-heading";
-
-const KnowledgeTopicsClient = dynamic(
-  () => import("./knowledge-topics-client"),
-);
+import KnowledgeTopicsShell from "./knowledge-topics-shell";
 
 export default async function Knowledge() {
   const knowledgeTopics = await getKnowledgeTopics();
@@ -28,7 +24,7 @@ export default async function Knowledge() {
           </p>
         )}
 
-        <KnowledgeTopicsClient knowledgeTopics={knowledgeTopics} />
+        <KnowledgeTopicsShell knowledgeTopics={knowledgeTopics} />
       </div>
     </section>
   );

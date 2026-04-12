@@ -1,16 +1,16 @@
-import dynamic from "next/dynamic";
 import Hero from "@/components/hero";
 import About from "@/components/about";
 import Knowledge from "@/components/knowledge";
 import Experience from "@/components/experience";
 import Projects from "@/components/projects";
 import Footer from "@/components/footer";
+import {
+  DeferredContactSection,
+  DeferredEducationSection,
+  DeferredSkillsSection,
+} from "@/components/home-deferred-sections";
 import ScrollProgress from "@/components/scroll-progress";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL, absoluteUrl } from "@/lib/site";
-
-const Skills = dynamic(() => import("@/components/skills"));
-const Education = dynamic(() => import("@/components/education"));
-const Contact = dynamic(() => import("@/components/contact"));
 
 export default function Home() {
   const personJsonLd = {
@@ -69,12 +69,12 @@ export default function Home() {
       <ScrollProgress />
       <Hero />
       <About />
-      <Skills />
+      <DeferredSkillsSection />
       <Projects />
       <Experience />
       <Knowledge />
-      <Education />
-      <Contact />
+      <DeferredEducationSection />
+      <DeferredContactSection />
       <Footer />
     </main>
   );

@@ -30,10 +30,10 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/icon.jpg", type: "image/jpeg" },
-      { url: "/apple-icon.jpg", rel: "apple-touch-icon", type: "image/jpeg" },
+      { url: "/icon", type: "image/png" },
+      { url: "/apple-icon", rel: "apple-touch-icon", type: "image/png" },
     ],
-    apple: [{ url: "/apple-icon.jpg", type: "image/jpeg" }],
+    apple: [{ url: "/apple-icon", type: "image/png" }],
   },
   formatDetection: {
     email: false,

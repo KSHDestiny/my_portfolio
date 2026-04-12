@@ -13,7 +13,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import ParticlesBackground from "./particles-background";
 
 export default function Hero() {
   const [imageError, setImageError] = useState(false);
@@ -43,7 +42,13 @@ export default function Hero() {
 
   return (
     <section className="relative py-16 md:py-24 lg:py-32 overflow-hidden full-height">
-      <ParticlesBackground />
+      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_hsl(var(--primary)/0.18),_transparent_58%)]" />
+        <div className="absolute left-1/2 top-20 h-64 w-64 -translate-x-1/2 rounded-full bg-primary/10 blur-3xl" />
+        <div className="absolute bottom-10 left-[10%] h-40 w-40 rounded-full bg-primary/10 blur-3xl" />
+        <div className="absolute right-[12%] top-1/3 h-48 w-48 rounded-full bg-primary/10 blur-3xl" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,_transparent,_hsl(var(--background))_92%)]" />
+      </div>
       <div className="relative z-10 container mx-auto px-4">
         <div className="flex flex-col items-center text-center">
           <motion.div

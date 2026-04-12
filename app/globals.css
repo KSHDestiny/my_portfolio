@@ -124,14 +124,6 @@ html {
   scrollbar-width: none; /* Firefox */
 }
 
-/* Make sure particles are visible */
-#tsparticles {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-}
-
 /* Responsive typography */
 @media (max-width: 640px) {
   .text-4xl {
