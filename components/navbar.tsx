@@ -55,25 +55,17 @@ export default function Navbar() {
 
     const updateActiveSection = () => {
       const activationOffset = 120;
-      const sectionAtTop = sections.find(
-        (section) => section.getBoundingClientRect().top > activationOffset,
+      const reachedSections = sections.filter(
+        (section) => section.getBoundingClientRect().top <= activationOffset,
       );
 
-      if (!sectionAtTop) {
-        setActiveSection(sections[sections.length - 1].id);
-        ticking = false;
-        return;
-      }
-
-      const currentIndex = sections.indexOf(sectionAtTop) - 1;
-
-      if (currentIndex < 0) {
+      if (reachedSections.length === 0) {
         setActiveSection("");
         ticking = false;
         return;
       }
 
-      setActiveSection(sections[currentIndex].id);
+      setActiveSection(reachedSections[reachedSections.length - 1].id);
       ticking = false;
     };
 
