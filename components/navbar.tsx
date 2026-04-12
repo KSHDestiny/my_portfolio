@@ -34,6 +34,12 @@ export default function Navbar() {
     setIsOpen(!isOpen);
   };
 
+  const handleNavClick = (sectionId: string) => {
+    if (pathname === "/") {
+      setActiveSection(sectionId);
+    }
+  };
+
   useEffect(() => {
     if (pathname !== "/") {
       setActiveSection("");
@@ -55,18 +61,41 @@ export default function Navbar() {
 
     const updateActiveSection = () => {
       const activationOffset = 120;
-      const reachedSections = sections.filter(
-        (section) => section.getBoundingClientRect().top <= activationOffset,
-      );
+      const activeSectionInView = sections.find((section) => {
+        const rect = section.getBoundingClientRect();
+        return rect.top <= activationOffset && rect.bottom > activationOffset;
+      });
 
-      if (reachedSections.length === 0) {
+      if (activeSectionInView) {
+        setActiveSection(activeSectionInView.id);
+        ticking = false;
+        return;
+      }
+
+      if (window.scrollY + activationOffset < sections[0].offsetTop) {
         setActiveSection("");
         ticking = false;
         return;
       }
 
+      const reachedSections = sections.filter((section) => {
+        const rect = section.getBoundingClientRect();
+        return rect.top <= activationOffset;
+      });
+
       setActiveSection(reachedSections[reachedSections.length - 1].id);
       ticking = false;
+    };
+
+    const handleHashChange = () => {
+      const hash = window.location.hash.slice(1);
+
+      if (hash && sectionIds.includes(hash as (typeof sectionIds)[number])) {
+        setActiveSection(hash);
+        return;
+      }
+
+      updateActiveSection();
     };
 
     const handleScroll = () => {
@@ -76,11 +105,13 @@ export default function Navbar() {
       window.requestAnimationFrame(updateActiveSection);
     };
 
-    updateActiveSection();
+    handleHashChange();
+    window.addEventListener("hashchange", handleHashChange);
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", updateActiveSection);
 
     return () => {
+      window.removeEventListener("hashchange", handleHashChange);
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", updateActiveSection);
     };
@@ -109,6 +140,7 @@ export default function Navbar() {
                   ? "bg-primary/12 text-primary shadow-sm shadow-primary/10"
                   : "text-muted-foreground hover:bg-primary/10 hover:text-primary"
               }`}
+              onClick={() => handleNavClick(item.href.slice(1))}
             >
               {item.name}
             </Link>
@@ -143,7 +175,10 @@ export default function Navbar() {
                     ? "bg-primary/12 text-primary"
                     : "text-muted-foreground hover:bg-primary/10 hover:text-primary"
                 }`}
-                onClick={() => setIsOpen(false)}
+                onClick={() => {
+                  handleNavClick(item.href.slice(1));
+                  setIsOpen(false);
+                }}
               >
                 {item.name}
               </Link>
