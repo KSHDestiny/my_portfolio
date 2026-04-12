@@ -79,10 +79,7 @@ function renderLines(content: string) {
   return content
     .split("\n")
     .map((line) => line.trimEnd())
-    .filter((line, index, lines) => {
-      if (line.length > 0) return true;
-      return lines[index - 1]?.length > 0 && lines[index + 1]?.length > 0;
-    });
+    .filter((line) => line.trim().length > 0);
 }
 
 export default async function EngineeringNotePage({ params }: PageProps) {

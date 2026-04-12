@@ -110,7 +110,11 @@
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 70px; /* Adjust based on navbar height */
+  scroll-padding-top: 96px; /* Adjust based on fixed navbar height */
+}
+
+section[id] {
+  scroll-margin-top: 96px;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */

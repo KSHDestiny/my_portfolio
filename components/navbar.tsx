@@ -12,8 +12,8 @@ const NAV_ITEMS = [
   { name: "About", href: "#about" },
   { name: "Skills", href: "#skills" },
   { name: "Projects", href: "#projects" },
-  { name: "Experience", href: "#experience" },
   { name: "Knowledge", href: "#knowledge" },
+  { name: "Experience", href: "#experience" },
   { name: "Education", href: "#education" },
   { name: "Contact", href: "#contact" },
 ] as const;
@@ -43,48 +43,53 @@ export default function Navbar() {
     const sectionIds = NAV_ITEMS.map((item) => item.href.slice(1));
     const sections = sectionIds
       .map((id) => document.getElementById(id))
-      .filter((section): section is HTMLElement => Boolean(section));
+      .filter((section): section is HTMLElement => Boolean(section))
+      .sort((a, b) => a.offsetTop - b.offsetTop);
 
     if (sections.length === 0) {
       setActiveSection("");
       return;
     }
 
+    let ticking = false;
+
     const updateActiveSection = () => {
-      const navbarOffset = 140;
-      const activationY = window.scrollY + navbarOffset;
-      const firstSectionTop = sections[0].offsetTop;
+      const activationOffset = 120;
+      const sectionAtTop = sections.find(
+        (section) => section.getBoundingClientRect().top > activationOffset,
+      );
 
-      if (activationY < firstSectionTop) {
-        setActiveSection("");
-        return;
-      }
-
-      let currentSection = sections[0].id;
-
-      for (const section of sections) {
-        if (activationY >= section.offsetTop) {
-          currentSection = section.id;
-        }
-      }
-
-      const nearPageBottom =
-        window.innerHeight + window.scrollY >= document.body.offsetHeight - 8;
-
-      if (nearPageBottom) {
+      if (!sectionAtTop) {
         setActiveSection(sections[sections.length - 1].id);
+        ticking = false;
         return;
       }
 
-      setActiveSection(currentSection);
+      const currentIndex = sections.indexOf(sectionAtTop) - 1;
+
+      if (currentIndex < 0) {
+        setActiveSection("");
+        ticking = false;
+        return;
+      }
+
+      setActiveSection(sections[currentIndex].id);
+      ticking = false;
+    };
+
+    const handleScroll = () => {
+      if (ticking) return;
+
+      ticking = true;
+      window.requestAnimationFrame(updateActiveSection);
     };
 
     updateActiveSection();
-    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", updateActiveSection);
 
     return () => {
-      window.removeEventListener("scroll", updateActiveSection);
+      window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", updateActiveSection);
     };
   }, [pathname]);

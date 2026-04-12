@@ -36,7 +36,12 @@ import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 import AnimateInView from "./animations/animate-in-view";
 import SectionHeading from "./section-heading";
 import { useMediaQuery } from "@/hooks/use-media-query";
-import type { Project, ProjectTagDetail, ProjectsSource } from "@/lib/projects";
+import {
+  slugifyProjectTitle,
+  type Project,
+  type ProjectTagDetail,
+  type ProjectsSource,
+} from "@/lib/projects";
 import {
   Dialog,
   DialogClose,
@@ -209,6 +214,7 @@ const ProjectSlide = memo(function ProjectSlide({
   const hasFeatureModules = Boolean(
     project.tagDetails && Object.keys(project.tagDetails).length > 0,
   );
+  const detailHref = `/projects/${slugifyProjectTitle(project.title)}`;
 
   useEffect(() => {
     setSelectedTag(getDefaultTag(project));
@@ -421,8 +427,18 @@ const ProjectSlide = memo(function ProjectSlide({
               </CardDescription>
             )
           )}
-          {project.url && (
-            <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2">
+            <Link
+              href={detailHref}
+              className={`inline-flex items-center gap-1 text-sm ${
+                isActive ? "text-primary hover:underline" : "text-primary/45"
+              }`}
+            >
+              Read case study
+              <ArrowUpRight className="h-4 w-4" />
+            </Link>
+            {project.url && (
+              <>
               <Link
                 href={project.url}
                 target="_blank"
@@ -434,7 +450,9 @@ const ProjectSlide = memo(function ProjectSlide({
                 Open Project
                 <ExternalLink className="h-4 w-4" />
               </Link>
-              {project.infoMessage && isActive && (
+              </>
+            )}
+            {project.infoMessage && isActive && (
                 <TooltipProvider delayDuration={120}>
                   <Tooltip>
                     <TooltipTrigger asChild>
@@ -453,8 +471,7 @@ const ProjectSlide = memo(function ProjectSlide({
                   </Tooltip>
                 </TooltipProvider>
               )}
-            </div>
-          )}
+          </div>
         </CardContent>
       </Card>
 

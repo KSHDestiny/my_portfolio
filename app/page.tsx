@@ -1,14 +1,12 @@
 import Hero from "@/components/hero";
 import About from "@/components/about";
+import Skills from "@/components/skills";
 import Knowledge from "@/components/knowledge";
 import Experience from "@/components/experience";
 import Projects from "@/components/projects";
+import Education from "@/components/education";
+import Contact from "@/components/contact";
 import Footer from "@/components/footer";
-import {
-  DeferredContactSection,
-  DeferredEducationSection,
-  DeferredSkillsSection,
-} from "@/components/home-deferred-sections";
 import ScrollProgress from "@/components/scroll-progress";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL, absoluteUrl } from "@/lib/site";
 
@@ -69,12 +67,12 @@ export default function Home() {
       <ScrollProgress />
       <Hero />
       <About />
-      <DeferredSkillsSection />
+      <Skills />
       <Projects />
-      <Experience />
       <Knowledge />
-      <DeferredEducationSection />
-      <DeferredContactSection />
+      <Experience />
+      <Education />
+      <Contact />
       <Footer />
     </main>
   );

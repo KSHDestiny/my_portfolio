@@ -1,6 +1,7 @@
 "use client";
 
 import { type ReactNode, useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import {
   BookOpen,
   CalendarRange,
@@ -48,6 +49,13 @@ type KnowledgeTopic = {
 type KnowledgeTopicsClientProps = {
   knowledgeTopics: KnowledgeTopic[];
 };
+
+function slugifyKnowledgeTitle(title: string) {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
 
 function isDayBasedTopic(topic: KnowledgeTopic | string) {
   const title = typeof topic === "string" ? topic : topic.title;
@@ -644,13 +652,17 @@ export default function KnowledgeTopicsClient({
                         <div className="space-y-3.5 pt-1 pb-1 pr-3">
                           {topic.days.map((dayItem) => {
                             const itemKey = `${topic.title}-${dayItem.day}-${dayItem.title}`;
+                            const detailHref = `/engineering-notes/${slugifyKnowledgeTitle(dayItem.title)}`;
                             return (
-                              <button
+                              <div
                                 key={itemKey}
-                                type="button"
-                                className="w-full text-left rounded-lg border border-primary/15 bg-primary/5 px-4 py-3.5 md:px-5 md:py-4 hover:border-primary/40 transition-colors"
-                                onClick={() => setSelectedDayKey(itemKey)}
+                                className="rounded-lg border border-primary/15 bg-primary/5 px-4 py-3.5 transition-colors hover:border-primary/40 md:px-5 md:py-4"
                               >
+                                <button
+                                  type="button"
+                                  className="w-full text-left"
+                                  onClick={() => setSelectedDayKey(itemKey)}
+                                >
                                 <p className="text-sm md:text-base font-medium flex items-center gap-2 leading-6">
                                   <CalendarRange className="h-4 w-4 text-primary" />
                                   {getEntryLabel(topic, dayItem)}
@@ -658,7 +670,19 @@ export default function KnowledgeTopicsClient({
                                 <p className="text-xs md:text-sm text-muted-foreground mt-2 leading-6">
                                   Note: {dayItem.note}
                                 </p>
-                              </button>
+                                </button>
+                                <div className="mt-3 flex items-center justify-between gap-3 border-t border-primary/10 pt-3">
+                                  <span className="text-xs text-muted-foreground">
+                                    Crawlable page
+                                  </span>
+                                  <Link
+                                    href={detailHref}
+                                    className="text-sm font-medium text-primary transition hover:underline"
+                                  >
+                                    Open note page
+                                  </Link>
+                                </div>
+                              </div>
                             );
                           })}
                         </div>
