@@ -1,21 +1,24 @@
 ### 🎯 Objective
 
-Configure **Nginx as a Load Balancer** to distribute incoming traffic across multiple backend servers for:
+Configure Nginx as a Load Balancer to distribute incoming traffic across multiple backend servers for:
 
 - ⚡ Better performance
+
 - 🔁 High availability
+
 - 📈 Scalability
+
 - 🛡 Fault tolerance
 
 ---
 
 # 📜 What is a Load Balancer?
 
-A **Load Balancer** distributes client requests across multiple servers.
+A Load Balancer distributes client requests across multiple servers.
 
 Example:
 
-```
+```plain text
 Client Request
       │
       ▼
@@ -27,39 +30,33 @@ App1  App2  App3
 
 Benefits:
 
-| Benefit           | Description                                 |
-| ----------------- | ------------------------------------------- |
-| High Availability | If one server fails, traffic goes to others |
-| Scalability       | Easily add more servers                     |
-| Performance       | Distributes load efficiently                |
-
 ---
 
 # 1️⃣ Install Nginx
 
 ### Ubuntu / Debian
 
-```
+```plain text
 sudo apt update
 sudo apt install nginx-y
 ```
 
 ### RHEL / CentOS / Amazon Linux
 
-```
-sudo yum install nginx-y
+```plain text
+sudo yum install nginx -y
 ```
 
 Start service:
 
-```
-sudo systemctlstart nginx
+```plain text
+sudo systemctl start nginx
 sudo systemctl enable nginx
 ```
 
 Check status:
 
-```
+```plain text
 sudo systemctl status nginx
 ```
 
@@ -69,12 +66,6 @@ sudo systemctl status nginx
 
 Example backend servers:
 
-| Server       | IP        |
-| ------------ | --------- |
-| App Server 1 | 10.0.0.11 |
-| App Server 2 | 10.0.0.12 |
-| App Server 3 | 10.0.0.13 |
-
 These servers run the application (Apache, Node.js, Tomcat, etc.).
 
 ---
@@ -83,13 +74,13 @@ These servers run the application (Apache, Node.js, Tomcat, etc.).
 
 Edit configuration:
 
-```
+```plain text
 sudo nano /etc/nginx/nginx.conf
 ```
 
-Add **upstream block**:
+Add upstream block:
 
-```
+```plain text
 http {
 
     upstream backend_servers {
@@ -112,13 +103,13 @@ http {
 
 # 4️⃣ Test Configuration
 
-```
-sudo nginx-t
+```plain text
+sudo nginx -t
 ```
 
 Expected output:
 
-```
+```plain text
 syntax is ok
 test is successful
 ```
@@ -127,7 +118,7 @@ test is successful
 
 # 5️⃣ Reload Nginx
 
-```
+```plain text
 sudo systemctl reload nginx
 ```
 
@@ -137,11 +128,11 @@ sudo systemctl reload nginx
 
 Send multiple requests:
 
-```
+```plain text
 curl http://your-server-ip
 ```
 
-You should see responses from **different backend servers**.
+You should see responses from different backend servers.
 
 ---
 
@@ -151,7 +142,7 @@ Nginx supports multiple algorithms.
 
 ### 1️⃣ Round Robin (Default)
 
-```
+```plain text
 Request 1 → Server1
 Request 2 → Server2
 Request 3 → Server3
@@ -159,7 +150,7 @@ Request 3 → Server3
 
 Configuration:
 
-```
+```plain text
 upstream backend_servers {
     server 10.0.0.11;
     server 10.0.0.12;
@@ -170,9 +161,9 @@ upstream backend_servers {
 
 ### 2️⃣ Least Connections
 
-Send traffic to server with **least active connections**.
+Send traffic to server with least active connections.
 
-```
+```plain text
 upstream backend_servers {
     least_conn;
     server 10.0.0.11;
@@ -184,9 +175,9 @@ upstream backend_servers {
 
 ### 3️⃣ IP Hash
 
-Same user always goes to the **same server**.
+Same user always goes to the same server.
 
-```
+```plain text
 upstream backend_servers {
     ip_hash;
     server 10.0.0.11;
@@ -194,7 +185,7 @@ upstream backend_servers {
 }
 ```
 
-Useful for **session persistence**.
+Useful for session persistence.
 
 ---
 
@@ -202,21 +193,21 @@ Useful for **session persistence**.
 
 Mark failed server:
 
-```
+```plain text
 upstream backend_servers {
     server 10.0.0.11 max_fails=3 fail_timeout=30s;
     server 10.0.0.12 max_fails=3 fail_timeout=30s;
 }
 ```
 
-If a server fails **3 times within 30 seconds**, it is removed temporarily.
+If a server fails 3 times within 30 seconds, it is removed temporarily.
 
 ---
 
 # 🧠 Architecture Example
 
-```
-           Internet
+```plain text
+Internet
                │
                ▼
         Nginx Load Balancer
@@ -232,30 +223,22 @@ If a server fails **3 times within 30 seconds**, it is removed temporarily.
 
 ### Check Nginx status
 
-```
+```plain text
 sudo systemctl status nginx
 ```
 
 ### View logs
 
-```
+```plain text
 sudo tail-f /var/log/nginx/error.log
 ```
 
 ### Test configuration
 
-```
+```plain text
 sudo nginx-t
 ```
 
 ---
 
 # ✅ Summary
-
-| Step           | Command                       |
-| -------------- | ----------------------------- |
-| Install Nginx  | `sudo apt install nginx`      |
-| Edit config    | `/etc/nginx/nginx.conf`       |
-| Test config    | `sudo nginx -t`               |
-| Reload service | `sudo systemctl reload nginx` |
-| Test           | `curl http://server-ip`       |

@@ -1,18 +1,16 @@
 # 🔐 Disable direct root SSH login
 
-<aside>
-Improve server security by restricting direct root login via SSH.
-</aside>
-
 ## Objective
 
-Make sure you can log in with a _non-root_ user that has `sudo` **before** disabling root login, otherwise you can lock yourself out.
+Improve server security by restricting direct root login via SSH.
 
 ## Why this matters
 
-- Reduces brute-force risk against the `root` account
+- Reduces brute-force risk against the root account
+
 - Limits blast radius if credentials are leaked
-- Forces least-privilege access through `sudo`
+
+- Forces least-privilege access through sudo
 
 ## Step 1: Connect to the server
 
@@ -73,6 +71,9 @@ PermitRootLogin no
 ## Security best practices (recommended)
 
 - Use SSH keys instead of passwords
+
 - Limit SSH access to specific IPs (firewall or security group)
-- Keep `sudo` access limited to trusted admins
+
+- Keep sudo access limited to trusted admins
+
 - Consider changing the default SSH port only if it fits your operational model

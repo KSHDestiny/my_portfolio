@@ -1,46 +1,36 @@
 ## 🎯 Objective
 
-Learn how to install, configure, and manage **Linux firewall rules** using iptables to control incoming and outgoing network traffic.
+Learn how to install, configure, and manage Linux firewall rules using iptables to control incoming and outgoing network traffic.
 
 ---
 
 # 📘 What is iptables?
 
-**iptables** is a **command-line firewall utility** used to manage network traffic rules in the Linux kernel.
+iptables is a command-line firewall utility used to manage network traffic rules in the Linux kernel.
 
 It allows administrators to:
 
 - Allow or block traffic
+
 - Filter packets
+
 - Protect servers from unauthorized access
+
 - Control network communication
 
-iptables works with the **Linux Netfilter framework**.
+iptables works with the Linux Netfilter framework.
 
 ---
 
 # 🔍 How iptables Works
 
-iptables filters packets using **rules** organized into **tables and chains**.
+iptables filters packets using rules organized into tables and chains.
 
 ### Tables
-
-| Table  | Purpose                            |
-| ------ | ---------------------------------- |
-| filter | Default table for packet filtering |
-| nat    | Network address translation        |
-| mangle | Packet modification                |
-| raw    | Advanced packet processing         |
 
 ---
 
 ### Chains
-
-| Chain   | Purpose                        |
-| ------- | ------------------------------ |
-| INPUT   | Incoming traffic               |
-| OUTPUT  | Outgoing traffic               |
-| FORWARD | Traffic passing through server |
 
 ---
 
@@ -48,15 +38,15 @@ iptables filters packets using **rules** organized into **tables and chains**
 
 Most Linux systems already include iptables.
 
-Install on **RHEL / CentOS / Rocky Linux**
+Install on RHEL / CentOS / Rocky Linux
 
-```
+```plain text
 sudo yum install iptables-services-y
 ```
 
-Install on **Ubuntu / Debian**
+Install on Ubuntu / Debian
 
-```
+```plain text
 sudo apt install iptables-y
 ```
 
@@ -66,29 +56,23 @@ sudo apt install iptables-y
 
 List current rules:
 
-```
+```plain text
 sudo iptables-L
 ```
 
 Detailed view:
 
-```
+```plain text
 sudo iptables-L-v-n
 ```
 
 Explanation:
 
-| Option | Meaning                |
-| ------ | ---------------------- |
-| -L     | List rules             |
-| -v     | Verbose                |
-| -n     | Show numeric addresses |
-
 ---
 
 # 📊 View Rules with Line Numbers
 
-```
+```plain text
 sudo iptables-L--line-numbers
 ```
 
@@ -98,19 +82,19 @@ Useful when deleting specific rules.
 
 # 🚀 Start iptables Service
 
-```
-sudo systemctlstart iptables
+```plain text
+sudo systemctl start iptables
 ```
 
 Enable at boot:
 
-```
+```plain text
 sudo systemctl enable iptables
 ```
 
 Check status:
 
-```
+```plain text
 sudo systemctl status iptables
 ```
 
@@ -120,42 +104,34 @@ sudo systemctl status iptables
 
 ### Allow SSH traffic
 
-```
-sudo iptables-A INPUT-p tcp--dport22-j ACCEPT
+```plain text
+sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT
 ```
 
 Meaning:
-
-| Option     | Explanation      |
-| ---------- | ---------------- |
-| -A         | Append rule      |
-| INPUT      | Incoming traffic |
-| -p tcp     | Protocol         |
-| --dport 22 | Destination port |
-| ACCEPT     | Allow packet     |
 
 ---
 
 ### Allow HTTP traffic
 
-```
-sudo iptables-A INPUT-p tcp--dport80-j ACCEPT
+```plain text
+sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT
 ```
 
 ---
 
 ### Allow HTTPS traffic
 
-```
-sudo iptables-A INPUT-p tcp--dport443-j ACCEPT
+```plain text
+sudo iptables -A INPUT -p tcp --dport 443 -j ACCEPT
 ```
 
 ---
 
 ### Block a specific IP
 
-```
-sudo iptables-A INPUT-s192.168.1.100-j DROP
+```plain text
+sudo iptables -A INPUT -s 192.168.1.100 -j DROP
 ```
 
 Meaning:
@@ -166,16 +142,16 @@ Drop all traffic from that IP.
 
 ### Allow localhost traffic
 
-```
-sudo iptables-A INPUT-i lo-j ACCEPT
+```plain text
+sudo iptables -A INPUT -i lo -j ACCEPT
 ```
 
 ---
 
 ### Allow established connections
 
-```
-sudo iptables-A INPUT-m state--state ESTABLISHED,RELATED-j ACCEPT
+```plain text
+sudo iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 ```
 
 ---
@@ -184,8 +160,8 @@ sudo iptables-A INPUT-m state--state ESTABLISHED,RELATED-j ACCEPT
 
 Set default policy:
 
-```
-sudo iptables-P INPUT DROP
+```plain text
+sudo iptables -P INPUT DROP
 ```
 
 Meaning:
@@ -198,14 +174,14 @@ All incoming traffic is blocked unless explicitly allowed.
 
 Delete specific rule:
 
-```
-sudo iptables-D INPUT2
+```plain text
+sudo iptables -D INPUT2
 ```
 
 Delete by rule specification:
 
-```
-sudo iptables-D INPUT-p tcp--dport80-j ACCEPT
+```plain text
+sudo iptables -D INPUT -p tcp --dport 80 -j ACCEPT
 ```
 
 ---
@@ -214,14 +190,14 @@ sudo iptables-D INPUT-p tcp--dport80-j ACCEPT
 
 Remove all rules:
 
-```
-sudo iptables-F
+```plain text
+sudo iptables -F
 ```
 
 Delete all chains:
 
-```
-sudo iptables-X
+```plain text
+sudo iptables -X
 ```
 
 ---
@@ -232,13 +208,13 @@ Rules disappear after reboot unless saved.
 
 Save rules:
 
-```
-sudoservice iptables save
+```plain text
+sudo service iptables save
 ```
 
 or
 
-```
+```plain text
 sudo iptables-save > /etc/sysconfig/iptables
 ```
 
@@ -246,7 +222,7 @@ sudo iptables-save > /etc/sysconfig/iptables
 
 # 🔁 Restore Rules
 
-```
+```plain text
 sudo iptables-restore < /etc/sysconfig/iptables
 ```
 
@@ -256,7 +232,7 @@ sudo iptables-restore < /etc/sysconfig/iptables
 
 Useful when configuring firewall:
 
-```
+```plain text
 sudo ss-tulnp
 ```
 
@@ -267,23 +243,25 @@ sudo ss-tulnp
 Allow only:
 
 - SSH
+
 - HTTP
+
 - HTTPS
 
 Block everything else.
 
-```
-sudo iptables-F
+```plain text
+sudo iptables -F
 
-sudo iptables-A INPUT-i lo-j ACCEPT
+sudo iptables -A INPUT -i lo -j ACCEPT
 
-sudo iptables-A INPUT-m state--state ESTABLISHED,RELATED-j ACCEPT
+sudo iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 
-sudo iptables-A INPUT-p tcp--dport22-j ACCEPT
-sudo iptables-A INPUT-p tcp--dport80-j ACCEPT
-sudo iptables-A INPUT-p tcp--dport443-j ACCEPT
+sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+sudo iptables -A INPUT -p tcp --dport 443 -j ACCEPT
 
-sudo iptables-P INPUT DROP
+sudo iptables -P INPUT DROP
 ```
 
 ---
@@ -294,11 +272,11 @@ sudo iptables-P INPUT DROP
 
 If SSH rule missing:
 
-```
-sudo iptables-A INPUT-p tcp--dport22-j ACCEPT
+```plain text
+sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT
 ```
 
-Always allow SSH **before setting DROP policy**.
+Always allow SSH before setting DROP policy.
 
 ---
 
@@ -308,7 +286,7 @@ Fix:
 
 Save rules:
 
-```
+```plain text
 sudo iptables-save
 ```
 
@@ -318,7 +296,7 @@ sudo iptables-save
 
 Check:
 
-```
+```plain text
 sudo systemctl status iptables
 ```
 
@@ -326,23 +304,9 @@ sudo systemctl status iptables
 
 # 📁 Important iptables Files
 
-| File                      | Purpose                 |
-| ------------------------- | ----------------------- |
-| `/etc/sysconfig/iptables` | Saved firewall rules    |
-| `/etc/services`           | Port-to-service mapping |
-
 ---
 
 # 🧰 Useful iptables Commands
-
-| Command            | Purpose       |
-| ------------------ | ------------- |
-| `iptables -L`      | List rules    |
-| `iptables -A`      | Add rule      |
-| `iptables -D`      | Delete rule   |
-| `iptables -F`      | Flush rules   |
-| `iptables-save`    | Save rules    |
-| `iptables-restore` | Restore rules |
 
 ---
 
@@ -352,14 +316,14 @@ sudo systemctl status iptables
 
 Check firewall:
 
-```
-sudo iptables-L
+```plain text
+sudo iptables -L
 ```
 
 If port 80 blocked:
 
-```
-sudo iptables-A INPUT-p tcp--dport80-j ACCEPT
+```plain text
+sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT
 ```
 
 Restart service if needed.
@@ -368,8 +332,12 @@ Restart service if needed.
 
 # ✅ Key Learning Points
 
-- iptables is the **Linux firewall management tool**
-- It controls **network traffic rules**
-- Uses **tables, chains, and rules**
-- Always allow **SSH before applying DROP policy**
+- iptables is the Linux firewall management tool
+
+- It controls network traffic rules
+
+- Uses tables, chains, and rules
+
+- Always allow SSH before applying DROP policy
+
 - Save rules to keep them after reboot

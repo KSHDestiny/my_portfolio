@@ -1,23 +1,15 @@
-### What a Database Server Does
+### Key Idea
 
-A database server stores, organizes, and provides structured data for applications. It is a key part of most application stacks because it handles persistent data storage.
+Learn how to install, start, and configure a database server so applications can store and retrieve data securely and efficiently.
 
-### Install MariaDB Server
+### What Matters
 
-Use this command to install MariaDB:
+- MySQL
+- MariaDB
+- PostgreSQL
+- Set root password
+- Remove anonymous users
 
-```bash
-sudo yum install mariadb-server -y
-```
+### Quick Summary
 
-### Start MariaDB Service
-
-Use this command to start MariaDB:
-
-```bash
-sudo systemctl start mariadb
-```
-
-## Summary
-
-A database server is needed when an application must store and retrieve data reliably.
+A database server stores structured data and allows applications to communicate with it using SQL. Common database servers include:

@@ -9,10 +9,15 @@ MariaDB troubleshooting means finding out why the MariaDB database server is not
 Common problems include:
 
 - MariaDB service not starting
+
 - Unable to connect to database
+
 - Access denied errors
+
 - Wrong port or socket issue
+
 - Database corruption
+
 - Full disk or permission problems
 
 ## 🔍 Common MariaDB Troubleshooting Commands
@@ -91,7 +96,7 @@ sudo netstat -tulnp | grep 3306
 
 Purpose:
 
-- Confirms MariaDB is listening on default port **3306**
+- Confirms MariaDB is listening on default port 3306
 
 ### 8. Login to MariaDB
 
@@ -200,10 +205,14 @@ sudo journalctl -u mariadb
 
 Possible causes:
 
-- Wrong config in `my.cnf`
+- Wrong config in my.cnf
+
 - Port already in use
+
 - Permission issue
+
 - Full disk
+
 - Corrupted database files
 
 ### 2. Access denied for user
@@ -217,7 +226,9 @@ ERROR 1045 (28000): Access denied for user 'root'@'localhost'
 Fix:
 
 - Check username/password
+
 - Ensure correct authentication method
+
 - Reset password if needed
 
 Example:
@@ -244,7 +255,9 @@ Can't connect to local MariaDB server through socket
 Possible causes:
 
 - Service is not running
+
 - Wrong socket path in config
+
 - Client using wrong socket file
 
 Check:
@@ -265,6 +278,7 @@ sudo ss -tulnp | grep 3306
 Fix:
 
 - Stop conflicting service
+
 - Or change MariaDB port in config file
 
 ### 5. Database is read-only or not writable
@@ -279,7 +293,9 @@ sudo ls -ld /var/lib/mysql
 Possible causes:
 
 - Disk full
+
 - Wrong ownership
+
 - File system mounted read-only
 
 Fix ownership if needed:
@@ -385,6 +401,7 @@ sudo ss -tulnp | grep 3306
 ### Fix:
 
 - Stop other process using port 3306
+
 - Or change MariaDB port in config
 
 Then restart:
@@ -395,8 +412,12 @@ sudo systemctl restart mariadb
 
 ## ✅ Key Learning Points
 
-- Use `systemctl status mariadb` first
+- Use systemctl status mariadb first
+
 - Logs are the best place to find real errors
-- Check port `3306`, config file, permissions, and disk space
+
+- Check port 3306, config file, permissions, and disk space
+
 - Authentication and socket issues are very common
+
 - Restart MariaDB after fixing config issues

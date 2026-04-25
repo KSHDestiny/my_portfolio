@@ -1,31 +1,15 @@
-### Why Root SSH Access Should Be Restricted
+### Key Idea
 
-Direct root SSH login is risky because it exposes the most powerful account on the server to remote login attempts. A safer practice is to log in with a normal user first and use `sudo` only when needed.
+Improve server security by restricting direct root login via SSH.
 
-### Disable Root SSH Login
+### What Matters
 
-Add this setting in the SSH configuration to block direct root login:
+- Reduces brute-force risk against the root account
+- Limits blast radius if credentials are leaked
+- Forces least-privilege access through sudo
+- Use SSH keys instead of passwords
+- Limit SSH access to specific IPs (firewall or security group)
 
-```text
-PermitRootLogin no
-```
+### Quick Summary
 
-### Edit SSH Configuration File
-
-Use this file to apply the SSH root login setting:
-
-```bash
-sudo nano /etc/ssh/sshd_config
-```
-
-### Restart SSH Service
-
-Restart SSH after changing the configuration:
-
-```bash
-sudo systemctl restart sshd
-```
-
-## Summary
-
-Restricting root SSH access reduces risk and makes remote administration safer.
+Example: Find:

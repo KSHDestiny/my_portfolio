@@ -1,31 +1,15 @@
-### What `iptables` Is Used For
+### Key Idea
 
-`iptables` is a Linux firewall utility used to control incoming and outgoing traffic. It helps protect a server by deciding which network connections should be allowed, rejected, or blocked.
+Learn how to install, configure, and manage Linux firewall rules using iptables to control incoming and outgoing network traffic.
 
-### Install `iptables`
+### What Matters
 
-Use this command to install `iptables` if it is not already available on the system:
+- Allow or block traffic
+- Filter packets
+- Protect servers from unauthorized access
+- Control network communication
+- SSH
 
-```bash
-sudo yum install iptables-services -y
-```
+### Quick Summary
 
-### List Firewall Rules
-
-Use this command to view current firewall rules:
-
-```bash
-sudo iptables -L
-```
-
-### Allow SSH Traffic
-
-Use this command to allow incoming SSH access on port 22:
-
-```bash
-sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT
-```
-
-## Summary
-
-`iptables` is one of the core tools used to secure Linux servers at the network level, and the first step is making sure it is installed and available.
+iptables is a command-line firewall utility used to manage network traffic rules in the Linux kernel. It allows administrators to:

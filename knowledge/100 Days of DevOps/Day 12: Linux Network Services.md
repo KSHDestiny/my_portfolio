@@ -1,385 +1,244 @@
 ## 🎯 Objective
 
-Understand and manage common **Linux network services**, learn how they work, and how to start, stop, and troubleshoot them.
+Fix service accessibility issues by ensuring:
+
+- Apache runs on HTTPS (custom port)
+
+- Port is not conflicted
+
+- Firewall (iptables) allows traffic
+
+- Everything else is blocked securely
 
 ---
 
-# 📘 What are Linux Network Services?
+# 🧠 Scenario
 
-**Network services** are background processes that allow a system to provide functionality over a network.
+👉 You try:
 
-They allow computers to communicate and share resources such as:
+```plain text
+curl-k https://localhost:8443
+```
 
-- Web pages
-- Files
-- Remote login
-- Databases
-- DNS resolution
+❌ Not working → Possible causes:
 
-These services usually run as **daemons** in the background.
+- Apache not running
+
+- Port conflict
+
+- Port not allowed in iptables
+
+- SELinux blocking
 
 ---
 
-# ⚙ Common Linux Network Services
+# 🔍 Step 1: Check Apache Service
 
-| Service | Purpose                               | Default Port |
-| ------- | ------------------------------------- | ------------ |
-| SSH     | Secure remote login                   | 22           |
-| HTTP    | Web server communication              | 80           |
-| HTTPS   | Secure web communication              | 443          |
-| FTP     | File transfer between systems         | 21           |
-| DNS     | Converts domain names to IP addresses | 53           |
-| SMTP    | Sending email                         | 25           |
-
----
-
-# 🔍 Checking Running Network Services
-
-### List active services
-
-```
-systemctl list-units--type=service
+```plain text
+sudo systemctl status httpd# Ubuntu: apache2
 ```
 
-Shows all currently running services.
+If not running:
 
----
-
-### Check a specific service
-
-Example:
-
-```
-sudo systemctl status sshd
-```
-
-or
-
-```
-sudo systemctl status httpd
-```
-
-This shows:
-
-- Whether service is running
-- Process ID
-- Logs
-- Startup status
-
----
-
-# 🚀 Starting and Stopping Services
-
-Start service:
-
-```
-sudo systemctlstart sshd
-```
-
-Stop service:
-
-```
-sudo systemctlstop sshd
-```
-
-Restart service:
-
-```
-sudo systemctlrestart sshd
-```
-
-Enable service on boot:
-
-```
-sudo systemctl enable sshd
-```
-
-Disable service on boot:
-
-```
-sudo systemctl disable sshd
+```plain text
+sudo systemctlstart httpd
+sudo systemctl enable httpd
 ```
 
 ---
 
-# 🌐 Checking Open Network Ports
+# 🔍 Step 2: Check Port Configuration
 
-### Using `ss`
+## Apache SSL config
 
+```plain text
+sudovi /etc/httpd/conf.d/ssl.conf
 ```
-sudo ss-tulnp
-```
 
-Explanation:
+Make sure:
 
-| Option | Meaning             |
-| ------ | ------------------- |
-| t      | TCP                 |
-| u      | UDP                 |
-| l      | listening           |
-| n      | numeric output      |
-| p      | process information |
+```plain text
+Listen 8443 https
 
-Example:
-
-```
-sudo ss-tulnp |grep22
+<VirtualHost *:8443>
+    DocumentRoot "/var/www/html"
+    SSLEngine on
+    SSLCertificateFile /etc/pki/tls/certs/localhost.crt
+    SSLCertificateKeyFile /etc/pki/tls/private/localhost.key
+</VirtualHost>
 ```
 
 ---
 
-### Using `netstat`
+## 🔍 Check if port is in use
 
+```plain text
+sudo ss-tulnp |grep :8443
 ```
-sudo netstat-tulnp
+
+### ❗ If conflict:
+
+```plain text
+sudo lsof-i :8443
+```
+
+👉 Stop conflicting service OR change port
+
+---
+
+# 🔴 Step 3: SELinux Check (RHEL/CentOS)
+
+👉 Apache cannot use random ports by default
+
+### Fix:
+
+```plain text
+sudo semanage port-a-t http_port_t-p tcp8443
 ```
 
 ---
 
-# 📡 Checking Network Connections
+# 🔥 Step 4: Configure iptables (Using I)
 
-List active connections:
+## ⚠️ Clean (optional)
 
-```
-ss-tunap
-```
-
----
-
-# 🧪 Testing Network Services
-
-### Test SSH connection
-
-```
-ssh user@server-ip
+```plain text
+sudo iptables-F
+sudo iptables-X
 ```
 
 ---
 
-### Test HTTP service
+## 🔒 Default policy (secure)
 
-```
-curl http://localhost
-```
-
----
-
-### Test port connectivity
-
-```
-telnet localhost80
-```
-
-or
-
-```
-nc-zv localhost80
+```plain text
+sudo iptables-P INPUT DROP
+sudo iptables-P FORWARD DROP
+sudo iptables-P OUTPUT ACCEPT
 ```
 
 ---
 
-# 📁 Important Network Configuration Files
+## ✅ Insert rules (TOP priority)
 
-| File                   | Purpose                  |
-| ---------------------- | ------------------------ |
-| `/etc/hosts`           | Local DNS resolution     |
-| `/etc/resolv.conf`     | DNS server configuration |
-| `/etc/services`        | Port-to-service mapping  |
-| `/etc/ssh/sshd_config` | SSH server configuration |
+### 1. Allow localhost
 
----
-
-# 🔧 Example: Managing SSH Service
-
-Check SSH status:
-
-```
-sudo systemctl status sshd
-```
-
-Start SSH:
-
-```
-sudo systemctlstart sshd
-```
-
-Enable SSH at boot:
-
-```
-sudo systemctl enable sshd
-```
-
-Restart SSH after config change:
-
-```
-sudo systemctlrestart sshd
+```plain text
+sudo iptables-I INPUT1-i lo-j ACCEPT
 ```
 
 ---
 
-# 🔎 Check Network Interface
+### 2. Allow established connections
 
-Show network interfaces:
-
-```
-ip addr
-```
-
-or
-
-```
-ip a
+```plain text
+sudo iptables-I INPUT2-m conntrack--ctstate ESTABLISHED,RELATED-j ACCEPT
 ```
 
 ---
 
-# 🌍 Test Internet Connectivity
+### 3. Allow SSH
 
-Ping Google DNS:
-
-```
-ping8.8.8.8
-```
-
-Test DNS resolution:
-
-```
-ping google.com
+```plain text
+sudo iptables-I INPUT3-p tcp--dport22-j ACCEPT
 ```
 
 ---
 
-# 🛠 Troubleshooting Network Services
+### 4. Allow HTTPS (custom port)
 
-### Step 1: Check service status
-
-```
-systemctl status service-name
+```plain text
+sudo iptables-I INPUT4-p tcp--dport8443-j ACCEPT
 ```
 
 ---
 
-### Step 2: Check listening port
+# 🔍 Step 5: Verify Rule Order
 
+```plain text
+sudo iptables-L--line-numbers
 ```
-ss-tulnp |grep PORT
+
+Expected:
+
+```plain text
+1  ACCEPT  lo
+2  ACCEPT  ESTABLISHED,RELATED
+3  ACCEPT  tcp dpt:22
+4  ACCEPT  tcp dpt:8443
+5  DROP    all
+```
+
+👉 Order matters → iptables reads top → down
+
+---
+
+# 💾 Step 6: Save Rules
+
+### RHEL / CentOS
+
+```plain text
+sudo iptables-save |sudotee /etc/sysconfig/iptables
+```
+
+### Ubuntu
+
+```plain text
+sudo netfilter-persistent save
 ```
 
 ---
 
-### Step 3: Check firewall rules
+# 🧪 Step 7: Test
 
-```
-sudo firewall-cmd--list-all
-```
+## From server:
 
-or
-
-```
-sudo iptables-L
+```plain text
+curl-k https://localhost:8443
 ```
 
----
+## From browser:
 
-### Step 4: Check logs
-
-```
-journalctl-u service-name
+```plain text
+https://<server-ip>:8443
 ```
 
 ---
 
-# ⚠ Common Network Service Problems
+# 🧩 Troubleshooting Flow (REAL)
 
-### Service not running
-
-Fix:
-
-```
-sudo systemctlstart service-name
-```
-
----
-
-### Port blocked by firewall
-
-Open port:
-
-```
-sudo firewall-cmd--add-port=80/tcp--permanent
-sudo firewall-cmd--reload
+```plain text
+Service down
+   ↓
+Check systemctl
+   ↓
+Check port (ss / lsof)
+   ↓
+Check SELinux
+   ↓
+Check iptables (order!)
+   ↓
+Test with curl
 ```
 
 ---
 
-### DNS not resolving
+# ⚠️ Common Mistakes
 
-Check:
+- ❌ Using A instead of I (rule order wrong)
 
-```
-cat /etc/resolv.conf
-```
+- ❌ Forgetting SELinux config
 
----
+- ❌ Port not actually listening
 
-### Service running but not reachable
+- ❌ Firewall blocking port
 
-Check:
-
-- firewall
-- bind address
-- port configuration
+- ❌ Apache config wrong
 
 ---
 
-# 📊 Example Workflow
+# 🧠 DevOps Insight
 
-Example: Web server not accessible.
+👉 Always debug in this order:
 
-Check service:
-
-```
-sudo systemctl status httpd
-```
-
-Check port:
-
-```
-sudo ss-tulnp |grep80
-```
-
-Check firewall:
-
-```
-sudo firewall-cmd--list-all
-```
-
-Test locally:
-
-```
-curl http://localhost
-```
-
----
-
-# 🧾 Useful Network Commands
-
-| Command      | Purpose                 |
-| ------------ | ----------------------- |
-| `ip a`       | Show network interfaces |
-| `ss -tulnp`  | Show listening ports    |
-| `ping`       | Test connectivity       |
-| `curl`       | Test web services       |
-| `netstat`    | Show network statistics |
-| `traceroute` | Trace network path      |
-| `hostname`   | Show system hostname    |
-
----
-
-# ✅ Key Learning Points
-
-- Network services allow systems to communicate over the network
-- Services are managed using **systemctl**
-- Ports determine how services communicate
-- Tools like `ss`, `curl`, `ping`, and `netstat` help diagnose issues
-- Firewall configuration can affect network service accessibility
+> Service → Port → SELinux → Firewall → Test

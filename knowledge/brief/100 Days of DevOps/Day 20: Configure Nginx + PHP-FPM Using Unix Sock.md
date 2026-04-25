@@ -1,23 +1,15 @@
-### How Nginx and PHP-FPM Work Together
+### Key Idea
 
-Nginx handles incoming web requests, while PHP-FPM executes PHP code in the background. A Unix socket is one local communication method used between them on the same server.
+Configure Nginx to execute PHP applications using PHP-FPM via a Unix socket, which is faster than using TCP ports because communication happens locally through a file.
 
-### Connect Nginx to PHP-FPM
+### What Matters
 
-Use this directive to connect through a Unix socket:
+- 🎯 Objective
+- 📜 What is PHP-FPM?
+- 1️⃣ Install Nginx and PHP-FPM
+- Ubuntu / Debian
+- RHEL / CentOS / Amazon Linux
 
-```nginx
-fastcgi_pass unix:/run/php-fpm/www.sock;
-```
+### Quick Summary
 
-### Common Unix Socket Path
-
-A common local socket path looks like this:
-
-```text
-/run/php-fpm/www.sock
-```
-
-## Summary
-
-This setup is commonly used to run PHP applications efficiently behind Nginx.
+PHP-FPM (FastCGI Process Manager) manages PHP worker processes and allows web servers like Nginx to execute PHP scripts efficiently. Flow:

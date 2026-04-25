@@ -102,16 +102,17 @@
 
 ## Notion Integration
 
-The portfolio can now sync the Projects section from a Notion database on the server.
+Projects can sync directly from Notion at runtime, while Knowledge is synced into local markdown files via script.
 
 Set these environment variables in `.env.local`:
 
 ```bash
 NOTION_TOKEN=secret_xxx
 NOTION_PROJECTS_DATABASE_ID=your_database_id
+NOTION_KNOWLEDGE_DATABASE_ID=your_database_id
 ```
 
-Recommended Notion database properties:
+Recommended Projects database properties:
 
 - `Name` as a title field
 - `Description` as rich text
@@ -122,7 +123,29 @@ Recommended Notion database properties:
 - `Order` as number for sorting
 - `Visible` as checkbox to hide drafts
 
-If the Notion credentials are missing or the API request fails, the site falls back to the existing local project data automatically.
+Recommended Knowledge database properties:
+
+- `Name` as a title field (for example: `Day 1: Linux User Setup`)
+- `Topic` as select or rich text (for example: `100 Days of DevOps`)
+- `Day` as number (optional if day number is included in title)
+- `Note` as rich text (short preview text)
+- `Content` as rich text (full markdown/content shown in the modal and detail page)
+- `Brief` as rich text (optional brief tab content)
+- `Order` as number for sorting (optional)
+- `Visible` as checkbox to hide drafts (optional)
+
+Sync command for Knowledge markdown files:
+
+```bash
+npm run sync:knowledge
+```
+
+This command fetches rows from your Notion knowledge database, then creates or updates:
+
+- `knowledge/<topic>/*.md`
+- `knowledge/brief/<topic>/*.md`
+
+The portfolio Knowledge UI reads from markdown files only.
 
 <div align="center">
   <img src="https://capsule-render.vercel.app/api?type=waving&height=110&section=footer&color=0:22c55e,50:06b6d4,100:0ea5e9&animation=twinkling" width="100%"/>

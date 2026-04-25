@@ -1,43 +1,15 @@
-### Check MariaDB Service Status
+### Key Idea
 
-Use this command to see whether the MariaDB service is running, stopped, or failed:
+Learn how to identify, diagnose, and fix common MariaDB issues such as service failures, connection problems, authentication errors, and database access issues.
 
-```bash
-sudo systemctl status mariadb
-```
+### What Matters
 
-### Restart the MariaDB Service
+- MariaDB service not starting
+- Unable to connect to database
+- Access denied errors
+- Wrong port or socket issue
+- Database corruption
 
-Use this command when the service needs to be started again after a temporary failure or configuration change:
+### Quick Summary
 
-```bash
-sudo systemctl restart mariadb
-```
-
-### View MariaDB Logs
-
-Use this command to check recent logs and identify startup or runtime errors:
-
-```bash
-sudo journalctl -u mariadb
-```
-
-### Test Database Login
-
-Use this command to check whether authentication is working correctly:
-
-```bash
-mysql -u root -p
-```
-
-### Check Listening Port
-
-Use this command to confirm MariaDB is listening on port `3306`:
-
-```bash
-sudo ss -tulnp | grep 3306
-```
-
-## Summary
-
-It helps to check service health, logs, login issues, and port availability to find the real cause of database failures.
+MariaDB troubleshooting means finding out why the MariaDB database server is not working properly and fixing the issue. Common problems include:

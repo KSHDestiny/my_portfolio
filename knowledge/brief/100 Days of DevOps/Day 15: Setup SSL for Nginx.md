@@ -1,27 +1,15 @@
-### Enable HTTPS Listener
+### Key Idea
 
-Use this Nginx directive to listen on HTTPS:
+Configure SSL/TLS for Nginx to enable secure HTTPS communication.
 
-```nginx
-listen 443 ssl;
-```
+### What Matters
 
-### Set SSL Certificate Path
+- Secure data transfer
+- Prevents man-in-the-middle attacks
+- Enables https:// access
+- Restricts access to owner only
+- Protects sensitive private key
 
-Use this directive to point to the certificate file:
+### Quick Summary
 
-```nginx
-ssl_certificate /path/to/cert.pem;
-```
-
-### Set SSL Private Key Path
-
-Use this directive to point to the private key file:
-
-```nginx
-ssl_certificate_key /path/to/private.key;
-```
-
-## Summary
-
-SSL/TLS protects data in transit and is a standard requirement for secure web applications.
+SSL/TLS encrypts communication between client and server. 👉 Benefits:

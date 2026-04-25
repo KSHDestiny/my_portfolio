@@ -10,10 +10,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ]);
 
   const now = new Date();
-  const engineeringTopic = knowledgeTopics.find(
-    (topic) => topic.title === "Advanced Software Engineering",
-  );
-
   const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: SITE_URL,
@@ -30,13 +26,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  const engineeringNoteRoutes: MetadataRoute.Sitemap =
-    engineeringTopic?.days.map((dayItem) => ({
-      url: `${SITE_URL}/engineering-notes/${slugifyKnowledgeTitle(dayItem.title)}`,
+  const seenKnowledgeSlugs = new Set<string>();
+  const knowledgeNoteRoutes: MetadataRoute.Sitemap = knowledgeTopics
+    .flatMap((topic) => topic.days)
+    .map((dayItem) => slugifyKnowledgeTitle(dayItem.title))
+    .filter((slug) => {
+      if (seenKnowledgeSlugs.has(slug)) return false;
+      seenKnowledgeSlugs.add(slug);
+      return true;
+    })
+    .map((slug) => ({
+      url: `${SITE_URL}/engineering-notes/${slug}`,
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.7,
-    })) ?? [];
+    }));
 
-  return [...staticRoutes, ...projectRoutes, ...engineeringNoteRoutes];
+  return [...staticRoutes, ...projectRoutes, ...knowledgeNoteRoutes];
 }

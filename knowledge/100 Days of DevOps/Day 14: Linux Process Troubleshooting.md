@@ -1,76 +1,57 @@
-Stopped## 🎯 Objective
+## 🎯 Objective
 
-Learn how to **monitor, analyze, and troubleshoot running processes** in Linux using system tools to identify performance issues, stuck processes, or resource overuse.
+Learn how to monitor, analyze, and troubleshoot running processes in Linux using system tools to identify performance issues, stuck processes, or resource overuse.
 
 ---
 
 # 📘 What is a Process in Linux?
 
-A **process** is a running instance of a program.
+A process is a running instance of a program.
 
-When a command or application runs in Linux, the system creates a **process** with its own:
+When a command or application runs in Linux, the system creates a process with its own:
 
-- Process ID (**PID**)
+- Process ID (PID)
+
 - CPU usage
+
 - Memory usage
+
 - Execution state
 
 Example:
 
 Running:
 
-```
+```plain text
 firefox
 ```
 
-creates a **Firefox process** in the system.
+creates a Firefox process in the system.
 
 ---
 
 # 🧠 Process States in Linux
 
-| State | Meaning                             |
-| ----- | ----------------------------------- |
-| R     | Running                             |
-| S     | Sleeping                            |
-| D     | Uninterruptible sleep (usually I/O) |
-| T     | Stopped                             |
-| Z     | Zombie process                      |
-
 ---
 
 # 🔍 Viewing Running Processes
 
-### Using `ps`
+### Using ps
 
-```
+```plain text
 ps aux
 ```
 
 Explanation:
 
-| Option | Meaning                                 |
-| ------ | --------------------------------------- |
-| a      | Show processes for all users            |
-| u      | Display user information                |
-| x      | Show processes not attached to terminal |
-
 Example output fields:
-
-| Field   | Meaning         |
-| ------- | --------------- |
-| USER    | Process owner   |
-| PID     | Process ID      |
-| %CPU    | CPU usage       |
-| %MEM    | Memory usage    |
-| COMMAND | Running command |
 
 ---
 
 ### View process tree
 
-```
-ps-ef--forest
+```plain text
+ps -ef --forest
 ```
 
 Shows parent-child relationship between processes.
@@ -81,25 +62,21 @@ Shows parent-child relationship between processes.
 
 ### Using top
 
-```
+```plain text
 top
 ```
 
 Shows:
 
 - CPU usage
+
 - Memory usage
+
 - Running processes
+
 - System load
 
-Important keys inside `top`:
-
-| Key | Function       |
-| --- | -------------- |
-| q   | Quit           |
-| k   | Kill process   |
-| P   | Sort by CPU    |
-| M   | Sort by memory |
+Important keys inside top:
 
 ---
 
@@ -107,75 +84,71 @@ Important keys inside `top`:
 
 Install:
 
-```
-sudo yum install htop-y
+```plain text
+sudo yum install htop -y
 ```
 
 Run:
 
-```
+```plain text
 htop
 ```
 
 Features:
 
 - Colorful interface
+
 - Easy process killing
+
 - Better visualization
 
 ---
 
 # 🔎 Finding a Specific Process
 
-### Using `grep`
+### Using grep
 
 Example:
 
-```
-ps aux |grep nginx
+```plain text
+ps aux | grep nginx
 ```
 
-Finds **Nginx processes**.
+Finds Nginx processes.
 
 ---
 
-### Using `pgrep`
+### Using pgrep
 
-```
+```plain text
 pgrep nginx
 ```
 
-Shows only **process IDs**.
+Shows only process IDs.
 
 ---
 
 # 🧾 Process Priority
 
-Each process has a **priority value** called **nice value**.
-
-| Nice Value | Priority         |
-| ---------- | ---------------- |
-| -20        | Highest priority |
-| 0          | Default          |
-| 19         | Lowest priority  |
+Each process has a priority value called nice value.
 
 ---
 
 ### Run command with priority
 
-```
-nice-n10 command
+```plain text
+nice -n 10 command
 ```
 
 ---
 
 ### Change priority of running process
 
-```
-renice5-p1234
+```plain text
+renice5 -p 1234
 ```
 
-Where **1234 = PID**
+Where 1234 = PID
 
 ---
 
@@ -187,31 +160,31 @@ Sometimes processes hang or consume excessive resources.
 
 ### Kill by PID
 
-```
-kill1234
+```plain text
+kill 1234
 ```
 
 ---
 
 ### Force kill process
 
-```
-kill-91234
+```plain text
+kill -9 1234
 ```
 
-Signal 9 = **SIGKILL**
+Signal 9 = SIGKILL
 
 ---
 
 ### Kill by process name
 
-```
+```plain text
 pkill nginx
 ```
 
 or
 
-```
+```plain text
 killall nginx
 ```
 
@@ -221,13 +194,13 @@ killall nginx
 
 Check CPU usage:
 
-```
+```plain text
 top
 ```
 
 or
 
-```
+```plain text
 mpstat
 ```
 
@@ -237,28 +210,22 @@ mpstat
 
 Check memory:
 
-```
-free-h
+```plain text
+free -h
 ```
 
 Example output:
-
-| Field | Meaning      |
-| ----- | ------------ |
-| total | Total memory |
-| used  | Used memory  |
-| free  | Free memory  |
 
 ---
 
 # 📁 Check Disk Usage
 
-Sometimes processes fail due to **disk full issues**.
+Sometimes processes fail due to disk full issues.
 
 Check disk:
 
-```
-df-h
+```plain text
+df -h
 ```
 
 ---
@@ -267,14 +234,14 @@ df-h
 
 Sort by CPU usage:
 
-```
-ps aux--sort=-%cpu
+```plain text
+ps aux --sort=-%cpu
 ```
 
 Sort by memory:
 
-```
-ps aux--sort=-%mem
+```plain text
+ps aux --sort=-%mem
 ```
 
 ---
@@ -283,13 +250,13 @@ ps aux--sort=-%mem
 
 ### Problem
 
-Server is **slow**.
+Server is slow.
 
 ---
 
 ### Step 1: Check CPU usage
 
-```
+```plain text
 top
 ```
 
@@ -301,7 +268,7 @@ Find process using high CPU.
 
 Example:
 
-```
+```plain text
 PID 2345 java
 ```
 
@@ -309,22 +276,22 @@ PID 2345 java
 
 ### Step 3: Investigate process
 
-```
-ps-p2345-f
+```plain text
+ps -p 2345 -f
 ```
 
 ---
 
 ### Step 4: Restart or kill process
 
-```
-kill2345
+```plain text
+kill 2345
 ```
 
 or
 
-```
-kill-92345
+```plain text
+kill -9 2345
 ```
 
 ---
@@ -333,14 +300,14 @@ kill-92345
 
 Use:
 
-```
-lsof-p PID
+```plain text
+lsof -p PID
 ```
 
 Example:
 
-```
-lsof-p1234
+```plain text
+lsof -p 1234
 ```
 
 Shows files opened by that process.
@@ -349,8 +316,8 @@ Shows files opened by that process.
 
 # 🌐 Viewing Process Network Connections
 
-```
-ss-tunap
+```plain text
+ss -tunap
 ```
 
 Shows processes using network ports.
@@ -361,20 +328,20 @@ Shows processes using network ports.
 
 If process crashes:
 
-```
-journalctl-xe
+```plain text
+journalctl -xe
 ```
 
 or
 
-```
-journalctl-u service-name
+```plain text
+journalctl -u service-name
 ```
 
 Example:
 
-```
-journalctl-u nginx
+```plain text
+journalctl -u nginx
 ```
 
 ---
@@ -385,7 +352,7 @@ journalctl-u nginx
 
 Check:
 
-```
+```plain text
 top
 ```
 
@@ -399,8 +366,8 @@ Restart or kill process.
 
 Check:
 
-```
-ps aux |grep Z
+```plain text
+ps aux | grep Z
 ```
 
 Fix:
@@ -417,7 +384,7 @@ Symptoms:
 
 Check:
 
-```
+```plain text
 top
 ```
 
@@ -427,24 +394,16 @@ Restart service if needed.
 
 # 🧰 Useful Process Commands
 
-| Command   | Purpose                |
-| --------- | ---------------------- |
-| `ps aux`  | Show running processes |
-| `top`     | Real-time monitoring   |
-| `htop`    | Interactive monitoring |
-| `kill`    | Terminate process      |
-| `pkill`   | Kill by name           |
-| `renice`  | Change priority        |
-| `free -h` | Check memory           |
-| `df -h`   | Check disk usage       |
-| `lsof`    | List open files        |
-
 ---
 
 # ✅ Key Learning Points
 
-- Every running program in Linux is a **process**
-- Use `ps`, `top`, and `htop` to monitor processes
-- `kill` and `pkill` help terminate problematic processes
+- Every running program in Linux is a process
+
+- Use ps, top, and htop to monitor processes
+
+- kill and pkill help terminate problematic processes
+
 - Resource monitoring helps identify performance issues
+
 - Logs and system tools help diagnose process failures

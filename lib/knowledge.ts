@@ -19,6 +19,11 @@ export type KnowledgeTopic = {
 
 const KNOWLEDGE_ROOT = path.join(process.cwd(), "knowledge")
 const KNOWLEDGE_BRIEF_ROOT = path.join(KNOWLEDGE_ROOT, "brief")
+const NOTION_ORDER_FILE = path.join(KNOWLEDGE_ROOT, ".notion-sync-order.json")
+const NATURAL_COLLATOR = new Intl.Collator(undefined, {
+  numeric: true,
+  sensitivity: "base",
+})
 const KNOWLEDGE_TOPIC_ORDER: Record<string, number> = {
   "Advanced Software Engineering": 1,
   "100 Days of DevOps": 2,
@@ -34,9 +39,9 @@ const TOPIC_BRIEF_DESCRIPTIONS: Record<string, string> = {
     "Deeper study notes on software architecture, scalability, maintainable design, engineering tradeoffs, and production-ready development practices.",
 }
 
-const TOPIC_PROGRESS_MULTIPLIER: Record<string, number> = {
-  "100 Days of Azure": 2,
-  "100 Days of AWS Cloud": 2,
+type NotionSyncOrder = {
+  topicOrder?: string[]
+  entryOrder?: Record<string, string[]>
 }
 
 function parseTargetDays(topicName: string): number | null {
@@ -77,16 +82,47 @@ function extractPreview(content: string): string {
   return usefulLine ?? lines[0] ?? "Learning note will be added soon."
 }
 
+function naturalCompare(left: string, right: string) {
+  return NATURAL_COLLATOR.compare(left, right)
+}
+
+function getTopicPriority(title: string) {
+  const normalized = title.toLowerCase()
+
+  if (normalized.includes("laravel")) return 1
+  if (normalized.includes("professional experience") || normalized.includes("pro exp")) return 2
+  if (normalized.includes("100 days")) return 3
+  if (
+    normalized.includes("software engineering") ||
+    normalized.includes("advanced software engineering") ||
+    normalized === "se"
+  ) {
+    return 4
+  }
+
+  return 5
+}
+
 export async function getKnowledgeTopics(): Promise<KnowledgeTopic[]> {
   let topicEntries: { name: string; isDirectory: () => boolean }[] = []
 
   try {
-    topicEntries = await fs.readdir(KNOWLEDGE_ROOT, { withFileTypes: true, encoding: "utf8" })
+    topicEntries = await fs.readdir(KNOWLEDGE_ROOT, {
+      withFileTypes: true,
+      encoding: "utf8",
+    })
   } catch {
     return []
   }
 
-  const topicDirs = topicEntries.filter((entry) => entry.isDirectory() && entry.name !== "brief")
+  const topicDirs = topicEntries.filter(
+    (entry) => entry.isDirectory() && entry.name !== "brief"
+  )
+
+  const notionOrder: NotionSyncOrder | null = await fs
+    .readFile(NOTION_ORDER_FILE, "utf8")
+    .then((raw) => JSON.parse(raw) as NotionSyncOrder)
+    .catch(() => null)
 
   const topics = await Promise.all(
     topicDirs.map(async (topicDir) => {
@@ -97,7 +133,12 @@ export async function getKnowledgeTopics(): Promise<KnowledgeTopic[]> {
         .filter((file) => file.isFile() && file.name.toLowerCase().endsWith(".md"))
         .map((file) => file.name)
 
-      const days = await Promise.all(
+      const dayOrder = notionOrder?.entryOrder?.[topicDir.name] ?? []
+      const dayOrderIndex = new Map(
+        dayOrder.map((fileName, index) => [fileName, index]),
+      )
+
+      const daysWithSource = await Promise.all(
         dayFiles.map(async (fileName) => {
           const filePath = path.join(topicPath, fileName)
           const briefPath = path.join(KNOWLEDGE_BRIEF_ROOT, topicDir.name, fileName)
@@ -114,18 +155,45 @@ export async function getKnowledgeTopics(): Promise<KnowledgeTopic[]> {
             note: extractPreview(briefContent ?? content),
             content: content.trim(),
             briefContent: briefContent?.trim() ?? null,
+            sourceFile: fileName,
           }
         })
       )
 
-      days.sort((a, b) => {
+      daysWithSource.sort((a, b) => {
+        const leftOrder = dayOrderIndex.get(a.sourceFile)
+        const rightOrder = dayOrderIndex.get(b.sourceFile)
+
+        if (leftOrder !== undefined || rightOrder !== undefined) {
+          if (leftOrder === undefined) return 1
+          if (rightOrder === undefined) return -1
+          if (leftOrder !== rightOrder) return leftOrder - rightOrder
+        }
+
         if (a.day !== b.day) return a.day - b.day
-        return a.title.localeCompare(b.title)
+        return naturalCompare(a.title, b.title)
       })
 
+      const days = daysWithSource.map((dayItem) => ({
+        day: dayItem.day,
+        title: dayItem.title,
+        note: dayItem.note,
+        content: dayItem.content,
+        briefContent: dayItem.briefContent,
+      }))
+
       const totalDays = parseTargetDays(topicDir.name)
-      const progressMultiplier = TOPIC_PROGRESS_MULTIPLIER[topicDir.name] ?? 1
-      const completedDays = days.length * progressMultiplier
+      const uniqueDayNumbers = new Set(
+        days
+          .map((dayItem) => dayItem.day)
+          .filter(
+            (dayNumber) =>
+              Number.isFinite(dayNumber) && dayNumber !== Number.MAX_SAFE_INTEGER
+          ),
+      )
+      const completedDays = isDayBasedTopic(topicDir.name)
+        ? uniqueDayNumbers.size
+        : days.length
       const fallbackDescription = totalDays
         ? `${completedDays} of ${totalDays} day notes are currently documented in this track.`
         : isDayBasedTopic(topicDir.name)
@@ -143,17 +211,38 @@ export async function getKnowledgeTopics(): Promise<KnowledgeTopic[]> {
     })
   )
 
+  const topicOrder = notionOrder?.topicOrder ?? []
+  const topicOrderIndex = new Map(topicOrder.map((title, index) => [title, index]))
+
   topics.sort((a, b) => {
+    const leftPriority = getTopicPriority(a.title)
+    const rightPriority = getTopicPriority(b.title)
+
+    if (leftPriority !== rightPriority) {
+      return leftPriority - rightPriority
+    }
+
+    const leftTopicOrder = topicOrderIndex.get(a.title)
+    const rightTopicOrder = topicOrderIndex.get(b.title)
+
+    if (leftTopicOrder !== undefined || rightTopicOrder !== undefined) {
+      if (leftTopicOrder === undefined) return 1
+      if (rightTopicOrder === undefined) return -1
+      if (leftTopicOrder !== rightTopicOrder) {
+        return leftTopicOrder - rightTopicOrder
+      }
+    }
+
     const leftOrder = KNOWLEDGE_TOPIC_ORDER[a.title] ?? Number.MAX_SAFE_INTEGER
-    const rightOrder =
-      KNOWLEDGE_TOPIC_ORDER[b.title] ?? Number.MAX_SAFE_INTEGER
+    const rightOrder = KNOWLEDGE_TOPIC_ORDER[b.title] ?? Number.MAX_SAFE_INTEGER
 
     if (leftOrder !== rightOrder) {
       return leftOrder - rightOrder
     }
 
-    return a.title.localeCompare(b.title)
+    return naturalCompare(a.title, b.title)
   })
+
   return topics
 }
 
@@ -187,4 +276,23 @@ export async function getKnowledgeEntryByTopicAndSlug(
     topic,
     dayItem,
   }
+}
+
+export async function getKnowledgeEntryBySlug(slug: string) {
+  const topics = await getKnowledgeTopics()
+
+  for (const topic of topics) {
+    const dayItem = topic.days.find(
+      (entry) => slugifyKnowledgeTitle(entry.title) === slug,
+    )
+
+    if (dayItem) {
+      return {
+        topic,
+        dayItem,
+      }
+    }
+  }
+
+  return null
 }

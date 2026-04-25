@@ -1,23 +1,15 @@
-### What Process Troubleshooting Means
+### Key Idea
 
-A process is a running instance of a program in Linux. Process troubleshooting helps identify which program is using too much CPU or memory, hanging, or causing service instability.
+Learn how to monitor, analyze, and troubleshoot running processes in Linux using system tools to identify performance issues, stuck processes, or resource overuse.
 
-### Show Running Processes
+### What Matters
 
-Use this command to view running processes:
+- Process ID (PID)
+- CPU usage
+- Memory usage
+- Execution state
+- Running processes
 
-```bash
-ps aux
-```
+### Quick Summary
 
-### Monitor Processes Live
-
-Use this command to monitor processes in real time:
-
-```bash
-top
-```
-
-## Summary
-
-Process troubleshooting helps you find which running program is affecting system performance or stability.
+A process is a running instance of a program. When a command or application runs in Linux, the system creates a process with its own:

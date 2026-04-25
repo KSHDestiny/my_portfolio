@@ -1,126 +1,177 @@
 ### 🎯 Objective
 
-Learn how to **deploy a web application on a Linux server** by installing a web server and configuring it to serve application files.
+Learn how to deploy a web application on a Linux server by installing a web server and configuring it to serve application files.
 
 In many environments, applications run on a web server like:
 
 - Apache HTTP Server
+
 - Nginx
 
-In this example, we will deploy a simple **PHP web application** using **Apache**.
+In this example, we will deploy a simple PHP web application using Apache.
 
 ---
 
-## 1️⃣ Install Apache Web Server
+# 1️⃣ Install Apache Web Server
 
 ### Ubuntu / Debian
 
-```bash
+```plain text
 sudo apt update
 sudo apt install apache2 -y
 ```
 
 ### RHEL / CentOS / Amazon Linux
 
-```bash
+```plain text
 sudo yum install httpd -y
 ```
 
 ---
 
-## 2️⃣ Start and Enable Apache
+# 2️⃣ Start and Enable Apache
 
 Start service:
 
-```bash
+```plain text
 sudo systemctl start httpd
 ```
 
 Enable at boot:
 
-```bash
+```plain text
 sudo systemctl enable httpd
 ```
 
 Check status:
 
-```bash
+```plain text
 sudo systemctl status httpd
 ```
 
 ---
 
-## 3️⃣ Install PHP for Web Application
+# 3️⃣ Install PHP for Web Application
 
 Install PHP and required modules:
 
-```bash
-sudo yum install php php-mysqlnd php-fpm php-json php-cli -y
+```plain text
+sudo yum install php php-mysqlnd php-fpm php-json php-cli-y
 ```
 
 Restart Apache:
 
-```bash
+```plain text
 sudo systemctl restart httpd
 ```
 
 ---
 
-## 4️⃣ Deploy Web Application
+# 4️⃣ Deploy Web Application
 
 Default Apache web root:
 
-```text
+```plain text
 /var/www/html/
 ```
 
 Create a test application:
 
-```bash
+```plain text
 sudo nano /var/www/html/index.php
 ```
 
 Example code:
 
-```php
+```plain text
 <?php
-echo "Web Application is Running Successfully!";
+echo"Web Application is Running Successfully!";
 ?>
 ```
 
 ---
 
-## 5️⃣ Set Correct Permissions
+# 5️⃣ Set Correct Permissions
 
-```bash
+```plain text
 sudo chown -R apache:apache /var/www/html
 sudo chmod -R 755 /var/www/html
 ```
 
 ---
 
-## 6️⃣ Configure Firewall
+# 6️⃣ Configure Firewall
 
 Allow HTTP traffic:
 
-```bash
+```plain text
 sudo firewall-cmd --permanent --add-service=http
 sudo firewall-cmd --reload
 ```
 
 Ports used:
 
-| Port | Protocol |
-| ---- | -------- |
-| 80   | HTTP     |
-| 443  | HTTPS    |
+---
+
+# 7️⃣ Test Web Application
+
+Open browser:
+
+```plain text
+http://server-ip
+```
+
+You should see:
+
+```plain text
+Web Application is Running Successfully!
+```
 
 ---
 
-## 7️⃣ Test Web Application
+# 🧠 Web Application Architecture
 
-Open in browser:
-
-```text
-http://your-server-ip
+```plain text
+User Browser
+     │
+     ▼
+ Web Server (Apache)
+     │
+     ▼
+ Application Code (PHP)
+     │
+     ▼
+ Database Server
 ```
+
+Example database servers:
+
+- MariaDB
+
+- PostgreSQL
+
+---
+
+# 🧪 Troubleshooting
+
+### Check Apache status
+
+```plain text
+sudo systemctl status httpd
+```
+
+### Check logs
+
+```plain text
+sudo tail -f /var/log/httpd/error_log
+```
+
+### Test configuration
+
+```plain text
+sudo apachectl configtest
+```
+
+---
+
+# ✅ Summary

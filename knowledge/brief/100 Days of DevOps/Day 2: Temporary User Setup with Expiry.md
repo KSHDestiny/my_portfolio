@@ -1,23 +1,15 @@
-### What a Temporary User Is
+### Key Idea
 
-A temporary user is a Linux account that is only meant to exist for a limited time. It is useful for short-term access such as internships, training, project work, or external support.
+If today is 2026-03-03, 100 days ahead is 2026-06-11:
 
-### Create User with Expiry Date
+### What Matters
 
-Use this command to create a user account that expires automatically:
+- -e sets the account expiration date.
+- Date format must be YYYY-MM-DD.
+- User devopsuser can access until June 11, 2026.
+- After that date, login is automatically disabled.
+- User cannot log in.
 
-```bash
-sudo useradd -e YYYY-MM-DD username
-```
+### Quick Summary
 
-### Example Expiry User
-
-This example creates a user that expires on a specific date:
-
-```bash
-sudo useradd -e 2026-06-11 devopsuser
-```
-
-## Summary
-
-Temporary users help prevent old accounts from staying active longer than necessary.
+Command syntax Example (100 days access)

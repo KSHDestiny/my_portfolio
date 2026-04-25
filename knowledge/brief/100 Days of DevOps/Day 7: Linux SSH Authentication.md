@@ -1,28 +1,15 @@
-### Connecting to the Server
+### Key Idea
 
-To connect to a Linux server over SSH:
+Configure SSH authentication in Linux to securely allow users to access a server remotely.
 
-```bash
-ssh username@server_ip
-```
+### What Matters
 
-### Password Authentication
+- Encrypted communication
+- Secure remote login
+- Secure command execution
+- Secure file transfer (SCP / SFTP)
+- Keep the private key secure
 
-This method allows login by using the account password. It is simple to use, but it is less secure for production servers.
+### Quick Summary
 
-```text
-PasswordAuthentication yes
-```
-
-### SSH Key Authentication
-
-This method uses a private key on the client and a public key on the server. It is more secure than password login and is widely used in DevOps environments.
-
-```bash
-ssh-keygen
-ssh-copy-id username@server_ip
-```
-
-## Summary
-
-SSH authentication controls remote server access. Password login is easier to start with, but SSH keys are safer and better for real server environments.
+SSH authentication ensures that only authorized users can connect to the system. SSH (Secure Shell) is a protocol used to securely connect to remote systems over a network.

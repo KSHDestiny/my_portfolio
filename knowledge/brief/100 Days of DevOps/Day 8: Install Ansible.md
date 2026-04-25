@@ -1,23 +1,15 @@
-### What Ansible Is Used For
+### Key Idea
 
-Ansible is an automation tool used to manage servers, apply configurations, and run tasks from a control node. It is useful when the same work must be repeated consistently across many systems.
+Install Ansible, an open-source automation tool used for configuration management, application deployment, and task automation.
 
-### Install Ansible
+### What Matters
 
-Use this command to install Ansible on a RHEL-based system:
+- Configuration management
+- Application deployment
+- Infrastructure automation
+- Server provisioning
+- Agentless architecture
 
-```bash
-sudo yum install ansible -y
-```
+### Quick Summary
 
-### Check Ansible Version
-
-Use this command to confirm Ansible is installed:
-
-```bash
-ansible --version
-```
-
-## Summary
-
-Ansible reduces repetitive manual work and helps keep server configuration consistent.
+Ansible allows administrators to manage multiple servers from a single control node. Ansible is an agentless automation tool that uses SSH to manage remote systems.

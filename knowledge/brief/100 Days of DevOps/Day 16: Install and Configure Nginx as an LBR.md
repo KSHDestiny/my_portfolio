@@ -1,34 +1,15 @@
-### What a Load Balancer Does
+### Key Idea
 
-A load balancer distributes incoming traffic across multiple backend servers instead of sending everything to one machine. This improves application availability, scalability, and reliability.
+Configure Nginx as a Load Balancer to distribute incoming traffic across multiple backend servers for:
 
-### Install Nginx
+### What Matters
 
-Use this command to install Nginx before configuring it as a load balancer:
+- ⚡ Better performance
+- 🔁 High availability
+- 📈 Scalability
+- 🛡 Fault tolerance
+- 🎯 Objective
 
-```bash
-sudo yum install nginx -y
-```
+### Quick Summary
 
-### Forward Requests to Backend
-
-Use this directive to pass requests to the backend group:
-
-```nginx
-proxy_pass http://backend;
-```
-
-### Define Backend Servers
-
-Use this upstream block to define load-balanced servers:
-
-```nginx
-upstream backend {
-    server 192.168.1.10;
-    server 192.168.1.11;
-}
-```
-
-## Summary
-
-Nginx can act as a load balancer to spread traffic and reduce pressure on a single server, but it must be installed before this configuration can be applied.
+A Load Balancer distributes client requests across multiple servers. Example:

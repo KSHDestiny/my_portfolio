@@ -1,23 +1,15 @@
-### Why Execution Permission Matters
+### Key Idea
 
-In Linux, a script file cannot run like a program unless it has execute permission. This is part of the Linux permission system that controls who can read, modify, or run files.
+Allow a script to be executed as a program by setting the correct execution permission.
 
-### Add Execute Permission
+### What Matters
 
-Use this command to allow the script to run:
+- Read (r) → view the file
+- Write (w) → modify the file
+- Execute (x) → run the file as a program
+- User (u) → file owner
+- Group (g) → users in the same group
 
-```bash
-chmod +x script.sh
-```
+### Quick Summary
 
-### Run the Script
-
-Run the script from the current directory:
-
-```bash
-./script.sh
-```
-
-## Summary
-
-Execution permission is required when a script should be run directly as a command.
+In Linux, a file must have execute (x) permission before it can run as a script. Linux uses file permissions to control who can:

@@ -1,31 +1,15 @@
-### What PostgreSQL Is Used For
+### Key Idea
 
-PostgreSQL is an open-source relational database system used to store and manage structured application data. It is known for reliability, strong SQL support, and production-ready features.
+Learn how to install, start, and configure PostgreSQL, create databases and users, and allow connections to the database server.
 
-### Install PostgreSQL
+### What Matters
 
-Use this command to install PostgreSQL on the server:
+- ACID transactions
+- Advanced indexing
+- JSON support
+- High performance queries
+- Extensibility
 
-```bash
-sudo yum install postgresql-server postgresql-contrib -y
-```
+### Quick Summary
 
-### Start PostgreSQL Service
-
-Use this command to start PostgreSQL:
-
-```bash
-sudo systemctl start postgresql
-```
-
-### Open PostgreSQL Shell
-
-Use this command to enter the PostgreSQL shell:
-
-```bash
-sudo -u postgres psql
-```
-
-## Summary
-
-PostgreSQL is a common choice when an application needs dependable relational data storage, and installation is the first step before configuration and use.
+PostgreSQL is a powerful open-source relational database widely used in modern applications. PostgreSQL is an advanced SQL-based database system that supports:

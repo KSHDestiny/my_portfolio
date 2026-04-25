@@ -1,410 +1,139 @@
-## 🎯 Objective
+### 🎯 Objective
 
-Learn how to install, configure, and manage the **Apache Tomcat server** on Linux to deploy Java web applications.
-
----
-
-# 📘 What is Apache Tomcat?
-
-Apache Tomcat is an **open-source Java servlet container** used to run **Java-based web applications**.
-
-It implements several Java technologies such as:
-
-- Java Servlet
-- JavaServer Pages (JSP)
-- WebSocket
-- Java Expression Language
-
-Tomcat allows developers to deploy **WAR (Web Application Archive)** files and run Java web applications.
+Install Apache Tomcat, configure it to run on a custom port, deploy an application, and verify it works.
 
 ---
 
-# 🏗 Tomcat Architecture Overview
+## 🤔 What is Tomcat?
 
-Tomcat consists of several components:
+Apache Tomcat is a Java-based web server used to run:
 
-| Component | Purpose           |
-| --------- | ----------------- |
-| Catalina  | Servlet container |
-| Coyote    | HTTP connector    |
-| Jasper    | JSP engine        |
+- Java Servlets
 
----
+- JSP (Java Server Pages)
 
-# ⚙ Prerequisites
-
-Before installing Tomcat, ensure:
-
-- Linux server access
-- Java installed
-- Internet connection
-- Root or sudo privileges
+- Web applications (.war files)
 
 ---
 
-# ☕ Step 1: Install Java
+## 📦 Step 1: Install Tomcat
 
-Tomcat requires **Java Runtime Environment (JRE)**.
-
-Install Java:
-
-```
-sudo yum install java-11-openjdk-y
-```
-
-Check installation:
-
-```
-java-version
-```
-
-Example output:
-
-```
-openjdk version "11.0.x"
+```plain text
+sudo yum install tomcat-y
 ```
 
 ---
 
-# 📦 Step 2: Download Apache Tomcat
+## ⚙️ Step 2: Configure Tomcat Port
 
-Go to Tomcat installation directory:
+Open configuration file:
 
-```
-cd /opt
-```
-
-Download Tomcat:
-
-```
-sudo wget https://downloads.apache.org/tomcat/tomcat-9/v9.0.x/bin/apache-tomcat-9.0.x.tar.gz
+```plain text
+sudo vi /etc/tomcat/server.xml
 ```
 
 ---
 
-# 📂 Step 3: Extract Tomcat
+### 🔍 Find Connector Port
 
-```
-sudo tar-xvzf apache-tomcat-9.0.x.tar.gz
-```
+Search for:
 
-Rename directory:
-
-```
-sudomv apache-tomcat-9.0.x tomcat
+```plain text
+<Connectorport="8080"protocol="HTTP/1.1"
 ```
 
 ---
 
-# 👤 Step 4: Create Tomcat User
+### ✏️ Change Port (Example → 5000)
 
-For security, Tomcat should run under a dedicated user.
-
-```
-sudo useradd-r-m-U-d /opt/tomcat-s /bin/false tomcat
+```plain text
+<Connectorport="5000"protocol="HTTP/1.1"
 ```
 
-Set ownership:
+👉 Save and exit (:wq)
 
-```
-sudochown-R tomcat:tomcat /opt/tomcat
+---
+
+## 🚀 Step 3: Start and Enable Tomcat
+
+```plain text
+sudo systemctl enable --now tomcat
 ```
 
 ---
 
-# ⚙ Step 5: Configure Permissions
+## 🔎 Step 4: Check Status
 
-Give execute permissions:
-
-```
-sudochmod+x /opt/tomcat/bin/*.sh
-```
-
----
-
-# 🚀 Step 6: Start Tomcat Server
-
-Run startup script:
-
-```
-/opt/tomcat/bin/startup.sh
-```
-
-Check if Tomcat started:
-
-```
-ps-ef |grep tomcat
-```
-
----
-
-# 🌐 Step 7: Access Tomcat Web Interface
-
-Open browser and go to:
-
-```
-http://SERVER_IP:8080
-```
-
-Example:
-
-```
-http://192.168.1.10:8080
-```
-
-You should see the **Tomcat welcome page**.
-
----
-
-# 🛑 Stop Tomcat Server
-
-```
-/opt/tomcat/bin/shutdown.sh
-```
-
----
-
-# 🔍 Check Tomcat Port
-
-Tomcat runs on **port 8080** by default.
-
-Check port:
-
-```
-sudo ss-tulnp |grep8080
-```
-
----
-
-# 📁 Important Tomcat Directories
-
-| Directory           | Purpose                      |
-| ------------------- | ---------------------------- |
-| /opt/tomcat/bin     | Startup and shutdown scripts |
-| /opt/tomcat/conf    | Configuration files          |
-| /opt/tomcat/webapps | Deployed applications        |
-| /opt/tomcat/logs    | Log files                    |
-| /opt/tomcat/temp    | Temporary files              |
-
----
-
-# ⚙ Important Configuration Files
-
-| File             | Purpose                          |
-| ---------------- | -------------------------------- |
-| server.xml       | Tomcat server configuration      |
-| web.xml          | Default web application settings |
-| tomcat-users.xml | User authentication              |
-
-Location:
-
-```
-/opt/tomcat/conf/
-```
-
----
-
-# 👥 Step 8: Configure Tomcat Manager User
-
-Edit:
-
-```
-sudo nano /opt/tomcat/conf/tomcat-users.xml
-```
-
-Add:
-
-```
-<rolerolename="manager-gui"/>
-<rolerolename="admin-gui"/>
-
-<userusername="admin"password="StrongPassword"roles="manager-gui,admin-gui"/>
-```
-
-Save the file.
-
----
-
-# 🔁 Restart Tomcat
-
-```
-/opt/tomcat/bin/shutdown.sh
-/opt/tomcat/bin/startup.sh
-```
-
----
-
-# 🔐 Allow Manager Access
-
-Edit context file:
-
-```
-sudo nano /opt/tomcat/webapps/manager/META-INF/context.xml
-```
-
-Comment the **RemoteAddrValve** restriction.
-
-Example:
-
-```
-<!--
-<Valve className="org.apache.catalina.valves.RemoteAddrValve"
- allow="127\.\d+\.\d+\.\d+|::1" />
--->
-```
-
-Restart Tomcat.
-
----
-
-# 📦 Deploying a Web Application
-
-Copy `.war` file:
-
-```
-cp sample.war /opt/tomcat/webapps/
-```
-
-Tomcat automatically deploys it.
-
-Access:
-
-```
-http://SERVER_IP:8080/sample
-```
-
----
-
-# 🛠 Create Systemd Service for Tomcat
-
-Create service file:
-
-```
-sudo nano /etc/systemd/system/tomcat.service
-```
-
-Example:
-
-```
-[Unit]
-Description=Apache Tomcat
-After=network.target
-
-[Service]
-Type=forking
-
-User=tomcat
-Group=tomcat
-
-Environment=CATALINA_HOME=/opt/tomcat
-ExecStart=/opt/tomcat/bin/startup.sh
-ExecStop=/opt/tomcat/bin/shutdown.sh
-
-[Install]
-WantedBy=multi-user.target
-```
-
-Reload systemd:
-
-```
-sudo systemctl daemon-reload
-```
-
-Start service:
-
-```
-sudo systemctlstart tomcat
-```
-
-Enable at boot:
-
-```
-sudo systemctl enable tomcat
-```
-
----
-
-# 🔍 Check Tomcat Service
-
-```
+```plain text
 sudo systemctl status tomcat
 ```
 
 ---
 
-# ⚠ Common Tomcat Issues
+## 🌐 Step 5: Test Tomcat
 
-### Port 8080 already in use
-
-Check:
-
-```
-sudo ss-tulnp |grep8080
+```plain text
+curl localhost:5001
 ```
 
-Change port in:
+or
 
+```plain text
+curl ${HOST}:5001
 ```
-/opt/tomcat/conf/server.xml
+
+👉 You should see HTML response from Tomcat
+
+---
+
+## 📦 Step 6: Deploy Application (WAR File)
+
+Move your app:
+
+```plain text
+mkdir /usr/share/tomcat/webapps/ROOT
+sudo mv index.html /usr/share/tomcat/webapps/ROOT/
 ```
 
 ---
 
-### Permission errors
+### 🔁 Restart (Recommended after deployment)
 
-Fix:
-
-```
-sudochown-R tomcat:tomcat /opt/tomcat
-```
-
----
-
-### Java not installed
-
-Check:
-
-```
-java-version
-```
-
-Install if missing.
-
----
-
-# 🧾 Useful Tomcat Commands
-
-Start:
-
-```
-sudo systemctlstart tomcat
-```
-
-Stop:
-
-```
-sudo systemctlstop tomcat
-```
-
-Restart:
-
-```
+```plain text
 sudo systemctlrestart tomcat
 ```
 
-Status:
+---
 
+## 🌐 Step 7: Verify Deployment
+
+```plain text
+curl localhost:5001
 ```
-sudo systemctl status tomcat
+
+- It will load your application instead of default page
+
+---
+
+## 🧠 What is ROOT in Tomcat?
+
+In Apache Tomcat, the ROOT folder represents:
+
+👉 The default (/) web application
+
+---
+
+## ⚠️ Important Notes
+
+### 🔥 Firewall (if not accessible)
+
+```plain text
+sudo firewall-cmd--add-port=5001/tcp--permanent
+sudo firewall-cmd--reload
 ```
 
 ---
 
-# ✅ Key Learning Points
+### 📂 Important Paths
 
-- Tomcat is a **Java web application server**
-- Requires **Java Runtime Environment**
-- Default port is **8080**
-- Applications are deployed using **WAR files**
-- Important configuration files are in `/conf`
-- Use **systemd** to manage Tomcat as a service
+---

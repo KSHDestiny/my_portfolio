@@ -1,18 +1,21 @@
 ## 🎯 Objective
 
-Configure **SSH authentication** in Linux to securely allow users to access a server remotely.
+Configure SSH authentication in Linux to securely allow users to access a server remotely.
 
-SSH authentication ensures that only **authorized users can connect to the system**.
+SSH authentication ensures that only authorized users can connect to the system.
 
 ## 🔐 What is SSH?
 
-**SSH (Secure Shell)** is a protocol used to securely connect to remote systems over a network.
+SSH (Secure Shell) is a protocol used to securely connect to remote systems over a network.
 
 It provides:
 
 - Encrypted communication
+
 - Secure remote login
+
 - Secure command execution
+
 - Secure file transfer (SCP / SFTP)
 
 Example connection:
@@ -31,12 +34,7 @@ ssh devops@192.168.1.10
 
 Linux supports two common authentication methods:
 
-| **Method**               | **Description**                          |
-| ------------------------ | ---------------------------------------- |
-| Password Authentication  | User logs in using username and password |
-| Key-based Authentication | Uses SSH public/private key pair         |
-
-Key-based authentication is **more secure** and commonly used in DevOps environments.
+Key-based authentication is more secure and commonly used in DevOps environments.
 
 ## 🛠️ Step 1: Generate SSH Key Pair
 
@@ -58,11 +56,6 @@ Files created:
 ~/.ssh/id_rsa
 ~/.ssh/id_rsa.pub
 ```
-
-| **File**   | **Purpose**                     |
-| ---------- | ------------------------------- |
-| id_rsa     | Private key (keep secure)       |
-| id_rsa.pub | Public key (shared with server) |
 
 ## 📤 Step 2: Copy Public Key to Server
 
@@ -130,13 +123,18 @@ sudo systemctl status sshd
 
 ## ⚠️ Important Notes
 
-- Keep the **private key secure**
+- Keep the private key secure
+
 - Do not share private keys
-- Disable **password authentication** in production
-- Restrict SSH access using **firewalls or security groups**
+
+- Disable password authentication in production
+
+- Restrict SSH access using firewalls or security groups
 
 ## 🎯 Result
 
 - SSH key authentication configured
+
 - Secure remote login enabled
+
 - Password-based access disabled for better security

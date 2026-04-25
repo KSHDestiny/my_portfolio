@@ -1,23 +1,15 @@
-### What Web Application Deployment Means
+### Key Idea
 
-A web application deployment is the process of placing application files behind a web server so users can access the app through a browser. It combines the application itself with the server that delivers it.
+Learn how to deploy a web application on a Linux server by installing a web server and configuring it to serve application files.
 
-### Install Apache Web Server
+### What Matters
 
-Use this command to install Apache:
+- Apache HTTP Server
+- Nginx
+- MariaDB
+- PostgreSQL
+- 🎯 Objective
 
-```bash
-sudo yum install httpd -y
-```
+### Quick Summary
 
-### Start Apache Service
-
-Use this command to start Apache:
-
-```bash
-sudo systemctl start httpd
-```
-
-## Summary
-
-Deploying a web application means making the app available through a working web server.
+In many environments, applications run on a web server like: In this example, we will deploy a simple PHP web application using Apache.
