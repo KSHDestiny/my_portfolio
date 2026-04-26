@@ -39,6 +39,11 @@ const TOPIC_BRIEF_DESCRIPTIONS: Record<string, string> = {
     "Deeper study notes on software architecture, scalability, maintainable design, engineering tradeoffs, and production-ready development practices.",
 }
 
+const TOPIC_PROGRESS_MULTIPLIER: Record<string, number> = {
+  "100 Days of Cloud (AWS)": 2,
+  "100 Days of Cloud (Azure)": 2,
+}
+
 type NotionSyncOrder = {
   topicOrder?: string[]
   entryOrder?: Record<string, string[]>
@@ -191,8 +196,9 @@ export async function getKnowledgeTopics(): Promise<KnowledgeTopic[]> {
               Number.isFinite(dayNumber) && dayNumber !== Number.MAX_SAFE_INTEGER
           ),
       )
+      const progressMultiplier = TOPIC_PROGRESS_MULTIPLIER[topicDir.name] ?? 1
       const completedDays = isDayBasedTopic(topicDir.name)
-        ? uniqueDayNumbers.size
+        ? uniqueDayNumbers.size * progressMultiplier
         : days.length
       const fallbackDescription = totalDays
         ? `${completedDays} of ${totalDays} day notes are currently documented in this track.`
@@ -253,6 +259,55 @@ export function slugifyKnowledgeTitle(title: string) {
     .replace(/^-+|-+$/g, "")
 }
 
+export function slugifyKnowledgeTopic(title: string) {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+}
+
+function normalizeKnowledgeSlug(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+}
+
+function stripLeadingOrdinalPrefix(value: string) {
+  return value.replace(/^\d+-/, "")
+}
+
+function scoreKnowledgeSlugMatch(inputSlug: string, entryTitleSlug: string) {
+  if (!inputSlug || !entryTitleSlug) {
+    return { score: 0, distance: Number.MAX_SAFE_INTEGER }
+  }
+
+  if (entryTitleSlug === inputSlug) {
+    return { score: 100, distance: 0 }
+  }
+
+  const entryWithoutOrdinal = stripLeadingOrdinalPrefix(entryTitleSlug)
+  if (entryWithoutOrdinal === inputSlug) {
+    return { score: 95, distance: 0 }
+  }
+
+  if (entryWithoutOrdinal.startsWith(`${inputSlug}-`)) {
+    return {
+      score: 80,
+      distance: Math.max(0, entryWithoutOrdinal.length - inputSlug.length),
+    }
+  }
+
+  if (inputSlug.startsWith(`${entryWithoutOrdinal}-`)) {
+    return {
+      score: 70,
+      distance: Math.max(0, inputSlug.length - entryWithoutOrdinal.length),
+    }
+  }
+
+  return { score: 0, distance: Number.MAX_SAFE_INTEGER }
+}
+
 export async function getKnowledgeEntryByTopicAndSlug(
   topicTitle: string,
   slug: string,
@@ -278,19 +333,77 @@ export async function getKnowledgeEntryByTopicAndSlug(
   }
 }
 
-export async function getKnowledgeEntryBySlug(slug: string) {
+export async function getKnowledgeEntryByTopicSlugAndSlug(
+  topicSlug: string,
+  slug: string,
+) {
   const topics = await getKnowledgeTopics()
+  const topic = topics.find(
+    (entry) => slugifyKnowledgeTopic(entry.title) === topicSlug,
+  )
+
+  if (!topic) {
+    return null
+  }
+
+  const dayItem = topic.days.find(
+    (entry) => slugifyKnowledgeTitle(entry.title) === slug,
+  )
+
+  if (!dayItem) {
+    return null
+  }
+
+  return {
+    topic,
+    dayItem,
+  }
+}
+
+export async function getKnowledgeEntryBySlug(slug: string) {
+  const normalizedSlug = normalizeKnowledgeSlug(slug)
+  if (!normalizedSlug) {
+    return null
+  }
+
+  const topics = await getKnowledgeTopics()
+  let bestMatch:
+    | {
+        topic: KnowledgeTopic
+        dayItem: KnowledgeDay
+        score: number
+        distance: number
+      }
+    | null = null
 
   for (const topic of topics) {
-    const dayItem = topic.days.find(
-      (entry) => slugifyKnowledgeTitle(entry.title) === slug,
-    )
+    for (const dayItem of topic.days) {
+      const entrySlug = slugifyKnowledgeTitle(dayItem.title)
+      const match = scoreKnowledgeSlugMatch(normalizedSlug, entrySlug)
 
-    if (dayItem) {
-      return {
-        topic,
-        dayItem,
+      if (match.score === 0) {
+        continue
       }
+
+      if (
+        !bestMatch ||
+        match.score > bestMatch.score ||
+        (match.score === bestMatch.score && match.distance < bestMatch.distance)
+      ) {
+        bestMatch = {
+          topic,
+          dayItem,
+          score: match.score,
+          distance: match.distance,
+        }
+      }
+    }
+  }
+
+  if (bestMatch) {
+    return {
+      topic: bestMatch.topic,
+      dayItem: bestMatch.dayItem,
     }
   }
 

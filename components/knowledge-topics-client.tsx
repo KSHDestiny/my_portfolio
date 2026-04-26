@@ -57,6 +57,13 @@ function slugifyKnowledgeTitle(title: string) {
     .replace(/^-+|-+$/g, "");
 }
 
+function slugifyKnowledgeTopic(title: string) {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 function isDayBasedTopic(topic: KnowledgeTopic | string) {
   const title = typeof topic === "string" ? topic : topic.title;
   return /(\d+)\s+Days/i.test(title);
@@ -652,7 +659,7 @@ export default function KnowledgeTopicsClient({
                         <div className="space-y-3.5 pt-1 pb-1 pr-3">
                           {topic.days.map((dayItem) => {
                             const itemKey = `${topic.title}-${dayItem.day}-${dayItem.title}`;
-                            const detailHref = `/engineering-notes/${slugifyKnowledgeTitle(dayItem.title)}`;
+                            const detailHref = `/engineering-notes/${slugifyKnowledgeTopic(topic.title)}--${slugifyKnowledgeTitle(dayItem.title)}`;
                             return (
                               <div
                                 key={itemKey}

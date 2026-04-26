@@ -202,6 +202,19 @@ export default function Skills() {
         "Vector Retrieval",
       ],
     },
+    {
+      id: "09",
+      title: "Vibe Coding",
+      icon: <Code className="h-5 w-5 text-primary" />,
+      summary:
+        "Shipping fast with AI-assisted coding while keeping practical architecture, clarity, and iteration speed in balance.",
+      skills: [
+        "AI-Assisted Prototyping",
+        "Rapid Feature Iteration",
+        "Prompt-Driven Development",
+        "Flow & UX Vibe Checks",
+      ],
+    },
   ];
 
   return (

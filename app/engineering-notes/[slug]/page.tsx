@@ -1,10 +1,12 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { ArrowLeft } from "lucide-react";
 import {
+  getKnowledgeEntryByTopicSlugAndSlug,
   getKnowledgeEntryBySlug,
   getKnowledgeTopics,
+  slugifyKnowledgeTopic,
   slugifyKnowledgeTitle,
 } from "@/lib/knowledge";
 import { absoluteUrl } from "@/lib/site";
@@ -15,24 +17,44 @@ type PageProps = {
 
 export async function generateStaticParams() {
   const topics = await getKnowledgeTopics();
-  const seen = new Set<string>();
 
-  return topics
-    .flatMap((topic) => topic.days)
-    .map((dayItem) => slugifyKnowledgeTitle(dayItem.title))
-    .filter((slug) => {
-      if (seen.has(slug)) return false;
-      seen.add(slug);
-      return true;
-    })
-    .map((slug) => ({ slug }));
+  return topics.flatMap((topic) =>
+    topic.days.map((dayItem) => ({
+      slug: `${slugifyKnowledgeTopic(topic.title)}--${slugifyKnowledgeTitle(dayItem.title)}`,
+    })),
+  );
+}
+
+function parseKnowledgeSlug(slug: string) {
+  const separatorIndex = slug.indexOf("--");
+  if (separatorIndex === -1) {
+    return null;
+  }
+
+  const topicSlug = slug.slice(0, separatorIndex).trim();
+  const noteSlug = slug.slice(separatorIndex + 2).trim();
+
+  if (!topicSlug || !noteSlug) {
+    return null;
+  }
+
+  return {
+    topicSlug,
+    noteSlug,
+  };
 }
 
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const entry = await getKnowledgeEntryBySlug(slug);
+  const parsedSlug = parseKnowledgeSlug(slug);
+  const entry = parsedSlug
+    ? await getKnowledgeEntryByTopicSlugAndSlug(
+        parsedSlug.topicSlug,
+        parsedSlug.noteSlug,
+      )
+    : await getKnowledgeEntryBySlug(slug);
 
   if (!entry) {
     return {
@@ -44,7 +66,8 @@ export async function generateMetadata({
     };
   }
 
-  const url = absoluteUrl(`/engineering-notes/${slug}`);
+  const canonicalSlug = `${slugifyKnowledgeTopic(entry.topic.title)}--${slugifyKnowledgeTitle(entry.dayItem.title)}`;
+  const url = absoluteUrl(`/engineering-notes/${canonicalSlug}`);
 
   return {
     title: `${entry.dayItem.title} | Engineering Notes`,
@@ -171,10 +194,21 @@ function parseContentBlocks(content: string): ContentBlock[] {
 
 export default async function EngineeringNotePage({ params }: PageProps) {
   const { slug } = await params;
-  const entry = await getKnowledgeEntryBySlug(slug);
+  const parsedSlug = parseKnowledgeSlug(slug);
+  const entry = parsedSlug
+    ? await getKnowledgeEntryByTopicSlugAndSlug(
+        parsedSlug.topicSlug,
+        parsedSlug.noteSlug,
+      )
+    : await getKnowledgeEntryBySlug(slug);
 
   if (!entry) {
     notFound();
+  }
+
+  const canonicalSlug = `${slugifyKnowledgeTopic(entry.topic.title)}--${slugifyKnowledgeTitle(entry.dayItem.title)}`;
+  if (slug !== canonicalSlug) {
+    redirect(`/engineering-notes/${canonicalSlug}`);
   }
 
   const { dayItem, topic } = entry;
