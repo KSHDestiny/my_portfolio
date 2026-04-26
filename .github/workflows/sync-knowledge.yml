@@ -62,7 +62,13 @@ jobs:
           echo "changed=true" >> "$GITHUB_OUTPUT"
 
       - name: Trigger Vercel production deploy hook
-        if: ${{ steps.commit_and_push.outputs.changed == 'true' && secrets.VERCEL_DEPLOY_HOOK_URL != '' }}
+        if: ${{ steps.commit_and_push.outputs.changed == 'true' }}
         env:
           VERCEL_DEPLOY_HOOK_URL: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
-        run: curl -fsSL -X POST "$VERCEL_DEPLOY_HOOK_URL"
+        run: |
+          if [ -z "$VERCEL_DEPLOY_HOOK_URL" ]; then
+            echo "VERCEL_DEPLOY_HOOK_URL is not set. Skipping deploy hook."
+            exit 0
+          fi
+
+          curl -fsSL -X POST "$VERCEL_DEPLOY_HOOK_URL"
