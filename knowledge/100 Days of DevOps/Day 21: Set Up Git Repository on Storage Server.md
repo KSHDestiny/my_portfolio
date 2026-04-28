@@ -110,7 +110,7 @@ echo"This is official project repository" > readme.md
 
 ```plain text
 git add readme.md
-git commit-m"add readme file"
+git commit -m "add readme file"
 ```
 
 ---
@@ -134,13 +134,13 @@ git branch
 ### 🔹 Check Commit History
 
 ```plain text
-git log--oneline
+git log --oneline
 ```
 
 ### 🔹 Check Remote
 
 ```plain text
-git remote-v
+git remote -v
 ```
 
 Expected:
