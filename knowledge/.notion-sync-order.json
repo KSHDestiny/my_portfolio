@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-04-28T19:04:51.291Z",
+  "generatedAt": "2026-04-29T18:55:27.725Z",
   "source": "notion",
   "topicOrder": [
-    "100 Days of Cloud (AWS)",
     "100 Days of Cloud (Azure)",
+    "100 Days of Cloud (AWS)",
     "100 Days of DevOps",
     "Docker",
     "Professional Experience",
@@ -11,6 +11,30 @@
     "Software Engineering"
   ],
   "entryOrder": {
+    "100 Days of Cloud (Azure)": [
+      "Day 1: Create Key Pair.md",
+      "Day 2: Create Linux VM and Connect Using SSH Key.md",
+      "Day 3: Creating VM with Azure CLI.md",
+      "Day 4: Creating a Virtual Network (VNet).md",
+      "Day 5: Creating a Virtual Network (IPv4).md",
+      "Day 6: Creating a subnet in Virtual Network.md",
+      "Day 7: Creating a Public IP for Azure VM.md",
+      "Day 8: Attaching A Managed Data Disk to VM.md",
+      "Day 9: Attaching A Network Interface (NIC) to VM.md",
+      "Day 10: Attach Public IP to Azure Virtual Machine.md",
+      "Day 11: Changing Azure VM Size Using Console.md",
+      "Day 12: Add and Manage Tags for Azure VM.md",
+      "Day 13: SSH into an Azure Virtual Machine.md",
+      "Day 14: Create and Attach Managed Disks.md",
+      "Day 15: Create & Configure NetworkSecurityGroup.md",
+      "Day 16: Create a Private Azure Blob Storage Container.md",
+      "Day 17: Create a Public Azure Blob Storage Container.md",
+      "Day 18: Copy Data to an Azure Blob Storage Container.md",
+      "Day 19: Convert Public Azure Blob Container to Private.md",
+      "Day 20: Backup and Delete Azure Storage Blob Container.md",
+      "Day 21: Assigning Public IP to Virtual Machines.md",
+      "Day 22: Configuring Instances with User Data.md"
+    ],
     "100 Days of Cloud (AWS)": [
       "Day 1: Create Key Pair.md",
       "Day 2: Create Security Group.md",
@@ -35,30 +59,6 @@
       "Day 20: Create IAM Role for EC2 with Policy Attachment.md",
       "Day 21: Setting Up EC2 Instance with an Elastic IP for Application Hosting.md",
       "Day 22: Configuring Secure SSH Access to an EC2 Instance.md"
-    ],
-    "100 Days of Cloud (Azure)": [
-      "Day 1: Create Key Pair.md",
-      "Day 2: Create Linux VM and Connect Using SSH Key.md",
-      "Day 3: Creating VM with Azure CLI.md",
-      "Day 4: Creating a Virtual Network (VNet).md",
-      "Day 5: Creating a Virtual Network (IPv4).md",
-      "Day 6: Creating a subnet in Virtual Network.md",
-      "Day 7: Creating a Public IP for Azure VM.md",
-      "Day 8: Attaching A Managed Data Disk to VM.md",
-      "Day 9: Attaching A Network Interface (NIC) to VM.md",
-      "Day 10: Attach Public IP to Azure Virtual Machine.md",
-      "Day 11: Changing Azure VM Size Using Console.md",
-      "Day 12: Add and Manage Tags for Azure VM.md",
-      "Day 13: SSH into an Azure Virtual Machine.md",
-      "Day 14: Create and Attach Managed Disks.md",
-      "Day 15: Create & Configure NetworkSecurityGroup.md",
-      "Day 16: Create a Private Azure Blob Storage Container.md",
-      "Day 17: Create a Public Azure Blob Storage Container.md",
-      "Day 18: Copy Data to an Azure Blob Storage Container.md",
-      "Day 19: Convert Public Azure Blob Container to Private.md",
-      "Day 20: Backup and Delete Azure Storage Blob Container.md",
-      "Day 21: Assigning Public IP to Virtual Machines.md",
-      "Day 22: Configuring Instances with User Data.md"
     ],
     "100 Days of DevOps": [
       "Day 1: Linux User Setup with Non-Interactive Shell.md",
