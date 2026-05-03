@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-02T18:08:42.360Z",
+  "generatedAt": "2026-05-03T18:09:17.670Z",
   "source": "notion",
   "topicOrder": [
     "100 Days of Cloud (Azure)",
@@ -53,7 +53,6 @@
       "Day 14: Terminate EC2 Instance.md",
       "Day 15: Create Volume Snapshot.md",
       "Day 16: Create IAM User.md",
-      "Day 17: Create IAM Group.md",
       "Day 18: Create Read-Only IAM Policy for EC2 Console Access.md",
       "Day 19: Attach IAM Policy to IAM User.md",
       "Day 20: Create IAM Role for EC2 with Policy Attachment.md",
