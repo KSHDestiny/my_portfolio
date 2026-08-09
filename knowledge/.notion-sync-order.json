@@ -1,7 +1,8 @@
 {
-  "generatedAt": "2026-08-08T17:56:17.361Z",
+  "generatedAt": "2026-08-09T17:57:54.264Z",
   "source": "notion",
   "topicOrder": [
+    "100 Days of MLOps",
     "100 Days of Cloud (Azure)",
     "100 Days of Cloud (AWS)",
     "100 Days of DevOps",
@@ -11,6 +12,9 @@
     "Software Engineering"
   ],
   "entryOrder": {
+    "100 Days of MLOps": [
+      "Day 1: Create a Python Virtual Environment for ML.md"
+    ],
     "100 Days of Cloud (Azure)": [
       "Day 1: Create Key Pair.md",
       "Day 2: Create Linux VM and Connect Using SSH Key.md",
@@ -33,7 +37,8 @@
       "Day 19: Convert Public Azure Blob Container to Private.md",
       "Day 20: Backup and Delete Azure Storage Blob Container.md",
       "Day 21: Assigning Public IP to Virtual Machines.md",
-      "Day 22: Configuring Instances with User Data.md"
+      "Day 22: Configuring Instances with User Data.md",
+      "Day 23: Automating User Data Configuration Using the CLI.md"
     ],
     "100 Days of Cloud (AWS)": [
       "Day 1: Create Key Pair.md",
@@ -58,7 +63,8 @@
       "Day 19: Attach IAM Policy to IAM User.md",
       "Day 20: Create IAM Role for EC2 with Policy Attachment.md",
       "Day 21: Setting Up EC2 Instance with an Elastic IP for Application Hosting.md",
-      "Day 22: Configuring Secure SSH Access to an EC2 Instance.md"
+      "Day 22: Configuring Secure SSH Access to an EC2 Instance.md",
+      "Day 23: Data Migration Between S3 Buckets Using AWS CLI.md"
     ],
     "100 Days of DevOps": [
       "Day 1: Linux User Setup with Non-Interactive Shell.md",
@@ -89,7 +95,12 @@
       "1. Install Docker Packages and Start Docker Service.md",
       "2. Deploy Nginx Container on Application Server.md",
       "3. Volume Mapping & Access on Web Server.md",
-      "4. Docker Essentials Cheat Sheet.md"
+      "4. Docker Essentials Cheat Sheet.md",
+      "5. Pull Docker Image.md",
+      "6. Docker Update Permissions.md",
+      "7. Create a Docker Image From Container.md",
+      "8. Docker EXEC Operations.md",
+      "9. Write a Docker File.md"
     ],
     "Professional Experience": [
       "1. Multi-Tenancy.md",
