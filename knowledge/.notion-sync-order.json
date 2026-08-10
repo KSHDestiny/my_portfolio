@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-09T17:57:54.264Z",
+  "generatedAt": "2026-08-10T18:12:09.251Z",
   "source": "notion",
   "topicOrder": [
     "100 Days of MLOps",
@@ -13,7 +13,8 @@
   ],
   "entryOrder": {
     "100 Days of MLOps": [
-      "Day 1: Create a Python Virtual Environment for ML.md"
+      "Day 1: Create a Python Virtual Environment for ML.md",
+      "Day 2: Fix a Broken JupyterLab Server Configuration.md"
     ],
     "100 Days of Cloud (Azure)": [
       "Day 1: Create Key Pair.md",
@@ -38,7 +39,8 @@
       "Day 20: Backup and Delete Azure Storage Blob Container.md",
       "Day 21: Assigning Public IP to Virtual Machines.md",
       "Day 22: Configuring Instances with User Data.md",
-      "Day 23: Automating User Data Configuration Using the CLI.md"
+      "Day 23: Automating User Data Configuration Using the CLI.md",
+      "Day 24: Securing Virtual Machine SSH Access.md"
     ],
     "100 Days of Cloud (AWS)": [
       "Day 1: Create Key Pair.md",
@@ -64,7 +66,8 @@
       "Day 20: Create IAM Role for EC2 with Policy Attachment.md",
       "Day 21: Setting Up EC2 Instance with an Elastic IP for Application Hosting.md",
       "Day 22: Configuring Secure SSH Access to an EC2 Instance.md",
-      "Day 23: Data Migration Between S3 Buckets Using AWS CLI.md"
+      "Day 23: Data Migration Between S3 Buckets Using AWS CLI.md",
+      "Day 24: Setting Up an Application Load Balancer for an EC2 Instance.md"
     ],
     "100 Days of DevOps": [
       "Day 1: Linux User Setup with Non-Interactive Shell.md",
@@ -100,7 +103,8 @@
       "6. Docker Update Permissions.md",
       "7. Create a Docker Image From Container.md",
       "8. Docker EXEC Operations.md",
-      "9. Write a Docker File.md"
+      "9. Write a Docker File.md",
+      "10. Create a Docker Network.md"
     ],
     "Professional Experience": [
       "1. Multi-Tenancy.md",
