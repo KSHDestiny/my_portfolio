@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-29T01:04:43.821Z",
+  "generatedAt": "2026-08-29T19:52:54.988Z",
   "source": "notion",
   "topicOrder": [
     "100 Days of MLOps",
     "100 Days of DevOps",
-    "100 Days of Cloud (AWS)",
     "100 Days of Cloud (Azure)",
+    "100 Days of Cloud (AWS)",
     "Docker",
     "Professional Experience",
     "Laravel Concepts",
@@ -22,9 +22,23 @@
       "Day 21: Set Up Git Repository on Storage Server.md",
       "Day 22: Clone Git Repository on Storage Server.md"
     ],
+    "100 Days of Cloud (Azure)": [
+      "Day 12: Add and Manage Tags for Azure VM.md",
+      "Day 13: SSH into an Azure Virtual Machine.md",
+      "Day 14: Create and Attach Managed Disks.md",
+      "Day 15: Create & Configure NetworkSecurityGroup.md",
+      "Day 16: Create a Private Azure Blob Storage Container.md",
+      "Day 17: Create a Public Azure Blob Storage Container.md",
+      "Day 18: Copy Data to an Azure Blob Storage Container.md",
+      "Day 19: Convert Public Azure Blob Container to Private.md",
+      "Day 20: Backup and Delete Azure Storage Blob Container.md",
+      "Day 21: Assigning Public IP to Virtual Machines.md",
+      "Day 22: Configuring Instances with User Data.md",
+      "Day 23: Automating User Data Configuration Using the CLI.md",
+      "Day 24: Securing Virtual Machine SSH Access.md",
+      "Day 25: Expanding and Managing Disk Storage.md"
+    ],
     "100 Days of Cloud (AWS)": [
-      "Day 13: Create AMI from EC2 Instance.md",
-      "Day 14: Terminate EC2 Instance.md",
       "Day 15: Create Volume Snapshot.md",
       "Day 16: Create IAM User.md",
       "Day 17: Create IAM Group.md",
@@ -36,20 +50,6 @@
       "Day 23: Data Migration Between S3 Buckets Using AWS CLI.md",
       "Day 24: Setting Up an Application Load Balancer for an EC2 Instance.md",
       "Day 25: Setting Up an EC2 Instance and CloudWatch Alarm.md"
-    ],
-    "100 Days of Cloud (Azure)": [
-      "Day 13: SSH into an Azure Virtual Machine.md",
-      "Day 14: Create and Attach Managed Disks.md",
-      "Day 16: Create a Private Azure Blob Storage Container.md",
-      "Day 17: Create a Public Azure Blob Storage Container.md",
-      "Day 18: Copy Data to an Azure Blob Storage Container.md",
-      "Day 19: Convert Public Azure Blob Container to Private.md",
-      "Day 20: Backup and Delete Azure Storage Blob Container.md",
-      "Day 21: Assigning Public IP to Virtual Machines.md",
-      "Day 22: Configuring Instances with User Data.md",
-      "Day 23: Automating User Data Configuration Using the CLI.md",
-      "Day 24: Securing Virtual Machine SSH Access.md",
-      "Day 25: Expanding and Managing Disk Storage.md"
     ],
     "Docker": [
       "1. Install Docker Packages and Start Docker Service.md",
