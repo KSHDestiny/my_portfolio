@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T20:00:36.352Z",
+  "generatedAt": "2026-09-04T19:46:04.676Z",
   "source": "notion",
   "topicOrder": [
     "100 Days of MLOps",
@@ -23,12 +23,12 @@
       "Day 22: Clone Git Repository on Storage Server.md"
     ],
     "100 Days of Cloud (Azure)": [
+      "Day 11: Changing Azure VM Size Using Console.md",
       "Day 12: Add and Manage Tags for Azure VM.md",
       "Day 13: SSH into an Azure Virtual Machine.md",
       "Day 14: Create and Attach Managed Disks.md",
       "Day 15: Create & Configure NetworkSecurityGroup.md",
       "Day 16: Create a Private Azure Blob Storage Container.md",
-      "Day 17: Create a Public Azure Blob Storage Container.md",
       "Day 18: Copy Data to an Azure Blob Storage Container.md",
       "Day 19: Convert Public Azure Blob Container to Private.md",
       "Day 20: Backup and Delete Azure Storage Blob Container.md",
@@ -39,6 +39,7 @@
       "Day 25: Expanding and Managing Disk Storage.md"
     ],
     "100 Days of Cloud (AWS)": [
+      "Day 13: Create AMI from EC2 Instance.md",
       "Day 14: Terminate EC2 Instance.md",
       "Day 15: Create Volume Snapshot.md",
       "Day 16: Create IAM User.md",
