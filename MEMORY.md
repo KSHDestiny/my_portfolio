@@ -17,6 +17,7 @@
   - fixed `Navbar`
   - `ThemeProvider`
   - dark theme by default, system theme enabled
+  - `BuildInfoBadge` (global, floating, see below)
 - Homepage section order:
   - Hero
   - About
@@ -91,6 +92,19 @@
 - `components/navbar.tsx`
   - Fixed top nav with active-section tracking on scroll.
   - Mobile menu closes automatically on desktop breakpoint.
+
+- `components/build-info-badge.tsx`
+  - Client-only floating badge (fixed bottom-right), rendered globally from `app/layout.tsx`
+    (not gated to `app/page.tsx`), so it shows on every route.
+  - `Info` icon button (shadcn `Popover`, not `Tooltip`, so it works on tap/mobile as well as
+    click) with a `motion-safe:animate-ping` ring to draw the eye until first opened.
+  - Auto-opens itself 10s after mount via `setTimeout` to surface a one-line note that the
+    site was built end-to-end by an AI coding agent (Claude) from a mobile device.
+  - Auto-closes itself 10s after opening (separate timer keyed on `open`) if the user doesn't
+    interact — the icon and ability to reopen manually persist either way.
+  - Fully dismissible (X button unmounts it for the session, skipping future auto-opens);
+    otherwise the `Popover` stays externally controlled (`open`/`onOpenChange`) so it can
+    reopen/close automatically as well as by tap.
 
 - `components/hero.tsx`
   - Uses particles background and animated intro.
