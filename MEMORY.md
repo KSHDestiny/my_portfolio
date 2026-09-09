@@ -97,14 +97,14 @@
   - Client-only floating badge (fixed bottom-right), rendered globally from `app/layout.tsx`
     (not gated to `app/page.tsx`), so it shows on every route.
   - `Info` icon button (shadcn `Popover`, not `Tooltip`, so it works on tap/mobile as well as
-    click) with a `motion-safe:animate-ping` ring to draw the eye until first opened.
-  - Auto-opens itself 10s after mount via `setTimeout` to surface a one-line note that the
-    site was built end-to-end by an AI coding agent (Claude) from a mobile device.
-  - Auto-closes itself 10s after opening (separate timer keyed on `open`) if the user doesn't
-    interact — the icon and ability to reopen manually persist either way.
-  - Fully dismissible (X button unmounts it for the session, skipping future auto-opens);
-    otherwise the `Popover` stays externally controlled (`open`/`onOpenChange`) so it can
-    reopen/close automatically as well as by tap.
+    click) is **always rendered** — it never hides, with or without the popover open.
+  - Popover auto-opens 10s after mount (`SHOW_AFTER_MS`) to surface a one-line note that the
+    site was built end-to-end by an AI coding agent (Claude) from a mobile device, then
+    auto-closes itself 5s later (`AUTO_HIDE_MS`, separate timer keyed on `open`) if the user
+    doesn't interact.
+  - Externally controlled (`open`/`onOpenChange`) so the same instance drives both the timed
+    auto-open/close and manual tap-to-reopen/close via the icon or the popover's X button.
+    The X only closes the popover — it does not hide the icon.
 
 - `components/hero.tsx`
   - Uses particles background and animated intro.
