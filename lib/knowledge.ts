@@ -24,18 +24,26 @@ const NATURAL_COLLATOR = new Intl.Collator(undefined, {
   numeric: true,
   sensitivity: "base",
 })
+// Keys must match folder names under knowledge/ exactly; a mismatch is silently ignored.
+// Sort precedence: getTopicPriority() > knowledge/.notion-sync-order.json > this table >
+// alphabetical. The sync file is regenerated daily, so this table is only a fallback for
+// topics Notion does not order.
 const KNOWLEDGE_TOPIC_ORDER: Record<string, number> = {
-  "Advanced Software Engineering": 1,
+  "Software Engineering": 1,
   "100 Days of DevOps": 2,
-  "100 Days of AWS Cloud": 3,
-  "100 Days of Azure": 4,
+  "100 Days of Cloud (AWS)": 3,
+  "100 Days of Cloud (Azure)": 4,
+  "100 Days of MLOps": 5,
+  "Laravel Concepts": 6,
+  Docker: 7,
+  "Professional Experience": 8,
 }
 const TOPIC_BRIEF_DESCRIPTIONS: Record<string, string> = {
   "100 Days of DevOps":
     "A practical day-by-day DevOps journey covering Linux administration, automation, networking, security, web stack setup, and production troubleshooting.",
-  "100 Days of Azure":
+  "100 Days of Cloud (Azure)":
     "A structured Azure learning track focused on cloud services, deployment workflows, identity, networking, storage, and real-world platform operations.",
-  "Advanced Software Engineering":
+  "Software Engineering":
     "Deeper study notes on software architecture, scalability, maintainable design, engineering tradeoffs, and production-ready development practices.",
 }
 
