@@ -12,10 +12,14 @@ const SHOW_AFTER_MS = 10_000;
 const AUTO_HIDE_MS = 5_000;
 
 export function BuildInfoBadge() {
+  const [visible, setVisible] = useState(false);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const timer = window.setTimeout(() => setOpen(true), SHOW_AFTER_MS);
+    const timer = window.setTimeout(() => {
+      setVisible(true);
+      setOpen(true);
+    }, SHOW_AFTER_MS);
     return () => window.clearTimeout(timer);
   }, []);
 
@@ -24,6 +28,8 @@ export function BuildInfoBadge() {
     const timer = window.setTimeout(() => setOpen(false), AUTO_HIDE_MS);
     return () => window.clearTimeout(timer);
   }, [open]);
+
+  if (!visible) return null;
 
   return (
     <div className="fixed bottom-5 right-5 z-40">
