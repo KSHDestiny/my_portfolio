@@ -17,7 +17,7 @@ export default function Home() {
     name: SITE_NAME,
     url: SITE_URL,
     image: absoluteUrl("/images/profile.jpeg"),
-    jobTitle: "Backend-Focused Full-Stack Developer",
+    jobTitle: "Backend-Focused Senior Full-Stack Engineer",
     description: SITE_DESCRIPTION,
     email: "mailto:kaungsathein.5899@gmail.com",
     telephone: "+959788907030",
@@ -38,6 +38,7 @@ export default function Home() {
       "React",
       "API Architecture",
       "Workflow Automation",
+      "n8n Automation",
       "RBAC Systems",
       "Scalable Systems",
     ],
@@ -54,7 +55,7 @@ export default function Home() {
   return (
     <main id="top" className="min-h-screen">
       <h1 className="sr-only">
-        Kaung Sat Hein Portfolio and Backend-Focused Full-Stack Developer
+        Kaung Sat Hein Portfolio and Backend-Focused Senior Full-Stack Engineer
       </h1>
       <script
         type="application/ld+json"

@@ -36,7 +36,8 @@ export default function Hero() {
     },
     {
       label: "Built Across",
-      value: "ATS, Expense, KPI, CMS, RBAC, and workflow automation",
+      value:
+        "ATS, Expense, KPI, CMS, RBAC, AI-integrated features, and workflow automation",
     },
   ];
 
@@ -93,7 +94,7 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mb-4 text-xl font-medium text-primary md:text-2xl lg:text-3xl"
           >
-            Backend-Focused Full-Stack Developer
+            Backend-Focused Senior Full-Stack Engineer
           </motion.h2>
 
           <motion.div
@@ -103,13 +104,13 @@ export default function Hero() {
             className="mb-8 max-w-3xl space-y-4"
           >
             <p className="text-lg font-semibold leading-relaxed text-foreground md:text-2xl">
-              I build scalable backend systems and production-ready APIs for
-              real business workflows.
+              Let&apos;s ship powerful AI-driven products with reliable backend
+              systems behind them.
             </p>
             <p className="text-sm leading-7 text-muted-foreground md:text-lg">
-              Focused on business logic, performance, reliability, and
-              integrations across HR, recruitment, payroll, permissions, and
-              internal platforms.
+              I turn business workflows into scalable platforms, production
+              APIs, n8n automations, and agentic systems that teams can trust
+              in real operations.
             </p>
           </motion.div>
 
@@ -151,7 +152,13 @@ export default function Hero() {
                 <p className="mb-1 text-[11px] uppercase tracking-[0.24em] text-primary/80">
                   {item.label}
                 </p>
-                <p className="text-sm font-semibold leading-6 text-foreground/90 md:text-base">
+                <p
+                  className={`font-semibold leading-6 text-foreground/90 ${
+                    item.label === "Built Across"
+                      ? "text-xs md:text-sm"
+                      : "text-sm md:text-base"
+                  }`}
+                >
                   {item.value}
                 </p>
               </div>

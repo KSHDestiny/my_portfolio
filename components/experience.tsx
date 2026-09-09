@@ -24,31 +24,31 @@ export default function Experience() {
       title: "Web Backend Developer",
       company: "Better HR",
       location: "Yangon, Myanmar / Phnom Penh, Cambodia",
-      period: "Feb 2024 - Present",
+      period: "Feb 2024 - Jun 2026",
       status: "Growth",
-      current: true,
+      current: false,
       highlight:
         "Expanded into larger product ownership across Better HR and Better Jobs, covering integrations, scalable backend work, and recruitment-facing platform systems.",
       desktopOffset: "md:ml-20",
     },
     {
       step: 3,
-      title: "Senior Full-Stack Developer",
-      company: "",
+      title: "Senior Web Backend Developer",
+      company: "Better HR",
       location: "Yangon, Myanmar",
-      period: "Next Goal",
-      status: "Goal",
-      current: false,
+      period: "Jul 2026 - Present",
+      status: "Senior Role",
+      current: true,
       highlight:
-        "A future milestone focused on growing into stronger technical leadership, broader product ownership, and end-to-end full-stack delivery across frontend and backend systems.",
+        "Promoted into a senior web backend role focused on stronger technical ownership, scalable system design, backend service reliability, and end-to-end delivery across product teams.",
       desktopOffset: "md:ml-40",
     },
   ];
 
   const ladderSteps = [
     { label: "Web Backend Developer (Trainee)", tone: "completed" },
-    { label: "Web Backend Developer", tone: "active" },
-    { label: "Senior Full-Stack Developer", tone: "pending" },
+    { label: "Web Backend Developer", tone: "completed" },
+    { label: "Senior Web Backend Developer", tone: "active" },
   ] as const;
 
   return (

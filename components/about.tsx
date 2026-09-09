@@ -24,29 +24,29 @@ export default function About() {
                 </h3>
                 <div className="space-y-4 text-muted-foreground">
                   <p className="text-sm md:text-base">
-                    Backend-focused full stack developer specializing in
-                    designing scalable, workflow-intensive business systems and
-                    high-performance backend architectures.
+                    I&apos;m a backend-focused senior full-stack engineer who
+                    likes building web apps, production APIs, AI-powered
+                    features, and n8n automations that solve real business
+                    problems.
                   </p>
                   <p className="text-sm md:text-base">
-                    Proven experience building and maintaining HRMS, ATS,
-                    payroll, and internal platforms supporting 100K+ users
-                    across multi-country environments, with a strong focus on
-                    data consistency, system reliability, and operational
-                    scalability.
+                    Most of my work has been around HRMS, ATS, payroll,
+                    permissions, and internal platforms used by 100K+ users
+                    across multiple countries. I care a lot about clean
+                    backend architecture, reliable data, and business logic
+                    that stays easy to understand, extend, and operate.
                   </p>
                   <p className="text-sm md:text-base">
-                    Skilled in domain-driven design, RBAC systems, multi-level
-                    approval workflows, and complex business logic modeling,
-                    enabling robust enterprise-grade applications. Strong
-                    background in performance optimization through query design,
-                    indexing, caching, distributed system patterns, and API
-                    architecture.
+                    I enjoy taking messy workflows and turning them into
+                    systems that are easier to trust: clear domain models, RBAC
+                    boundaries, faster queries, caching, integrations, and
+                    event-driven flows.
                   </p>
                   <p className="text-sm md:text-base">
-                    Experienced in integrating AI-powered features, third-party
-                    services, and event-driven workflows, delivering efficient,
-                    maintainable, and production-ready systems.
+                    I also like building practical n8n automations for sales
+                    bots, daily reminders, and sales analysis. Even this
+                    portfolio runs on automation, with a daily cron sync from
+                    my Notion notes into a living engineering knowledge base.
                   </p>
                 </div>
               </CardContent>

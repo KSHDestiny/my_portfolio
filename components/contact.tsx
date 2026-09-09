@@ -7,13 +7,15 @@ import SectionHeading from "./section-heading"
 
 export default function Contact() {
   const hiringFocus = [
-    "Backend Developer roles with product and system ownership",
+    "Backend-focused senior full-stack roles with product and system ownership",
+    "n8n automation services connected with custom web apps",
     "Full-stack opportunities with strong backend depth",
     "Teams building APIs, workflow systems, and internal platforms",
   ]
 
   const valueSignals = [
     "Production backend work across internal platforms, business workflows, and customer-facing systems",
+    "n8n automation, AI workflows, and custom web apps for business operations",
     "Experience with business-rule-heavy systems, integrations, and workflow design",
     "Comfortable collaborating across product, operations, and engineering teams",
   ]
@@ -25,7 +27,7 @@ export default function Contact() {
           <SectionHeading
             eyebrow="Open To Opportunities"
             title="Let&apos;s Build Something Valuable"
-            description="I&apos;m currently open to backend developer and backend-leaning full-stack roles where I can contribute to product delivery, business-critical workflows, and reliable system design."
+            description="I&apos;m currently open to backend-focused senior full-stack and backend engineer roles, plus n8n automation service work connected with custom web apps, AI workflows, and reliable system design."
           />
         </AnimateInView>
 
@@ -40,10 +42,10 @@ export default function Contact() {
                 </div>
                 <div className="space-y-3">
                   <h3 className="max-w-2xl text-2xl font-semibold tracking-[-0.04em] text-foreground md:text-4xl">
-                    Looking for a developer who can own backend-heavy product work end to end.
+                    Looking for a developer who can own backend-heavy product work, web apps, and n8n automation end to end.
                   </h3>
                   <p className="max-w-2xl text-sm leading-7 text-muted-foreground md:text-base">
-                    The best fit is a team that values reliable APIs, strong business logic, system clarity, and someone who can translate operational needs into production-ready features.
+                    The best fit is a team that values reliable APIs, strong business logic, automation, and someone who can translate operational needs into production-ready web app features.
                   </p>
                 </div>
                 <div className="flex flex-wrap gap-2">
@@ -179,7 +181,7 @@ export default function Contact() {
 
                   <div className="rounded-2xl border border-primary/15 bg-primary/5 p-4">
                     <p className="text-sm leading-6 text-muted-foreground">
-                      Open to backend developer roles, backend-leaning full-stack work, and product teams that care about reliable systems, clean business logic, and steady delivery.
+                      Open to backend-focused senior full-stack roles, backend engineer roles, and product teams that care about reliable systems, clean business logic, and steady delivery.
                     </p>
                   </div>
                 </div>

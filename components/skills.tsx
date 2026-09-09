@@ -165,8 +165,9 @@ export default function Skills() {
       title: "Integrations",
       icon: <Box className="h-5 w-5 text-primary" />,
       summary:
-        "Connecting products with third-party services, payments, messaging channels, and business systems.",
+        "Connecting products with third-party services, automation platforms, messaging channels, and business systems.",
       skills: [
+        "n8n Workflow Automation",
         "Payment Gateways (KBZPay, WavePay)",
         "SSO (Microsoft, Google, LinkedIn)",
         "OTP (Thailand SMS, Vietnam SMS, Email)",
@@ -179,8 +180,9 @@ export default function Skills() {
       title: "Workflow Engineering",
       icon: <Workflow className="h-5 w-5 text-primary" />,
       summary:
-        "Orchestrating async jobs, serverless events, and resilient automation across product workflows.",
+        "Orchestrating async jobs, serverless events, n8n workflows, and resilient automation across product operations.",
       skills: [
+        "n8n + Web App Automation",
         "Queue Jobs & Task Scheduling",
         "SQS + Lambda (Serverless)",
         "Supervisor Background Queues",
@@ -204,7 +206,7 @@ export default function Skills() {
     },
     {
       id: "09",
-      title: "Vibe Coding",
+      title: "Agentic Coding",
       icon: <Code className="h-5 w-5 text-primary" />,
       summary:
         "Shipping fast with AI-assisted coding while keeping practical architecture, clarity, and iteration speed in balance.",

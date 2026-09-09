@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&height=180&color=0:0ea5e9,50:06b6d4,100:22c55e&text=Kaung%20Sat%20Hein&fontColor=ffffff&fontSize=42&fontAlignY=35&desc=Backend-focused%20Full%20Stack%20Developer%20%7C%20Building%20fast,%20scalable%20digital%20products&descAlignY=58&animation=twinkling" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&height=180&color=0:0ea5e9,50:06b6d4,100:22c55e&text=Kaung%20Sat%20Hein&fontColor=ffffff&fontSize=42&fontAlignY=35&desc=Backend-Focused%20Senior%20Full-Stack%20Engineer%20%7C%20Building%20fast,%20scalable%20digital%20products&descAlignY=58&animation=twinkling" width="100%"/>
 
 <a href="mailto:kaungsathein.5899@gmail.com">
   <img src="https://img.shields.io/badge/Email-Contact-111827?style=for-the-badge&logo=gmail&logoColor=white"/>
@@ -25,7 +25,7 @@
 ## About Me
 
 <p>
-  <img src="https://img.shields.io/badge/Role-Backend%20Engineer%20(Full%20Stack%20Capable)-0ea5e9?style=flat-square" />
+  <img src="https://img.shields.io/badge/Role-Backend--Focused%20Senior%20Full--Stack%20Engineer-0ea5e9?style=flat-square" />
   <img src="https://img.shields.io/badge/Location-Myanmar-06b6d4?style=flat-square" />
 </p>
 
@@ -35,7 +35,8 @@
 - Secure API development (REST/GraphQL)
 - Scalable web application delivery
 - AI-assisted product workflow optimization
-- Vibe coding for rapid feature exploration
+- n8n automation services connected with custom web apps
+- Agentic coding for rapid feature exploration
 - Vibe checking for UX, flow, and delivery quality
 
 ### Current Build
@@ -44,11 +45,12 @@
   <img src="https://img.shields.io/badge/HR%20Platforms-22c55e?style=for-the-badge" />
   <img src="https://img.shields.io/badge/Recruitment%20Systems-14b8a6?style=for-the-badge" />
   <img src="https://img.shields.io/badge/Business%20Automation-0ea5e9?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/n8n%20Automation-ef4444?style=for-the-badge" />
   <img src="https://img.shields.io/badge/REST%20%26%20GraphQL%20APIs-0284c7?style=for-the-badge" />
   <img src="https://img.shields.io/badge/Auth%20%26%20RBAC-0f766e?style=for-the-badge" />
   <img src="https://img.shields.io/badge/Workflow%20Dashboards-16a34a?style=for-the-badge" />
   <img src="https://img.shields.io/badge/AI%20Feature%20Prototyping-ca8a04?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/Vibe%20Coding-9333ea?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Agentic%20Coding-9333ea?style=for-the-badge" />
   <img src="https://img.shields.io/badge/Vibe%20Checking-e11d48?style=for-the-badge" />
 </p>
 
@@ -77,8 +79,9 @@
 - `02` **Secure API Design:** Design secure APIs and product workflows for real business use.
 - `03` **Full Stack Delivery:** Develop full-stack applications with React, Next.js, and TypeScript.
 - `04` **Product Execution:** Turn product ideas into production-ready features.
+- `05` **n8n Automation:** Connect business workflows with custom web apps, APIs, and AI services.
 
-**Experience:** Web Backend Engineer (Better HR) | Web Backend Engineer (Better Jobs) | Former Web Backend Engineer Trainee (Better HR)
+**Experience:** Senior Web Backend Developer (Better HR, Jul 2026 - Present) | Web Backend Engineer (Better HR / Better Jobs) | Former Web Backend Engineer Trainee (Better HR)
 
 ## Featured Focus
 
@@ -93,6 +96,7 @@
 - **Product Development:** Building useful features for HR, recruiting, and internal business platforms.
 - **Frontend Delivery:** Modern interfaces with React, Next.js, and Tailwind CSS.
 - **AI Integration:** Exploring practical AI features that improve workflows and productivity.
+- **Automation Services:** Building n8n workflows connected with custom web apps, APIs, and business tools.
 
 ## Connect
 
