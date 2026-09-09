@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import Navbar from "@/components/navbar";
+import { BuildInfoBadge } from "@/components/build-info-badge";
 import {
   SITE_DESCRIPTION,
   SITE_KEYWORDS,
@@ -94,6 +95,7 @@ export default function RootLayout({
               {children}
             </div>
           </div>
+          <BuildInfoBadge />
         </ThemeProvider>
       </body>
     </html>
