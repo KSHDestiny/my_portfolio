@@ -10,7 +10,6 @@ import {
   type WheelEvent,
 } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import {
   Card,
   CardContent,
@@ -29,11 +28,14 @@ import {
   Hammer,
   Info,
   Network,
+  Search,
   ShieldCheck,
+  Sparkles,
   X,
 } from "lucide-react";
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 import AnimateInView from "./animations/animate-in-view";
+import AssetPreview, { type PreviewAsset } from "./asset-preview";
 import SectionHeading from "./section-heading";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import {
@@ -128,7 +130,12 @@ function getTagIcon(tag: string) {
   const tagMap: Record<string, typeof FileText> = {
     Requirements: FileText,
     Architecture: Network,
+    "Agent Architecture": Network,
+    "AI Integration": Sparkles,
     Workflow: GitBranch,
+    Introspect: Search,
+    Execute: Hammer,
+    Guardrails: ShieldCheck,
     ERD: Database,
     Implementation: Hammer,
     Testing: ShieldCheck,
@@ -161,10 +168,6 @@ function getDefaultTag(project: Project) {
   if (!project.tagDetails) return null;
   if (project.tagDetails.Requirements) return "Requirements";
   return project.tags.find((tag) => Boolean(project.tagDetails?.[tag])) ?? null;
-}
-
-function isImageAsset(url: string) {
-  return /\.(gif|png|jpe?g|webp|svg)$/i.test(url);
 }
 
 const PROJECT_SECTION_COPY: Record<
@@ -206,11 +209,8 @@ const ProjectSlide = memo(function ProjectSlide({
   const [selectedTag, setSelectedTag] = useState<string | null>(() =>
     getDefaultTag(project),
   );
-  const [previewAsset, setPreviewAsset] = useState<{
-    title: string;
-    url?: string;
-    message?: string;
-  } | null>(null);
+  const [previewAsset, setPreviewAsset] =
+    useState<PreviewAsset | null>(null);
   const hasFeatureModules = Boolean(
     project.tagDetails && Object.keys(project.tagDetails).length > 0,
   );
@@ -284,7 +284,9 @@ const ProjectSlide = memo(function ProjectSlide({
             >
               {project.title}
             </CardTitle>
-            {project.periodCtaUrl || project.periodCtaMessage ? (
+            {project.periodCtaUrl ||
+            project.periodCtaSlides?.length ||
+            project.periodCtaMessage ? (
               <button
                 type="button"
                 onClick={(event) => {
@@ -292,6 +294,7 @@ const ProjectSlide = memo(function ProjectSlide({
                   setPreviewAsset({
                     title: `${project.title} UI Preview`,
                     url: project.periodCtaUrl,
+                    slides: project.periodCtaSlides,
                     message: project.periodCtaMessage,
                   });
                 }}
@@ -496,33 +499,7 @@ const ProjectSlide = memo(function ProjectSlide({
               {previewAsset?.title}
             </DialogTitle>
           </DialogHeader>
-          {previewAsset?.url ? (
-            isImageAsset(previewAsset.url) ? (
-              <div className="relative h-[62vh] w-full overflow-hidden rounded-md border border-border/70 bg-background md:h-[68vh]">
-                <Image
-                  src={previewAsset.url}
-                  alt={previewAsset.title}
-                  fill
-                  className="object-contain"
-                  sizes="96vw"
-                  unoptimized
-                />
-              </div>
-            ) : (
-              <iframe
-                src={previewAsset.url}
-                title={previewAsset.title}
-                className="h-[62vh] w-full rounded-md border border-border/70 bg-background md:h-[68vh]"
-              />
-            )
-          ) : (
-            <div className="flex h-[40vh] items-center justify-center rounded-md border border-border/70 bg-background/60 p-8 text-center md:h-[46vh]">
-              <p className="max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base">
-                {previewAsset?.message ??
-                  "A preview is not available in this portfolio build yet."}
-              </p>
-            </div>
-          )}
+          <AssetPreview asset={previewAsset} />
         </DialogContent>
       </Dialog>
     </motion.div>
@@ -539,11 +516,8 @@ function ProjectCoverflowSection({
   delay: number;
 }) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [previewAsset, setPreviewAsset] = useState<{
-    title: string;
-    url?: string;
-    message?: string;
-  } | null>(null);
+  const [previewAsset, setPreviewAsset] =
+    useState<PreviewAsset | null>(null);
   const isMobile = useMediaQuery("(max-width: 767px)");
   const lastWheelAtRef = useRef(0);
   const wheelLockRef = useRef(false);
@@ -724,32 +698,10 @@ function ProjectCoverflowSection({
               {previewAsset?.title}
             </DialogTitle>
           </DialogHeader>
-          {previewAsset?.url ? (
-            isImageAsset(previewAsset.url) ? (
-              <div className="relative h-[62vh] w-full overflow-hidden rounded-md border border-border/70 bg-background md:h-[68vh]">
-                <Image
-                  src={previewAsset.url}
-                  alt={previewAsset.title}
-                  fill
-                  className="object-contain"
-                  sizes="96vw"
-                  unoptimized
-                />
-              </div>
-            ) : (
-              <iframe
-                src={previewAsset.url}
-                title={previewAsset.title}
-                className="h-[62vh] w-full rounded-md border border-border/70 bg-background md:h-[68vh]"
-              />
-            )
-          ) : (
-            <div className="flex h-[40vh] items-center justify-center rounded-md border border-border/70 bg-background/60 p-8 text-center md:h-[46vh]">
-              <p className="max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base">
-                A preview is not available for this artifact yet.
-              </p>
-            </div>
-          )}
+          <AssetPreview
+            asset={previewAsset}
+            fallbackMessage="A preview is not available for this artifact yet."
+          />
         </DialogContent>
       </Dialog>
     </AnimateInView>
