@@ -9,11 +9,10 @@ import {
 } from "@/components/ui/popover";
 
 const SHOW_AFTER_MS = 10_000;
-const AUTO_HIDE_MS = 10_000;
+const AUTO_HIDE_MS = 5_000;
 
 export function BuildInfoBadge() {
   const [open, setOpen] = useState(false);
-  const [dismissed, setDismissed] = useState(false);
 
   useEffect(() => {
     const timer = window.setTimeout(() => setOpen(true), SHOW_AFTER_MS);
@@ -26,8 +25,6 @@ export function BuildInfoBadge() {
     return () => window.clearTimeout(timer);
   }, [open]);
 
-  if (dismissed) return null;
-
   return (
     <div className="fixed bottom-5 right-5 z-40">
       <Popover open={open} onOpenChange={setOpen}>
@@ -37,9 +34,6 @@ export function BuildInfoBadge() {
             aria-label="About how this site was built"
             className="relative flex h-11 w-11 items-center justify-center rounded-full border border-primary/20 bg-background/80 text-primary shadow-lg backdrop-blur-md transition-transform hover:scale-105"
           >
-            {!open && (
-              <span className="absolute inset-0 rounded-full bg-primary/20 motion-safe:animate-ping" />
-            )}
             <Info className="relative h-5 w-5" />
           </button>
         </PopoverTrigger>
@@ -53,10 +47,7 @@ export function BuildInfoBadge() {
             <button
               type="button"
               aria-label="Dismiss"
-              onClick={() => {
-                setOpen(false);
-                setDismissed(true);
-              }}
+              onClick={() => setOpen(false)}
               className="shrink-0 text-muted-foreground transition-colors hover:text-foreground"
             >
               <X className="h-4 w-4" />
