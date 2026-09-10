@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-09T19:55:49.632Z",
+  "generatedAt": "2026-09-10T19:55:29.364Z",
   "source": "notion",
   "topicOrder": [
     "100 Days of MLOps",
@@ -39,6 +39,7 @@
     ],
     "100 Days of Cloud (Azure)": [
       "Day 13: SSH into an Azure Virtual Machine.md",
+      "Day 14: Create and Attach Managed Disks.md",
       "Day 15: Create & Configure NetworkSecurityGroup.md",
       "Day 16: Create a Private Azure Blob Storage Container.md",
       "Day 17: Create a Public Azure Blob Storage Container.md",
