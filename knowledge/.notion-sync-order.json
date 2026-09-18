@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-17T20:28:00.641Z",
+  "generatedAt": "2026-09-18T19:50:51.718Z",
   "source": "notion",
   "topicOrder": [
     "100 Days of MLOps",
@@ -18,6 +18,7 @@
       "Day 3: Fix a Broken uv Lockfile Specification.md"
     ],
     "100 Days of DevOps": [
+      "Day 2: Temporary User Setup with Expiry.md",
       "Day 6: Create a Cron Job.md",
       "Day 21: Set Up Git Repository on Storage Server.md",
       "Day 22: Clone Git Repository on Storage Server.md"
@@ -40,10 +41,10 @@
     "100 Days of Cloud (Azure)": [
       "Day 13: SSH into an Azure Virtual Machine.md",
       "Day 14: Create and Attach Managed Disks.md",
-      "Day 15: Create & Configure NetworkSecurityGroup.md",
       "Day 16: Create a Private Azure Blob Storage Container.md",
       "Day 17: Create a Public Azure Blob Storage Container.md",
       "Day 18: Copy Data to an Azure Blob Storage Container.md",
+      "Day 19: Convert Public Azure Blob Container to Private.md",
       "Day 20: Backup and Delete Azure Storage Blob Container.md",
       "Day 21: Assigning Public IP to Virtual Machines.md",
       "Day 22: Configuring Instances with User Data.md",
