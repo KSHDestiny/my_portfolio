@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-26T20:02:04.049Z",
+  "generatedAt": "2026-09-27T20:16:42.094Z",
   "source": "notion",
   "topicOrder": [
     "100 Days of MLOps",
@@ -62,7 +62,6 @@
       "6. Docker Update Permissions.md",
       "7. Create a Docker Image From Container.md",
       "8. Docker EXEC Operations.md",
-      "9. Write a Docker File.md",
       "10. Create a Docker Network.md",
       "11. Docker Volumes Mapping.md"
     ],
