@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-03T20:03:26.761Z",
+  "generatedAt": "2026-10-04T20:20:22.185Z",
   "source": "notion",
   "topicOrder": [
     "100 Days of MLOps",
@@ -23,7 +23,6 @@
       "Day 22: Clone Git Repository on Storage Server.md"
     ],
     "100 Days of Cloud (Azure)": [
-      "Day 11: Changing Azure VM Size Using Console.md",
       "Day 12: Add and Manage Tags for Azure VM.md",
       "Day 13: SSH into an Azure Virtual Machine.md",
       "Day 14: Create and Attach Managed Disks.md",
@@ -39,7 +38,7 @@
       "Day 25: Expanding and Managing Disk Storage.md"
     ],
     "100 Days of Cloud (AWS)": [
-      "Day 12: Attach Volume to EC2 Instance.md",
+      "Day 13: Create AMI from EC2 Instance.md",
       "Day 14: Terminate EC2 Instance.md",
       "Day 15: Create Volume Snapshot.md",
       "Day 16: Create IAM User.md",
