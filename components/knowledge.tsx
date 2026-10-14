@@ -2,6 +2,7 @@ import AnimateInView from "./animations/animate-in-view";
 import { getKnowledgeTopics } from "@/lib/knowledge";
 import SectionHeading from "./section-heading";
 import KnowledgeTopicsShell from "./knowledge-topics-shell";
+import { KnowledgeErrorBoundary } from "./knowledge-error-boundary";
 
 export default async function Knowledge() {
   const knowledgeTopics = await getKnowledgeTopics();
@@ -24,7 +25,9 @@ export default async function Knowledge() {
           </p>
         )}
 
-        <KnowledgeTopicsShell knowledgeTopics={knowledgeTopics} />
+        <KnowledgeErrorBoundary>
+          <KnowledgeTopicsShell knowledgeTopics={knowledgeTopics} />
+        </KnowledgeErrorBoundary>
       </div>
     </section>
   );
