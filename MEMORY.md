@@ -131,6 +131,14 @@
 - `components/knowledge.tsx`
   - Server component that loads knowledge topics via `getKnowledgeTopics()`.
   - Empty state tells users to add markdown under `knowledge/`.
+  - `KnowledgeTopicsShell` (client-only, `ssr: false`) is wrapped in
+    `components/knowledge-error-boundary.tsx` (`KnowledgeErrorBoundary`), a class-component
+    error boundary. Added after a malformed/edge-case knowledge note triggered a client-side
+    exception that blanked the entire page (server HTML was fine; the crash happened only
+    after hydration, inside this client-only subtree). Now a bad note degrades to a small
+    "couldn't load" card instead of taking down the whole site. Errors are still logged via
+    `console.error` for debugging — this only contains the blast radius, it doesn't fix a bad
+    note's content.
 
 - `components/contact.tsx`
   - Uses **EmailJS in the client**.
