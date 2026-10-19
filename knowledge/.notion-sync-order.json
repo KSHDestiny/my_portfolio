@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-18T19:31:07.254Z",
+  "generatedAt": "2026-10-19T21:38:56.689Z",
   "source": "notion",
   "topicOrder": [
     "100 Days of MLOps",
@@ -25,7 +25,7 @@
     "100 Days of Cloud (Azure)": [
       "Day 12: Add and Manage Tags for Azure VM.md",
       "Day 13: SSH into an Azure Virtual Machine.md",
-      "Day 15: Create & Configure NetworkSecurityGroup.md",
+      "Day 14: Create and Attach Managed Disks.md",
       "Day 16: Create a Private Azure Blob Storage Container.md",
       "Day 17: Create a Public Azure Blob Storage Container.md",
       "Day 18: Copy Data to an Azure Blob Storage Container.md",
@@ -38,7 +38,7 @@
       "Day 25: Expanding and Managing Disk Storage.md"
     ],
     "100 Days of Cloud (AWS)": [
-      "Day 14: Terminate EC2 Instance.md",
+      "Day 13: Create AMI from EC2 Instance.md",
       "Day 15: Create Volume Snapshot.md",
       "Day 16: Create IAM User.md",
       "Day 17: Create IAM Group.md",
