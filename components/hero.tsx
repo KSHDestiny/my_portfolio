@@ -28,16 +28,16 @@ export default function Hero() {
   const proofPoints = [
     {
       label: "Scale",
-      value: "100K+ concurrent users",
+      value: "HR platform used by 100K+ users across 8 countries",
     },
     {
-      label: "Reach",
-      value: "Systems used across 8 countries",
+      label: "AI in Production",
+      value: "HR agent reaching 48 read + 31 write operations, discovered at runtime",
     },
     {
-      label: "Built Across",
+      label: "Domains",
       value:
-        "ATS, Expense, KPI, CMS, RBAC, AI-integrated features, and workflow automation",
+        "HRMS, ATS, payroll, permissions, KPI, expense, recruitment CMS, and video training (HLS streaming)",
     },
   ];
 
@@ -94,7 +94,7 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mb-4 text-xl font-medium text-primary md:text-2xl lg:text-3xl"
           >
-            Backend-Focused Senior Full-Stack Engineer
+            Senior Backend Engineer
           </motion.h2>
 
           <motion.div
@@ -104,13 +104,13 @@ export default function Hero() {
             className="mb-8 max-w-3xl space-y-4"
           >
             <p className="text-lg font-semibold leading-relaxed text-foreground md:text-2xl">
-              Let&apos;s ship powerful AI-driven products with reliable backend
-              systems behind them.
+              I build reliable HR platforms and the AI-powered workflows that
+              run on them.
             </p>
             <p className="text-sm leading-7 text-muted-foreground md:text-lg">
-              I turn business workflows into scalable platforms, production
-              APIs, n8n automations, and agentic systems that teams can trust
-              in real operations.
+              Multi-country payroll and permission rules, recruitment
+              workflows, integrations, and an HR agent that acts on live data
+              under explicit guardrails.
             </p>
           </motion.div>
 
@@ -122,7 +122,7 @@ export default function Hero() {
           >
             <Button asChild className="rounded-full px-5">
               <Link href="#projects">
-                View Projects
+                View Case Studies
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
@@ -137,6 +137,18 @@ export default function Hero() {
               </Link>
             </Button>
           </motion.div>
+
+          <p className="mb-6 text-sm text-muted-foreground">
+            Applying through an ATS?{" "}
+            <a
+              href="/KaungSatHein_cv_ats.docx"
+              className="font-medium text-primary hover:underline"
+              download
+            >
+              Download a text-readable Word CV
+            </a>
+            .
+          </p>
 
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -154,7 +166,7 @@ export default function Hero() {
                 </p>
                 <p
                   className={`font-semibold leading-6 text-foreground/90 ${
-                    item.label === "Built Across"
+                    item.label === "Domains"
                       ? "text-xs md:text-sm"
                       : "text-sm md:text-base"
                   }`}

@@ -18,6 +18,21 @@ export type ProjectTagDetail =
       ctaUrl?: string;
     };
 
+export type CaseStudyDecision = {
+  decision: string;
+  instead?: string;
+  why: string;
+};
+
+export type CaseStudy = {
+  role: string;
+  context: string;
+  constraints: string[];
+  decisions: CaseStudyDecision[];
+  outcomes: string[];
+  artifacts?: { label: string; url: string }[];
+};
+
 export type Project = {
   title: string;
   period: string;
@@ -29,6 +44,8 @@ export type Project = {
   periodCtaMessage?: string;
   url?: string;
   infoMessage?: string;
+  caseStudy?: CaseStudy;
+  featureCatalog?: { area: string; items: string[] }[];
   category?: "production" | "key-feature";
   order?: number;
 };
@@ -291,6 +308,38 @@ function getLocalProjects(): ProjectsPayload {
   };
 }
 
+function mergeCuratedProjects(notionProjects: Project[]): Project[] {
+  const curated = PRODUCTION_PROJECTS.filter(
+    (project) => project.caseStudy || project.featureCatalog,
+  );
+  const curatedBySlug = new Map(
+    curated.map((project) => [slugifyProjectTitle(project.title), project]),
+  );
+  const seen = new Set<string>();
+  const merged = notionProjects.map((project) => {
+    const slug = slugifyProjectTitle(project.title);
+    const local = curatedBySlug.get(slug);
+    if (!local) return project;
+
+    seen.add(slug);
+    // Keep Notion's copy and order while restoring the local editorial content.
+    return {
+      ...project,
+      tags: local.tags,
+      tagDetails: local.tagDetails,
+      period: local.periodCtaSlides?.length ? local.period : project.period,
+      periodCtaSlides: local.periodCtaSlides,
+      caseStudy: local.caseStudy,
+      featureCatalog: local.featureCatalog,
+    };
+  });
+
+  return [
+    ...merged,
+    ...curated.filter((project) => !seen.has(slugifyProjectTitle(project.title))),
+  ];
+}
+
 async function getNotionProjects(): Promise<Project[] | null> {
   const token = process.env.NOTION_TOKEN;
   const databaseId = process.env.NOTION_PROJECTS_DATABASE_ID;
@@ -336,7 +385,9 @@ export async function getProjects(): Promise<ProjectsPayload> {
 
     return {
       productionProjects: sortProjects(
-        notionProjects.filter((project) => project.category !== "key-feature"),
+        mergeCuratedProjects(
+          notionProjects.filter((project) => project.category !== "key-feature"),
+        ),
       ),
       keyFeatures: sortKeyFeatures(notionProjects.filter(isAllowedKeyFeature)),
       source: "notion",

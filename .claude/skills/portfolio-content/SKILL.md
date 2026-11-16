@@ -45,6 +45,14 @@ Getting this wrong is a real error — a separate service listed as a "feature" 
 }
 ```
 
+## Case studies (optional)
+
+Add `caseStudy` (`role`, `context`, `constraints`, `decisions[{decision, instead?, why}]`,
+`outcomes`, `artifacts`) to turn the detail page into a full case study; production cards
+with one also appear in the homepage "Start with these case studies" grid. Fill `instead`
+only when the source states an explicit contrast. `featureCatalog[{area, items}]` renders a
+"Features I Built" list - source it from `git log --author` in the real repo.
+
 ## Writing tags
 
 Tags are free-form chips. Prefer names that expose the **structure of the work** over

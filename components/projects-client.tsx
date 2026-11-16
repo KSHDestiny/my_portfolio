@@ -717,6 +717,8 @@ export default function ProjectsClient({
   keyFeatures: Project[];
   source: ProjectsSource;
 }) {
+  const flagships = productionProjects.filter((project) => project.caseStudy);
+
   return (
     <section id="projects" className="py-12 md:py-16 full-height">
       <div className="container mx-auto px-4">
@@ -732,6 +734,45 @@ export default function ProjectsClient({
             </p>
           )}
         </AnimateInView>
+
+        {flagships.length > 0 && (
+          <AnimateInView delay={0.05} className="mb-16">
+            <div className="mb-4 flex items-center gap-3">
+              <span className="h-px w-10 bg-primary/35" />
+              <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-primary/75">
+                Start with these case studies
+              </p>
+            </div>
+            <div className="grid gap-4 md:grid-cols-3">
+              {flagships.map((project) => (
+                <Link
+                  key={project.title}
+                  href={`/projects/${slugifyProjectTitle(project.title)}`}
+                  className="group flex flex-col rounded-2xl border border-primary/20 bg-background/70 p-5 backdrop-blur-sm transition hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10"
+                >
+                  <h3 className="text-lg font-semibold tracking-tight text-foreground">
+                    {project.title}
+                  </h3>
+                  <p className="mt-2 line-clamp-3 text-sm leading-6 text-muted-foreground">
+                    {project.caseStudy?.context}
+                  </p>
+                  <ul className="mt-4 space-y-1.5 text-xs leading-5 text-foreground/80">
+                    {project.caseStudy?.outcomes.slice(0, 2).map((outcome) => (
+                      <li key={outcome} className="flex items-start gap-2">
+                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary/80" />
+                        <span>{outcome}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <span className="mt-auto inline-flex items-center gap-1 pt-4 text-sm font-medium text-primary">
+                    Read case study
+                    <ArrowUpRight className="h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </AnimateInView>
+        )}
 
         <ProjectCoverflowSection
           title="Projects"

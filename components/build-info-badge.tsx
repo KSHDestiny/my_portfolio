@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Info, X } from "lucide-react";
 import {
   Popover,
@@ -8,28 +8,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-const SHOW_AFTER_MS = 5_000;
-const AUTO_HIDE_MS = 5_000;
-
 export function BuildInfoBadge() {
-  const [visible, setVisible] = useState(false);
   const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    const timer = window.setTimeout(() => {
-      setVisible(true);
-      setOpen(true);
-    }, SHOW_AFTER_MS);
-    return () => window.clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    if (!open) return;
-    const timer = window.setTimeout(() => setOpen(false), AUTO_HIDE_MS);
-    return () => window.clearTimeout(timer);
-  }, [open]);
-
-  if (!visible) return null;
 
   return (
     <div className="fixed bottom-5 right-5 z-40">
@@ -37,10 +17,10 @@ export function BuildInfoBadge() {
         <PopoverTrigger asChild>
           <button
             type="button"
-            aria-label="About how this site was built"
-            className="relative flex h-11 w-11 items-center justify-center rounded-full border border-primary/20 bg-background/80 text-primary shadow-lg backdrop-blur-md transition-transform hover:scale-105"
+            aria-label="How this site was built"
+            className="relative flex h-9 w-9 items-center justify-center rounded-full border border-primary/15 bg-background/70 text-primary/70 shadow-sm backdrop-blur-md transition hover:text-primary"
           >
-            <Info className="relative h-5 w-5" />
+            <Info className="relative h-4 w-4" />
           </button>
         </PopoverTrigger>
         <PopoverContent side="top" align="end" className="w-72 border-primary/20">

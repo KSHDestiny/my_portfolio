@@ -3,6 +3,7 @@ import About from "@/components/about";
 import Skills from "@/components/skills";
 import Knowledge from "@/components/knowledge";
 import Experience from "@/components/experience";
+import HowWeShip from "@/components/how-we-ship";
 import Projects from "@/components/projects";
 import Education from "@/components/education";
 import Contact from "@/components/contact";
@@ -17,7 +18,7 @@ export default function Home() {
     name: SITE_NAME,
     url: SITE_URL,
     image: absoluteUrl("/images/profile.jpeg"),
-    jobTitle: "Backend-Focused Senior Full-Stack Engineer",
+    jobTitle: "Senior Backend Engineer",
     description: SITE_DESCRIPTION,
     email: "mailto:kaungsathein.5899@gmail.com",
     telephone: "+959788907030",
@@ -55,7 +56,7 @@ export default function Home() {
   return (
     <main id="top" className="min-h-screen">
       <h1 className="sr-only">
-        Kaung Sat Hein Portfolio and Backend-Focused Senior Full-Stack Engineer
+        Kaung Sat Hein Portfolio and Senior Backend Engineer
       </h1>
       <script
         type="application/ld+json"
@@ -70,8 +71,9 @@ export default function Home() {
       <About />
       <Skills />
       <Projects />
-      <Knowledge />
       <Experience />
+      <HowWeShip />
+      <Knowledge />
       <Education />
       <Contact />
       <Footer />

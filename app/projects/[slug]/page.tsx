@@ -8,6 +8,10 @@ import {
   slugifyProjectTitle,
 } from "@/lib/projects";
 import { absoluteUrl } from "@/lib/site";
+import CaseStudy, {
+  DesignArtifacts,
+  FeatureCatalog,
+} from "@/components/case-study";
 import ProjectDetailClient from "./project-detail-client";
 
 type PageProps = {
@@ -77,6 +81,15 @@ export default async function ProjectDetailPage({ params }: PageProps) {
     notFound();
   }
 
+  const artifacts =
+    project.caseStudy?.artifacts ??
+    Object.entries(project.tagDetails ?? {}).flatMap(([tag, detail]) =>
+      typeof detail !== "string" && detail.ctaUrl?.endsWith(".svg")
+        ? [{ label: tag, url: detail.ctaUrl }]
+        : [],
+    );
+  const showPeriod = project.period && project.period !== "View UI";
+
   return (
     <main className="min-h-screen bg-background">
       <section className="border-b border-border/60 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.14),transparent_50%),linear-gradient(180deg,rgba(255,255,255,0.96),rgba(239,246,255,0.92))] py-16 text-foreground dark:bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.14),transparent_50%),linear-gradient(180deg,rgba(2,6,23,0.96),rgba(10,15,29,0.92))] dark:text-primary-foreground">
@@ -96,8 +109,12 @@ export default async function ProjectDetailPage({ params }: PageProps) {
                   ? "Feature Highlight"
                   : "Project"}
               </span>
-              <span className="h-1 w-1 rounded-full bg-primary/35 dark:bg-primary-foreground/35" />
-              <span>{project.period}</span>
+              {showPeriod ? (
+                <>
+                  <span className="h-1 w-1 rounded-full bg-primary/35 dark:bg-primary-foreground/35" />
+                  <span>{project.period}</span>
+                </>
+              ) : null}
             </div>
 
             <div className="space-y-4">
@@ -134,12 +151,29 @@ export default async function ProjectDetailPage({ params }: PageProps) {
       </section>
 
       <section className="py-12 md:py-16">
-        <div className="container mx-auto px-4">
-          <ProjectDetailClient
-            projectTitle={project.title}
-            tags={project.tags}
-            tagDetails={project.tagDetails}
-          />
+        <div className="container mx-auto space-y-12 px-4">
+          {project.caseStudy ? <CaseStudy caseStudy={project.caseStudy} /> : null}
+          {project.featureCatalog ? (
+            <FeatureCatalog groups={project.featureCatalog} />
+          ) : null}
+          <DesignArtifacts artifacts={artifacts} />
+          <div className="space-y-4">
+            {project.caseStudy || artifacts.length > 0 ? (
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-primary/80">
+                  Deep Dive
+                </p>
+                <h2 className="mt-2 text-2xl font-semibold tracking-tight">
+                  Detailed breakdown
+                </h2>
+              </div>
+            ) : null}
+            <ProjectDetailClient
+              projectTitle={project.title}
+              tags={project.tags}
+              tagDetails={project.tagDetails}
+            />
+          </div>
         </div>
       </section>
     </main>

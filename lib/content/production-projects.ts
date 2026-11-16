@@ -20,7 +20,7 @@ export const PRODUCTION_PROJECTS: Project[] = [
       "/analytics/slides/03.webp",
     ],
     description:
-      "Designed and delivered backend features across Better HR including Expense, KPI, Permission Group, and Indonesia Payroll, then extended the platform with an AI layer: a conversational HRIS agent, AI CV extraction for candidates and employees, JD-driven talent search, and analytics over the extracted data - all while optimizing high-traffic endpoints for 100K+ concurrent users across eight countries.",
+      "Designed and delivered backend features across Better HR including Expense, KPI, Permission Group, and Indonesia Payroll, then extended the platform with an AI layer: a conversational HRIS agent, AI CV extraction for candidates and employees, JD-driven talent search, and analytics over the extracted data - all while optimizing high-traffic endpoints for a platform used by 100K+ users across eight countries.",
     tags: [
       "Problem",
       "Solution",
@@ -85,7 +85,7 @@ export const PRODUCTION_PROJECTS: Project[] = [
         summary:
           "The HRMS became stronger as a shared business platform, supporting multiple high-value workflows while remaining performant for large-scale usage.",
         highlights: [
-          "Supported 100K+ concurrent users across eight countries with query and caching improvements",
+          "Supported 100K+ users across eight countries with query and caching improvements",
           "Improved business coverage across Expense, KPI, Permission Group, and Indonesia Payroll",
           "Strengthened the platform's ability to handle both shared HR logic and country-specific operational requirements",
           "Shipped AI as a working part of the product - conversational HR actions, automated CV intake, and JD-driven search - rather than a bolt-on demo",
@@ -102,6 +102,152 @@ export const PRODUCTION_PROJECTS: Project[] = [
         ],
       },
     },
+    caseStudy: {
+      role: "Backend engineer on the platform since Nov 2023, with 1,800+ commits: designed and delivered Expense, KPI, Permission Group, and Indonesia Payroll, then added an AI layer on the same backend.",
+      context:
+        "One HRMS serving eight countries had to absorb very different business rules - finance, performance management, access control, and country-specific payroll - without fragmenting into separate systems.",
+      constraints: [
+        "Country-specific payroll and policy rules had to live on one shared platform",
+        "Permission-sensitive data spans both admin and employee workflows",
+        "Dashboards and other high-traffic endpoints are used daily by a 100K+ user base",
+        "AI features had to work on real HR data without weakening existing access rules",
+      ],
+      decisions: [
+        {
+          decision:
+            "Build AI capability into the existing backend and expose it through the platform's own operations and permission boundaries",
+          instead:
+            "A separate AI product, or a privileged data path for the model",
+          why: "The model works on real HR data under the same rules as any other client, so AI inherits the platform's access control instead of bypassing it.",
+        },
+        {
+          decision:
+            "Model multi-country payroll and policy logic explicitly per region",
+          why: "It raised implementation complexity, but kept regional behavior close to how each country actually operates.",
+        },
+        {
+          decision:
+            "Keep permission-sensitive behavior explicit across admin and employee workflows",
+          why: "More development overhead in exchange for lower operational risk on sensitive HR data.",
+        },
+        {
+          decision:
+            "Apply query optimization and caching to dashboards and other high-traffic endpoints",
+          why: "Extra design effort in queries and cache, so the platform stays responsive at its usage scale.",
+        },
+      ],
+      outcomes: [
+        "Expense, KPI, Permission Group, and Indonesia Payroll delivered inside one platform",
+        "Supported 100K+ users across eight countries with query and caching improvements",
+        "AI shipped as part of the product: conversational HR actions, CV extraction, JD-driven talent search, and analytics over extracted data",
+      ],
+      artifacts: [
+        { label: "KPI architecture", url: "/kpi/kpi-architecture.svg" },
+        {
+          label: "Permission Group architecture",
+          url: "/permission_group/permission_group-architecture.svg",
+        },
+        { label: "Expense architecture", url: "/expense/expense-architecture.svg" },
+      ],
+    },
+    featureCatalog: [
+      {
+        area: "Payroll & Multi-Country Compliance",
+        items: [
+          "Indonesia Payroll, plus country rules for Vietnam (PIT across multiple entities, tax brackets, employer contributions, social insurance), Sri Lanka (lump-sum tax), the Philippines (SSS), and Myanmar payslips",
+          "Dynamic Payroll Report with month-over-month comparison, a variance report, custom payroll reports, and payroll summary breakdown exports",
+          "General Ledger settings with payroll GL Excel export, plus employee cost centers and allocations",
+          "Bank transfer file exports - Vietnam bank statement, Sri Lanka NDB, HNB, and consolidated EPF formats - with automatic company bank selection",
+          "Deduction rules: flat-rate and bracket-based late deductions, extra break minutes, and holiday multipliers",
+          "Employee loans with payroll deduction, payslip breakdown, tracker export, and loan analytics",
+          "Overtime and project-based pay for multiple employees, with multi-level payment approval",
+        ],
+      },
+      {
+        area: "Expense",
+        items: [
+          "Expense module: policies with cap amounts, approver notifications, status filters, and soft delete",
+          "Expense reimbursement paid through payroll and surfaced in payroll exports and total allowances",
+        ],
+      },
+      {
+        area: "Leave & Attendance",
+        items: [
+          "Dynamic leave approver chains up to four levels",
+          "Leave type rules: backdating, minimum advance notice, document-attachment thresholds, expiring leave types, and morning/evening half days",
+          "Month-by-month leave balance export, and leave records re-synced after policy changes",
+          "Remote attendance with duplicate-request locking, second and third approval layers, and punches restricted to the roster location",
+          "Attendance scheduler import",
+          "Duty roster analytics and dashboard endpoint optimization",
+        ],
+      },
+      {
+        area: "Fingerprint Device Sync (ZKT & HIK)",
+        items: [
+          "ZKTeco (LiveU) and HIK-Connect fingerprint integrations behind one shared attendance-source contract, with API keys and secrets managed per integration",
+          "Attendance sync triggered after the scheduled time and conclusion time of the HIK fingerprint device, as requested by product",
+          "Append-only write rules: a stored check-in from any source is never replaced, and only a later check-out moves the day's end, so re-reading the window is always safe",
+          "Bulk writes per 1,000-row chunk in one transaction - one INSERT plus one CASE UPDATE - with the affected attendance caches cleared after commit",
+          "Employee sync three times a day (07:00, 12:00, 19:00 company time): numeric device IDs, renames, and new people pushed to the devices, with deletes only on proof the employee was deleted",
+          "Dispatcher switches only into tenants with a device integration instead of scanning every tenant on each run, on a dedicated queue so slow vendor APIs never hold other workers",
+          "Manual Sync now from settings, and per-employee ZKT and HIK IDs on the employee Integration tab",
+        ],
+      },
+      {
+        area: "Performance",
+        items: [
+          "KPI module from group setup through assignment, tracking, and export",
+          "Performance appraisal: reviewer hiding, side-by-side self review for sequential reviewers, and suggested actions on appraisal PDFs",
+          "Performance dynamic rating",
+        ],
+      },
+      {
+        area: "Recruitment & Talent Intelligence",
+        items: [
+          "ATS workflow from Screening to Offer, integrated with the HRMS",
+          "AI CV parsing with a configurable provider, talent-level normalization, and MIND / ESCO skill taxonomy resolution",
+          "Talent pool search with advanced filters, job-description-driven talent search, and talent data import",
+          "Candidate Intelligence, Employee Intelligence, and the Human Capital Overview dashboard",
+          "Interview scheduling across timezones, restoring rejected candidates, and mobile job-screening endpoints",
+        ],
+      },
+      {
+        area: "Access, Security & Integrations",
+        items: [
+          "Permission Group (v2) with scheduled publishing, KPI and payroll permissions, and group-scoped access by custom fields",
+          "Google SSO and OAuth clients for the Android and iOS apps",
+          "OTP over Thai bulk SMS, Unimatrix (Philippines, Pakistan, Indonesia), and email",
+          "KBZPay integration",
+          "SQL-injection hardening and database transactions around destructive operations",
+        ],
+      },
+      {
+        area: "Employee Experience",
+        items: [
+          "Employee resource library: file, image, and video uploads through presigned URLs, with permission checks and cached mobile queries",
+          "Employee import/export templates covering custom fields, bank information, currency, and probation/contract dates",
+        ],
+      },
+      {
+        area: "Video Streaming & Training (Latest Work)",
+        items: [
+          "Training courses built from ordered lessons and quizzes (single choice, multiple choice, true/false, free text), with publishing and per-employee progress that resumes from the last position",
+          "Course access scoped to everyone, or by department, position, location, status, or individual employee",
+          "Direct-to-S3 multipart video uploads through presigned part URLs, with upload progress reporting",
+          "ffprobe/ffmpeg transcoding into an adaptive HLS ladder up to 1080p on a dedicated video queue, so long encodes never hold workers other jobs need",
+          "HLS playlists served with short-lived presigned segment URLs, live processing status over broadcasting, and a scheduled rollback for stalled uploads or encodes",
+          "Employee learning library access and push notifications for new learning content",
+        ],
+      },
+      {
+        area: "AI",
+        items: [
+          "Backend for the conversational HR agent",
+          "Scheduled background agent with provider fallback and a shared cooldown",
+          "AI-driven payroll create-and-generate flow",
+        ],
+      },
+    ],
     category: "production",
   },
   {
@@ -167,6 +313,45 @@ export const PRODUCTION_PROJECTS: Project[] = [
           "Strengthened reliability for a high-value business process that spans automation, AI parsing, and platform integration",
         ],
       },
+    },
+    caseStudy: {
+      role: "Designed and built the ATS workflow automation from Screening to Offer, the ATS-to-HRMS integration, and the AI CV-to-JSON upload flow.",
+      context:
+        "Recruiters needed one system to move candidates from screening to offer without re-entering candidate data between the ATS and the HRMS.",
+      constraints: [
+        "Manual CV handling slowed recruiters down and produced inconsistent candidate records",
+        "Recruitment stages needed clear backend state transitions from Screening to Offer",
+        "Candidate data had to stay aligned between ATS workflows and downstream HRMS records",
+      ],
+      decisions: [
+        {
+          decision:
+            "Keep upload, AI parsing, and candidate creation in one atomic flow",
+          instead: "A looser pipeline that could leave partially created records",
+          why: "Parsing and persistence succeed or fail together, so recruiters never see half-created candidates.",
+        },
+        {
+          decision: "Extract CVs into schema-driven structured JSON",
+          instead: "Free-form AI output",
+          why: "Downstream mapping stays predictable and recruiter-facing data is safer to review, at the cost of tighter validation.",
+        },
+        {
+          decision: "Model stage transitions explicitly and opinionatedly",
+          instead: "Fully flexible stage movement",
+          why: "Less flexibility, but recruitment stages stay auditable and the workflow rules stay clear.",
+        },
+      ],
+      outcomes: [
+        "Turned CV uploads into structured candidate data, removing duplicate manual entry",
+        "Bulk CV upload rates each candidate against the job automatically",
+        "Recruitment workflows and HRMS integration points stay consistent",
+      ],
+      artifacts: [
+        { label: "Use case", url: "/ats/ats-usecase.svg" },
+        { label: "Architecture", url: "/ats/ats-architecture.svg" },
+        { label: "Workflow", url: "/ats/ats-workflow.svg" },
+        { label: "Implementation", url: "/ats/ats-implementation.svg" },
+      ],
     },
     category: "production",
   },
@@ -487,6 +672,47 @@ export const PRODUCTION_PROJECTS: Project[] = [
           "The same tool loop backs a scheduled background agent, reusing the architecture for unattended recurring HR tasks",
         ],
       },
+    },
+    caseStudy: {
+      role: "Built the backend behind the released HRIS agent (Mar 2025 - present): the tool loop, the operation allow-list, and the guardrails around live writes.",
+      context:
+        "HR users needed an agent that completes real work - applying leave, creating appraisals, recording promotions - rather than a chat wrapper that describes where to click.",
+      constraints: [
+        "Writes land on live HR records, so a wrong or duplicated action carries real payroll and compliance cost",
+        "Dozens of operations across KPI, payroll, attendance, leave, ATS, and appraisal had to be reachable",
+        "Deep, self-referencing GraphQL types had to fit inside the model's context window",
+        "Legacy resolvers return JSON-encoded strings instead of structured data",
+      ],
+      decisions: [
+        {
+          decision:
+            "Discover operations at runtime with introspectTool, then run them with executeGraphQLTool",
+          instead: "Hardcoding one backend endpoint per intent",
+          why: "Adding a backend operation extends the agent through the allow-list with no new agent code, and the agent doesn't drift as the schema changes.",
+        },
+        {
+          decision: "Execute operations in-process against the agent schema",
+          instead: "The previous agent's HTTP round trip",
+          why: "Runs as the authenticated user behind schema-swap and auth middleware, and every response is normalized into one success / errorCode / errorMessage envelope the model can act on.",
+        },
+        {
+          decision: "Allow writes to live HR data, bounded by explicit guardrails",
+          instead: "A read-only assistant",
+          why: "Far more guardrail work - write-once mutations, delta-based leave balances, audit-trailed job changes - but the agent finishes the task instead of handing back instructions.",
+        },
+        {
+          decision:
+            "Bound schema introspection with a depth cap, shared byte budget, and cycle detection, and make truncation explicit",
+          instead: "Letting the model silently see a partial schema",
+          why: "Large type graphs stay inside the context window, and the agent knows when detail was withheld so it can ask for a field by name.",
+        },
+      ],
+      outcomes: [
+        "Released feature backed by 25 test suites",
+        "48 read and 31 write operations across KPI, payroll, attendance, duty roster, leave, recruitment, and appraisal",
+        "New backend operations reach the agent through the allow-list, without new agent code",
+        "The same tool loop powers a scheduled background agent for unattended recurring HR tasks",
+      ],
     },
     category: "production",
   },

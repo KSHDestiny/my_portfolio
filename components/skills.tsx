@@ -16,7 +16,6 @@ import {
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import AnimateInView from "./animations/animate-in-view";
-import SkillProgress from "./animations/skill-progress";
 import SectionHeading from "./section-heading";
 
 export default function Skills() {
@@ -90,21 +89,6 @@ export default function Skills() {
     mass: 0.5,
   });
 
-  const programmingSkills = [
-    { name: "PHP", level: 92 },
-    { name: "Laravel", level: 95 },
-    { name: "Node.js", level: 87 },
-    { name: "React.js", level: 90 },
-    { name: "JavaScript / TypeScript", level: 88 },
-    { name: "Python (AI/NLP)", level: 78 },
-  ];
-
-  const databaseSkills = [
-    { name: "MySQL", level: 92 },
-    { name: "MongoDB", level: 86 },
-    { name: "Redis / Caching", level: 88 },
-  ];
-
   const skillCategories = [
     {
       id: "01",
@@ -120,7 +104,7 @@ export default function Skills() {
       icon: <Server className="h-5 w-5 text-primary" />,
       summary:
         "Crafting responsive interfaces with modern frontend patterns focused on clarity and usability.",
-      skills: ["JavaScript", "TypeScript", "React.js", "Responsive UI"],
+      skills: ["JavaScript", "TypeScript", "React.js", "Vue.js", "Responsive UI"],
     },
     {
       id: "03",
@@ -187,6 +171,7 @@ export default function Skills() {
         "SQS + Lambda (Serverless)",
         "Supervisor Background Queues",
         "Atomic Backend-to-Backend Flows",
+        "Video Transcoding to HLS (ffmpeg)",
       ],
     },
     {
@@ -194,7 +179,7 @@ export default function Skills() {
       title: "AI",
       icon: <Sparkles className="h-5 w-5 text-primary" />,
       summary:
-        "Exploring AI-powered features that turn language models and retrieval into useful product flows.",
+        "Shipping AI features into production: tool-calling agents, structured CV extraction, and job-description-driven talent search.",
       skills: [
         "NLP",
         "LLM",
@@ -209,12 +194,13 @@ export default function Skills() {
       title: "Agentic Coding",
       icon: <Code className="h-5 w-5 text-primary" />,
       summary:
-        "Shipping fast with AI-assisted coding while keeping practical architecture, clarity, and iteration speed in balance.",
+        "Directing AI software engineers on real tickets while keeping design ownership, evidence-backed PRs, and review with people.",
       skills: [
+        "Devin (AI Software Engineer)",
+        "Agent Skills & Repo Conventions",
         "AI-Assisted Prototyping",
         "Rapid Feature Iteration",
         "Prompt-Driven Development",
-        "Flow & UX Vibe Checks",
       ],
     },
   ];
@@ -228,48 +214,6 @@ export default function Skills() {
             title="Skills & Expertise"
             description="Core tools, engineering strengths, and delivery areas I rely on to build products that are secure, scalable, and usable."
           />
-        </AnimateInView>
-
-        <AnimateInView className="mb-8 md:mb-12" delay={0.2}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-4xl mx-auto">
-            <Card className="bg-background/60 backdrop-blur-sm border-primary/20">
-              <CardHeader className="pb-2">
-                <CardTitle className="flex items-center gap-2 text-lg md:text-xl">
-                  <Code className="h-5 w-5 text-primary" />
-                  Programming Skills
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {programmingSkills.map((skill, index) => (
-                  <SkillProgress
-                    key={skill.name}
-                    name={skill.name}
-                    level={skill.level}
-                    delay={0.2 + index * 0.1}
-                  />
-                ))}
-              </CardContent>
-            </Card>
-
-            <Card className="bg-background/60 backdrop-blur-sm border-primary/20">
-              <CardHeader className="pb-2">
-                <CardTitle className="flex items-center gap-2 text-lg md:text-xl">
-                  <Database className="h-5 w-5 text-primary" />
-                  Database Skills
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {databaseSkills.map((skill, index) => (
-                  <SkillProgress
-                    key={skill.name}
-                    name={skill.name}
-                    level={skill.level}
-                    delay={0.2 + index * 0.1}
-                  />
-                ))}
-              </CardContent>
-            </Card>
-          </div>
         </AnimateInView>
 
         <AnimateInView delay={0.4}>

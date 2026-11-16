@@ -1,14 +1,14 @@
 export const SITE_URL = "https://kaungsathein.online";
 export const SITE_NAME = "Kaung Sat Hein";
-export const SITE_TITLE =
-  "Kaung Sat Hein | Backend-Focused Senior Full-Stack Engineer";
+export const SITE_TITLE = "Kaung Sat Hein | Senior Backend Engineer";
 export const SITE_DESCRIPTION =
-  "Portfolio website of Kaung Sat Hein, a backend-focused senior full-stack engineer building scalable backend systems, secure APIs, n8n automations, and workflow-heavy business platforms.";
+  "Portfolio of Kaung Sat Hein, a senior backend engineer building multi-country HR platforms, payroll and permission systems, integrations, and AI agents that act on live data under guardrails.";
 
 export const SITE_KEYWORDS = [
   "Kaung Sat Hein",
   "Kaung Sat Hein portfolio",
   "kaungsathein.online",
+  "senior backend engineer",
   "backend-focused senior full-stack engineer",
   "backend-focused full-stack developer",
   "full-stack developer portfolio",

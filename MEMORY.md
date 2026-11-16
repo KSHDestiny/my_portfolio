@@ -18,16 +18,21 @@
   - `ThemeProvider`
   - dark theme by default, system theme enabled
   - `BuildInfoBadge` (global, floating, see below)
-- Homepage section order:
+- Homepage section order (navbar matches). The user chose to keep Skills right after About
+  (recruiters scan technologies first) rather than the proof-first order:
   - Hero
   - About
   - Skills
   - Projects
   - Experience
+  - How We Ship (`components/how-we-ship.tsx`, id `shipping`)
   - Knowledge
   - Education
   - Contact
   - Footer
+- Positioning: title is **Senior Backend Engineer** (actual role: Senior Web Backend Developer,
+  Jul 2026). Scale claim is "100K+ users across 8 countries" — NOT "concurrent"; that was
+  removed as unsubstantiated. Don't reintroduce it without evidence.
 
 ## Key Content Sources
 
@@ -40,6 +45,9 @@
     - `NOTION_TOKEN`
     - `NOTION_PROJECTS_DATABASE_ID`
   - If Notion is missing/fails, app falls back to local data.
+  - If Notion returns projects, `mergeCuratedProjects()` retains the three local flagship
+    case studies and their editorial detail/feature catalog. Matching Notion cards keep
+    their description, URL, and order; missing flagships are included from local content.
   - The `HR AI Chatbot Agent` entry is sourced from the real `backend/app/Ai/` module in
     the local `~/Desktop/BetterHR/betterhr-web-workspace-api` repo (Laravel, not the old Next.js agent).
     Its architecture is a two-tool loop: `introspectTool` (discover GraphQL schema) then
@@ -94,26 +102,61 @@
   - Mobile menu closes automatically on desktop breakpoint.
 
 - `components/build-info-badge.tsx`
-  - Client-only floating badge (fixed bottom-right), rendered globally from `app/layout.tsx`
-    (not gated to `app/page.tsx`), so it shows on every route.
-  - `Info` icon button (shadcn `Popover`, not `Tooltip`, so it works on tap/mobile as well as
-    click). Nothing renders for the first 5s (`SHOW_AFTER_MS`) — the icon does not exist in the
-    DOM until then, so there's no empty placeholder space before it appears.
-  - At the 5s mark, the icon and its popover text appear together (both `visible` and `open`
-    are set true in the same effect) to surface a one-line note that the site was built
-    end-to-end by an AI coding agent (Claude) from a mobile device.
-  - The popover then auto-closes 5s after opening (`AUTO_HIDE_MS`, separate timer keyed on
-    `open`) if the user doesn't interact. Once shown, the icon itself is permanent — it never
-    unmounts again, only the popover toggles.
-  - Externally controlled (`open`/`onOpenChange`) so the same instance drives both the timed
-    auto-open/close and manual tap-to-reopen/close via the icon or the popover's X button.
-    Tapping the icon at any point reopens the popover, which again auto-closes after 5s. The X
-    only closes the popover — it does not hide the icon.
+  - Small, quiet `Info` button (fixed bottom-right), rendered globally from `app/layout.tsx`.
+  - Popover text (keep verbatim): "This portfolio was built and shipped end-to-end by Claude, an
+    AI coding agent — directed entirely from a phone." Closed by default; only
+    opens on click/tap. The old 5s auto-open/auto-close timers were removed deliberately so the
+    first impression stays on the engineering work.
+
+- Case studies (`app/projects/[slug]/page.tsx` + `components/case-study.tsx`)
+  - Optional `caseStudy` on a Project: `role`, `context`, `constraints[]`,
+    `decisions[{decision, instead?, why}]`, `outcomes[]`, `artifacts[{label,url}]`.
+    Currently set on Better HR, ATS, and HR AI Chatbot Agent; those three also render as the
+    "Start with these case studies" grid at the top of the Projects section.
+  - `instead` is only filled where the source content states an explicit contrast.
+  - Detail pages without `caseStudy.artifacts` auto-collect SVG `ctaUrl`s from `tagDetails`
+    into a "Design Artifacts" gallery (SVGs render on a white panel for dark-mode legibility).
+  - Optional `featureCatalog[{area, items[]}]` (Better HR only) renders "Features I Built".
+    Sourced from the user's own commits (`git log --author="Kaung Sat Hein"`) in
+    `~/Desktop/BetterHR/betterhr-web-workspace-api` (1,812 non-merge commits since 2023-11).
+  - The detail-page eyebrow hides `period` when it is the "View UI" button label.
+  - Cuvnora (the user's solo side project, `~/Desktop/KaungSatHein/cuvnora`,
+    https://cuvnora.pages.dev) is deliberately NOT a project card. The user wants it only as a
+    "how I face a problem and solve it" paragraph in the About → Profile card: he needed a PDF
+    CV, so he built a local-first CV builder. Keep it to that one short story; the user removed
+    the extra detail sentences (privacy, ATS/Word export, AI import).
+  - "Fingerprint Device Sync (ZKT & HIK)" group comes from `Features/Integration/DeviceSync`
+    (user's commits 9e4e65022b, 74d345ed17; on `main`, released 2026-10-23). It is NOT a daily
+    cron: `device-attendance:sync` runs every 5 minutes (yesterday+today window) and
+    `device-employee:sync` every 30 min, hitting 07:00/12:00/19:00 company-time windows.
+    Don't publish tenant counts from its docs. User decision (explicit): site copy describes the
+    sync as the product requested it - "triggered after the scheduled time and conclusion time of
+    the HIK fingerprint device" - not the code's 5-minute interval. Keep the user's wording.
+  - "Video Streaming & Training (Latest Work)" group comes from `Features/VideoLearning`
+    (courses/lessons/quizzes, scoped access, S3 multipart presigned uploads, ffmpeg → HLS ladder
+    up to 1080p on a dedicated `video` queue, presigned segment URLs, stale-upload rollback).
+    As of 2026-11-16 it lives only on `feature/BHR-4570-video-learning` (not merged to `dev`),
+    so copy says "Building" / "Latest Work", not "shipped".
+
+- `components/how-we-ship.tsx` — "How We Ship Today" (Devin, Cognition's AI software engineer).
+  Facts from the Better HR monorepo: 277 commits authored/co-authored by Devin since 2026-10-09;
+  28 shared agent skills in `.agents/skills`; PR evidence template with Merge Danger;
+  per-PR preview environments (copy-on-write DB templates); dev→staging, release PR→production.
+  The infra (preview, Control Plane, CI) was mostly built by teammates — phrase it as "we",
+  never as the user's own work. Internal hostnames are intentionally kept off the site.
+
+- Experience: senior role includes the user's own account that he guides mid-level developers
+  in the Myanmar region and explains product direction (also in About).
+
+- Skills: the percentage skill bars were removed (SkillProgress is now unused by Skills).
 
 - `components/hero.tsx`
   - Uses particles background and animated intro.
   - Profile image path: `public/images/profile.jpeg`
-  - Resume link: `/Kaung-Sat-Hein-CV.pdf`
+  - Resume link: `/KaungSatHein_cv.pdf` (hero button + icon, contact). The file is the user's
+    4-page CV exported from Cuvnora (jsPDF, image-based pages); replace the file in place to update it.
+    The hero also links an ATS-friendly, text-readable Word CV at `/KaungSatHein_cv_ats.docx`
+    (from the user's `~/Downloads/Kaung_Sat_Hein_CV-2.docx`). Keep the chosen PDF as primary.
 
 - `components/projects.tsx`
   - Server component that loads project data via `getProjects()`.

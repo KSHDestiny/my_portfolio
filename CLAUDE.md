@@ -57,8 +57,8 @@ knowledge/              Markdown notes; mirrored under knowledge/brief/ for prev
 scripts/                sync-notion-knowledge.mjs (also runs via GitHub Action)
 ```
 
-Homepage order: Hero → About → Skills → Projects → Experience → Knowledge → Education →
-Contact → Footer.
+Homepage order: Hero → About → Skills → Projects → Experience → How We Ship → Knowledge →
+Education → Contact → Footer.
 
 ## Content model
 
@@ -117,6 +117,7 @@ the real timeline in the description so it isn't lost.
 
 ## Verification
 
-`npm run build` is the real gate — it typechecks, lints, and generates every static page.
+`npm run build` lints and generates every static page, but `next.config.mjs` sets
+`ignoreBuildErrors: true`, so it does **not** typecheck — run `npx tsc --noEmit` too.
 A passing build plus a served-asset check is the minimum before saying a change works.
 See the `verify-portfolio` skill; don't claim a UI behavior works without exercising it.

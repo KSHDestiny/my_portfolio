@@ -24,14 +24,13 @@ export default function About() {
                 </h3>
                 <div className="space-y-4 text-muted-foreground">
                   <p className="text-sm md:text-base">
-                    I&apos;m a backend-focused senior full-stack engineer who
-                    likes building web apps, production APIs, AI-powered
-                    features, and n8n automations that solve real business
-                    problems.
+                    I&apos;m a senior backend engineer who also works across
+                    the stack, building production APIs, AI-powered features,
+                    and n8n automations that solve real business problems.
                   </p>
                   <p className="text-sm md:text-base">
                     Most of my work has been around HRMS, ATS, payroll,
-                    permissions, and internal platforms used by 100K+ users
+                    permissions, video-based training, and internal platforms used by 100K+ users
                     across multiple countries. I care a lot about clean
                     backend architecture, reliable data, and business logic
                     that stays easy to understand, extend, and operate.
@@ -43,10 +42,30 @@ export default function About() {
                     event-driven flows.
                   </p>
                   <p className="text-sm md:text-base">
+                    As a senior engineer, I also guide mid-level developers in
+                    the Myanmar region, suggesting technical approaches and
+                    explaining the product direction behind what we build.
+                  </p>
+                  <p className="text-sm md:text-base">
                     I also like building practical n8n automations for sales
                     bots, daily reminders, and sales analysis. Even this
                     portfolio runs on automation, with a daily cron sync from
                     my Notion notes into a living engineering knowledge base.
+                  </p>
+                  <p className="text-sm md:text-base">
+                    When I hit a problem, I solve the underlying need rather
+                    than the one-off task. When I needed a PDF of my own CV, I
+                    built{" "}
+                    <a
+                      href="https://cuvnora.pages.dev"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-medium text-primary hover:underline"
+                    >
+                      Cuvnora
+                    </a>
+                    , a free, private CV builder that runs entirely in the
+                    browser for your privacy and security.
                   </p>
                 </div>
               </CardContent>

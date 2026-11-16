@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowUpRight, Briefcase, MapPin, TrendingUp } from "lucide-react";
@@ -29,6 +30,12 @@ export default function Experience() {
       current: false,
       highlight:
         "Expanded into larger product ownership across Better HR and Better Jobs, covering integrations, scalable backend work, and recruitment-facing platform systems.",
+      highlights: [
+        "Delivered the Expense module, Permission Group v2 with scheduled publishing, and leave approver chains up to four levels",
+        "Built the backend for the HR AI agent, released from Mar 2025",
+        "Integrated OTP over Thai SMS and email, Google SSO for web and mobile, and KBZPay",
+        "Built the internal Customer Management backend with Xero, Monday, and Notion integrations",
+      ],
       desktopOffset: "md:ml-20",
     },
     {
@@ -41,6 +48,13 @@ export default function Experience() {
       current: true,
       highlight:
         "Promoted into a senior web backend role focused on stronger technical ownership, scalable system design, backend service reliability, and end-to-end delivery across product teams.",
+      highlights: [
+        "Guide mid-level developers in the Myanmar region: suggesting technical approaches and explaining the product direction behind the work",
+        "Ship my tickets with Devin, Cognition's AI software engineer - recently General Ledger settings with payroll GL export, month-over-month dynamic payroll comparison, and multi-level remote attendance approvals",
+        "Built ZKT and HIK fingerprint device sync: attendance synced after the HIK device's scheduled time and conclusion time, and employees synced to devices three times a day, across tenants on a dedicated queue",
+        "Built talent intelligence on top of CV extraction: MIND / ESCO skill taxonomy resolution, job-description-driven talent search, and Employee Intelligence analytics",
+        "Building a video training module: courses, lessons, and quizzes, with ffmpeg transcoding to adaptive HLS streaming and progress tracking",
+      ],
       desktopOffset: "md:ml-40",
     },
   ];
@@ -172,15 +186,44 @@ export default function Experience() {
                   </div>
                 </CardHeader>
 
-                <CardContent className="px-4 py-4 md:px-6">
+                <CardContent className="space-y-3 px-4 py-4 md:px-6">
                   <p className="text-sm leading-6 text-muted-foreground">
                     {exp.highlight}
                   </p>
+                  {exp.highlights ? (
+                    <ul className="space-y-1.5 text-sm leading-6 text-foreground/85">
+                      {exp.highlights.map((item) => (
+                        <li key={item} className="flex items-start gap-2">
+                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary/80" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null}
                 </CardContent>
               </Card>
             </div>
           ))}
         </StaggeredChildren>
+
+        <AnimateInView delay={0.2} className="mx-auto mt-6 max-w-5xl">
+          <Link
+            href="/projects/better-hr-hrms"
+            className="group flex flex-col gap-2 rounded-2xl border border-primary/20 bg-primary/5 px-5 py-4 transition hover:border-primary/45 md:flex-row md:items-center md:justify-between"
+          >
+            <span className="text-sm leading-6 text-foreground/85">
+              <span className="font-semibold text-foreground">
+                1,800+ commits to Better HR since Nov 2023
+              </span>{" "}
+              across payroll, expense, leave, attendance, performance,
+              recruitment, access control, video training, and AI.
+            </span>
+            <span className="inline-flex shrink-0 items-center gap-1 text-sm font-medium text-primary">
+              See the full feature list
+              <ArrowUpRight className="h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </span>
+          </Link>
+        </AnimateInView>
       </div>
     </section>
   );
