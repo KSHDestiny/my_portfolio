@@ -30,7 +30,7 @@
   - Education
   - Contact
   - Footer
-- Positioning: title is **Senior Backend Engineer** (actual role: Senior Web Backend Developer,
+- Positioning: title is **Senior Full Stack Engineer** (changed from Senior Backend Engineer, Nov 2026; actual role: Senior Web Backend Developer,
   Jul 2026). Scale claim is "100K+ users across 8 countries" — NOT "concurrent"; that was
   removed as unsubstantiated. Don't reintroduce it without evidence.
 
