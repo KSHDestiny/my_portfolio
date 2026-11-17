@@ -94,7 +94,7 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mb-4 text-xl font-medium text-primary md:text-2xl lg:text-3xl"
           >
-            Senior Backend Engineer
+            Senior Full Stack Engineer
           </motion.h2>
 
           <motion.div
