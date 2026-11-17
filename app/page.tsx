@@ -18,7 +18,7 @@ export default function Home() {
     name: SITE_NAME,
     url: SITE_URL,
     image: absoluteUrl("/images/profile.jpeg"),
-    jobTitle: "Senior Backend Engineer",
+    jobTitle: "Senior Full Stack Engineer",
     description: SITE_DESCRIPTION,
     email: "mailto:kaungsathein.5899@gmail.com",
     telephone: "+959788907030",
@@ -56,7 +56,7 @@ export default function Home() {
   return (
     <main id="top" className="min-h-screen">
       <h1 className="sr-only">
-        Kaung Sat Hein Portfolio and Senior Backend Engineer
+        Kaung Sat Hein Portfolio and Senior Full Stack Engineer
       </h1>
       <script
         type="application/ld+json"
