@@ -24,8 +24,8 @@ export default function About() {
                 </h3>
                 <div className="space-y-4 text-muted-foreground">
                   <p className="text-sm md:text-base">
-                    I&apos;m a senior backend engineer who also works across
-                    the stack, building production APIs, AI-powered features,
+                    I&apos;m a senior full stack engineer with a backend focus,
+                    building production APIs, AI-powered features,
                     and n8n automations that solve real business problems.
                   </p>
                   <p className="text-sm md:text-base">
